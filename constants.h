@@ -1,0 +1,23 @@
+#ifndef FINAL_CONSTANTS
+#define FINAL_CONSTANTS
+
+#define MAX_BOID_SPEED 3
+#define MAX_BOID_FORCE 0.05
+#define START_BOID_ANGLE 3
+
+#define SEPERATION_WEIGHT 1.5
+#define ALIGN_WEIGHT 1.0
+#define COHESION_WEIGHT 1.0
+
+#define DESIRED_SEPERATION 25
+
+#define MAX_NEIGHBOR_DISTANCE 50
+
+#define BOID_MIN_X -100
+#define BOID_MAX_X 100
+#define BOID_MIN_Y -100
+#define BOID_MAX_Y 100
+#define BOID_MIN_Z -100
+#define BOID_MAX_Z 100
+
+#endif
