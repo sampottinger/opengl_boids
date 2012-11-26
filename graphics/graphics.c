@@ -38,7 +38,7 @@ float moveBy = 1;
 
 int moveLight;
 
-float ambient_0[4]={0.3,0.3,0.3,1.0};
+float ambient_0[4]={0.5,0.5,0.5,1.0};
 float specular_0[4]={0.4,0.4,0.4,1.0};
 float diffuse_0[4]={0.7,0.7,0.7,1.0};
 
@@ -99,7 +99,7 @@ void display()
    glScalef(1.8,1.8,1.8);
    glTranslatef(0,-100,10);
 
-   objutil_ball(lightPosition0[0], lightPosition0[1], lightPosition0[2], 3);
+   objutil_ball(lightPosition0[0], lightPosition0[1], lightPosition0[2], 1);
 
    glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuse_0);
    glLightfv(GL_LIGHT0,GL_AMBIENT,ambient_0);
