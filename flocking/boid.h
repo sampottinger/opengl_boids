@@ -38,6 +38,8 @@ typedef struct
 **/
 void Boid_init(Boid * boid, float x, float y, float z);
 
+void Boid_randomForce(Boid * boid);
+
 /**
  * Name: Boid_initFull
  * Desc: Full constructor for a Boid with custom position bounds

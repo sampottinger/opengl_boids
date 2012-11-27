@@ -121,6 +121,13 @@ void bird_initBird(Bird * birdPtr)
             sizeof(ColoredVertex)
         );
     }
+
+    Boid_init(&(birdPtr->innerBoid), 400, 400, 400);
+}
+
+void bird_randomPosition(Bird * birdPtr)
+{
+    
 }
 
 void bird_animate(Bird * birdPtr)

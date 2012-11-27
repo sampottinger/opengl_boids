@@ -15,6 +15,7 @@
 
 #include "openglwrapper.h"
 #include "balloon.h"
+#include "bird.h"
 #include "ground.h"
 
 #define TITLE "title"
@@ -30,6 +31,8 @@
 
 #define MAX_BALLOON_HEIGHT 300
 #define MIN_BALLOON_HEIGHT 0
+
+#define NUM_BIRDS 100
 
 float lightPosition0[3]={20.0,50.0,20.0};
 float lightAccumulator0 = 0;
@@ -63,6 +66,9 @@ QuadObject balloon3;
 QuadObject balloon4;
 QuadObject ground;
 
+// Birds
+Bird birds[NUM_BIRDS];
+
 // Projection values
 GLdouble dim=250;
 
@@ -75,6 +81,8 @@ int ph=0;
  */
 void display()
 {
+   int i;
+
    //  Erase the window and the depth buffer
    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
@@ -157,6 +165,10 @@ void display()
    );
 
    QuadObject_draw(&ground);
+
+   // Draw birds
+   for(i=0; i<NUM_BIRDS; i++)
+      bird_draw(&(birds[i]));
 
    // Render scene and flip buffers
    glFlush();
@@ -304,18 +316,20 @@ void handleReshape(int width,int height)
  */
 int main(int argc,char* argv[])
 {
-   //  Initialize GLUT and process user parameters
+   int i;
+
+   // Initialize GLUT and process user parameters
    glutInit(&argc,argv);
 
-   //  Request double buffered, true color window with Z buffering
+   // Request double buffered, true color window with Z buffering
    glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
    
-   //  Request 500 x 500 pixel window
+   // Request 500 x 500 pixel window
    glutInitWindowSize(WIDTH, HEIGHT);
    lastWidth = WIDTH;
    lastHeight = HEIGHT;
    
-   //  Create the window
+   // Create the window
    glutCreateWindow(TITLE);
 
    // Enable face culling
@@ -353,6 +367,10 @@ int main(int argc,char* argv[])
    // Create the ground
    ground_initGround(&ground);
    ground.curY = -5;
+
+   // Create many birds
+   for(i=0; i<NUM_BIRDS; i++)
+      bird_initBird(&birds[i]);
 
    // Set up lighting
    glShadeModel(GL_SMOOTH); // Smooth shading

@@ -51,6 +51,8 @@
 
 #include <stdio.h>
 
+#include "../flocking/boid.h"
+
 #include "quadobj.h"
 
 typedef struct
@@ -79,6 +81,8 @@ typedef struct
     ColoredVertex * origFrontBottomRightWing;
     ColoredVertex * origBackBottomRightWing;
 
+    Boid * innerBoid;
+
     int startWingQuadIndex;
     int endWingQuadIndex;
 
@@ -93,5 +97,7 @@ void bird_draw(Bird * birdPtr);
 void bird_flap(Bird * birdPtr);
 
 void bird_animate(Bird * birdPtr);
+
+void bird_randomPosition(Bird * birdPtr);
 
 #endif
