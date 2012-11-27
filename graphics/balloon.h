@@ -67,6 +67,6 @@ void balloon_generateBalloon(QuadObject * obj, GLfloat * radi,
  * Desc: Create a hot air balloon.
  * Para: ballPtr, Pointer to QuadObject that will be the hot air balloon.
 **/
-void balloon_initBalloon(QuadObject * ballPtr);
+void balloon_initBalloon(QuadObject * ballPtr, int textureID);
 
 #endif

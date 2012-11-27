@@ -177,7 +177,7 @@ void bird_animate(Bird * birdPtr)
 
         for(i=birdPtr->startWingQuadIndex; i<=birdPtr->endWingQuadIndex; i++)
         {
-            QuadObject_fixQuad(birdPtr, i);
+            QuadObject_fixQuad(&(birdPtr->quadObject), i);
         }
     }
 }

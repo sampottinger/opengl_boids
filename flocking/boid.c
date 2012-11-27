@@ -328,7 +328,7 @@ float Boid_getZ(Boid * boid)
     return position->z;
 }
 
-Boid_setVel(Boid * boid, float x, float y, float z)
+void Boid_setVel(Boid * boid, float x, float y, float z)
 {
     PhysicsVector * velocity = &(boid->physicsObject.velocity);
     velocity->x = x;

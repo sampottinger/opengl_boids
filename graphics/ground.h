@@ -9,10 +9,10 @@
 #define GROUND_B 1
 
 /**
- * Name: ground_initGround(QuadObject * obj)
+ * Name: ground_initGround(QuadObject * obj, int texID)
  * Desc: Function that creates the (poorly textured) ground.
  * Para: obj, The QuadObject to turn into the ground.
 **/
-void ground_initGround(QuadObject * obj);
+void ground_initGround(QuadObject * obj, int texID);
 
 #endif

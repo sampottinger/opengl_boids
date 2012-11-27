@@ -11,8 +11,7 @@
 #include "balloon.h"
 
 // Textures
-int mode=0; 
-unsigned int balloon_textures[2];
+int mode=0;
 
 // Radius values to use to construct ballon part of hot air balloons
 GLfloat BALLOON_RADI_LIST[NUM_BALLOON_RADI] =
@@ -132,7 +131,7 @@ void balloon_generateBalloon(QuadObject * obj, GLfloat * radi,
    }
 }
 
-void balloon_initBalloon(QuadObject * ballPtr)
+void balloon_initBalloon(QuadObject * ballPtr, int textureID)
 {
    int bottomForwardLeft;
    int bottomForwardRight;
@@ -163,7 +162,7 @@ void balloon_initBalloon(QuadObject * ballPtr)
    ballPtr->curPitch = 1;
 
    // Basket outline
-   //QuadObject_setNextTexture(ballPtr, balloon_textures[0]);
+   QuadObject_setNextTexture(ballPtr, textureID);
    QuadObject_setNextColor(
       ballPtr,
       BASKET_RAIL_R,

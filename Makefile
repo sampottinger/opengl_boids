@@ -1,8 +1,5 @@
-final: final.c flock.o boid.o physics.o
-	gcc -g -Wall final.c flock.o boid.o physics.o -o final
-
-graphics_test: ./graphics/graphics.c balloon.o ground.o bird.o flock.o
-	gcc -g -Wall ./graphics/graphics.c balloon.o flock.o bird.o ground.o objutil.o quadobj.o linalg.o boid.o physics.o -o graphics_test  -framework GLUT -framework OpenGL
+final: ./graphics/graphics.c balloon.o ground.o bird.o flock.o errcheck.o fatal.o loadtexbmp.o
+	gcc -g -Wall ./graphics/graphics.c balloon.o flock.o bird.o ground.o objutil.o quadobj.o linalg.o boid.o physics.o errcheck.o fatal.o loadtexbmp.o -o final  -framework GLUT -framework OpenGL
 
 flock.o: ./graphics/flock.c
 	gcc -g -Wall -c ./graphics/flock.c -o flock.o
@@ -36,6 +33,15 @@ physics.o: ./flocking/physics.c
 	gcc -g -Wall ./flocking/physics_test.c physics.o -o physics_test
 	./physics_test
 	rm physics_test
+
+errcheck.o: ./errcheck.c
+	gcc -g -Wall -c ./errcheck.c -o errcheck.o
+
+fatal.o: ./fatal.c
+	gcc -g -Wall -c ./fatal.c -o fatal.o
+
+loadtexbmp.o: ./loadtexbmp.c
+	gcc -g -Wall -c ./loadtexbmp.c -o loadtexbmp.o
 
 clean:
 	rm *.o

@@ -13,7 +13,9 @@
 #include <stdarg.h>
 #include <math.h>
 
- #include "flock.h"
+#include "../CSCIx229.h"
+
+#include "flock.h"
 
 #include "openglwrapper.h"
 #include "balloon.h"
@@ -60,6 +62,8 @@ int balloon1Multiplier;
 int balloon2Multiplier;
 int balloon3Multiplier;
 int balloon4Multiplier;
+
+int textures[2];
 
 // Balloons and ground
 QuadObject balloon1;
@@ -341,33 +345,33 @@ int main(int argc,char* argv[])
    glEnable(GL_DEPTH_TEST);
 
    // Load textures
-   //textures[0] = LoadTexBMP("crate.bmp");
-   //textures[1] = LoadTexBMP("groundsoil.bmp");
+   textures[0] = LoadTexBMP("crate.bmp");
+   textures[1] = LoadTexBMP("groundsoil.bmp");
 
    // Create first balloon
-   balloon_initBalloon(&balloon1);
+   balloon_initBalloon(&balloon1, textures[0]);
    balloon1.curY = 30;
 
    // Create second balloon
-   balloon_initBalloon(&balloon2);
+   balloon_initBalloon(&balloon2, textures[0]);
    balloon2.curX = 50;
    balloon2.curZ = 50;
    balloon2.curY = 20;
 
    // Create third balloon
-   balloon_initBalloon(&balloon3);
+   balloon_initBalloon(&balloon3, textures[0]);
    balloon3.curX = -50;
    balloon3.curZ = -50;
    balloon3.curY = 30;
 
    // Create fourth balloon
-   balloon_initBalloon(&balloon4);
+   balloon_initBalloon(&balloon4, textures[0]);
    balloon4.curX = 0;
    balloon4.curZ = 50;
    balloon4.curY = 30;
 
    // Create the ground
-   ground_initGround(&ground);
+   ground_initGround(&ground, textures[1]);
    ground.curY = -5;
 
    // Create many birds
