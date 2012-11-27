@@ -927,4 +927,7 @@ void bird_step(Bird * birdPtr, Boid * boids, int totalBirds, float timestep)
     birdPtr->quadObject.curX = Boid_getX(birdPtr->boid);
     birdPtr->quadObject.curY = Boid_getY(birdPtr->boid);
     birdPtr->quadObject.curZ = Boid_getZ(birdPtr->boid);
+    birdPtr->quadObject.curRoll = birdPtr->boid->heading.x * 360;
+    birdPtr->quadObject.curPitch = birdPtr->boid->heading.y * 360;
+    birdPtr->quadObject.curYaw = birdPtr->boid->heading.z * 360;
 }

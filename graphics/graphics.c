@@ -44,7 +44,7 @@ float moveBy = 1;
 int moveLight;
 
 float ambient_0[4]={0.9,0.9,0.9,1.0};
-float specular_0[4]={0.4,0.4,0.4,1.0};
+float specular_0[4]={0.9,0.9,0.9,1.0};
 float diffuse_0[4]={0.9,0.9,0.9,1.0};
 
 // Mouse positions

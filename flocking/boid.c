@@ -39,6 +39,8 @@ void Boid_step(Boid * boid, Boid * boids, int numBoids, float timestep)
     acceleration->x = 0;
     acceleration->y = 0;
     acceleration->z = 0;
+
+    PhysicsVector_normalize(&(boid->heading), &(boid->physicsObject.velocity));
 }
 
 void Boid_respondToFlock(Boid * boid, Boid * boids, int numBoids)

@@ -17,6 +17,7 @@
 typedef struct
 {
     PhysicsObject physicsObject;
+    PhysicsVector heading;
     float r;
     float maxForce;
     float maxSpeed;
