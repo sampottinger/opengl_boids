@@ -19,6 +19,16 @@ void Boid_initFull(Boid * boid, float x, float y, float z, int minX, int minY,
     boid->maxX = maxX;
     boid->maxY = maxY;
     boid->maxZ = maxZ;
+    boid->seperationWeight = SEPERATION_WEIGHT;
+    boid->alignWeight = ALIGN_WEIGHT;
+    boid->cohesionWeight = COHESION_WEIGHT;
+}
+
+void Boid_setWeights(Boid * boid, float seperationWeight, float alignWeight, float cohesionWeight)
+{
+    boid->seperationWeight = seperationWeight;
+    boid->alignWeight = alignWeight;
+    boid->cohesionWeight = cohesionWeight;
 }
 
 void Boid_setPos(Boid * boid, float x, float y, float z)
@@ -45,9 +55,9 @@ void Boid_step(Boid * boid, Boid * boids, int numBoids, float timestep)
 
 void Boid_respondToFlock(Boid * boid, Boid * boids, int numBoids)
 {
-    Boid_calculateSeperation(boid, boids, numBoids, SEPERATION_WEIGHT);
-    Boid_calculateAlign(boid, boids, numBoids, ALIGN_WEIGHT);
-    Boid_calculateCohesion(boid, boids, numBoids, COHESION_WEIGHT);
+    Boid_calculateSeperation(boid, boids, numBoids, boid->seperationWeight);
+    Boid_calculateAlign(boid, boids, numBoids, boid->alignWeight);
+    Boid_calculateCohesion(boid, boids, numBoids, boid->cohesionWeight);
 }
 
 void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,

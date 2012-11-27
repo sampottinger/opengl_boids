@@ -168,10 +168,6 @@ MU_TEST(test_object)
     PhysicsObject_updateVelocity(objPtr, 2);
     PhysicsVector_init(ans3ptr, 44, 52, 60);
     mu_check(PhysicsVector_eq(&(objPtr->velocity), ans3ptr, 0.005));
-
-    PhysicsObject_updatePosition(objPtr, 2);
-    PhysicsVector_init(ans4ptr, 88, 104, 120);
-    mu_check(PhysicsVector_eq(&(objPtr->position), ans4ptr, 0.005));
 }
 
 MU_TEST_SUITE(test_physics)

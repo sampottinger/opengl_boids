@@ -49,6 +49,11 @@ float ambient_0[4]={0.9,0.9,0.9,1.0};
 float specular_0[4]={0.9,0.9,0.9,1.0};
 float diffuse_0[4]={0.9,0.9,0.9,1.0};
 
+// Boids params
+float seperation_weight = 1.5;
+float align_weight = 1.0;
+float cohesion_weight = 1.0;
+
 // Mouse positions
 float lastx = -1;
 float lasty = -1;
@@ -80,6 +85,26 @@ GLdouble dim=500;
 // Azimuth and elevation of view angle
 int th=0;
 int ph=0;
+
+/**
+ * Name: Print(const char * format, ...)
+ * Desc: Text rendering function shamelessly taken from class.
+ * Args: Conforms to printf
+**/
+#define LEN 8192  //  Maximum length of text string
+void Print(const char* format , ...)
+{
+   char    buf[LEN];
+   char*   ch=buf;
+   va_list args;
+   //  Turn the parameters into a character string
+   va_start(args,format);
+   vsnprintf(buf,LEN,format,args);
+   va_end(args);
+   //  Display the characters one at a time at the current raster position
+   while (*ch)
+      glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,*ch++);
+}
 
 /*
  *  OpenGL (GLUT) calls this routine to display the scene
@@ -172,6 +197,16 @@ void display()
 
    // Draw birds
    Flock_draw(&flock);
+
+   // Display current weights
+   glColor3f(1,1,1);
+   glWindowPos2i(10,35);
+   Print(
+      "distance: %f, align: %f, cohesion: %f. Use d / D, a / A, and c / C to adjust.",
+      seperation_weight,
+      align_weight,
+      cohesion_weight
+   );
 
    // Render scene and flip buffers
    glFlush();
@@ -267,11 +302,36 @@ void keyboard(unsigned char key, int x, int y)
    {
       lightPosition0[1] -= 1;
    }
-
+   else if(key=='D')
+   {
+      seperation_weight += 0.1;
+   }
+   else if(key=='d')
+   {
+      seperation_weight -= 0.1;
+   }
+   else if(key=='A')
+   {
+      align_weight += 0.1;
+   }
+   else if(key=='a')
+   {
+      align_weight -= 0.1;
+   }
+   else if(key=='C')
+   {
+      cohesion_weight += 0.1;
+   }
+   else if(key=='c')
+   {
+      cohesion_weight -= 0.1;
+   }
    else if (key==27)
    {
       exit(0);
    }
+
+   Flock_setWeights(&flock, seperation_weight, align_weight, cohesion_weight);
 }
 
 /**
@@ -380,9 +440,9 @@ int main(int argc,char* argv[])
    {
       curBird = Flock_getBird(&flock, i);
       bird_randomizePosition(curBird);
-      curBird->quadObject.xScale = 0.1;
-      curBird->quadObject.yScale = 0.1;
-      curBird->quadObject.zScale = 0.1;
+      curBird->quadObject.xScale = 0.3;
+      curBird->quadObject.yScale = 0.3;
+      curBird->quadObject.zScale = 0.3;
    }
 
    // Set up lighting

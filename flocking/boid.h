@@ -27,6 +27,9 @@ typedef struct
     int maxX;
     int maxY;
     int maxZ;
+    float seperationWeight;
+    float alignWeight;
+    float cohesionWeight;
 } Boid;
 
 /**
@@ -143,5 +146,7 @@ float Boid_getY(Boid * boid);
 float Boid_getZ(Boid * boid);
 
 void Boid_setVel(Boid * boid, float x, float y, float z);
+
+void Boid_setWeights(Boid * boid, float seperationWeight, float alignWeight, float cohesionWeight);
 
 #endif

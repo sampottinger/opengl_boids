@@ -930,4 +930,9 @@ void bird_step(Bird * birdPtr, Boid * boids, int totalBirds, float timestep)
     birdPtr->quadObject.curRoll = birdPtr->boid->heading.x * 360;
     birdPtr->quadObject.curPitch = birdPtr->boid->heading.y * 360;
     birdPtr->quadObject.curYaw = birdPtr->boid->heading.z * 360;
+
+    if(rand() % 10 <= 1 && birdPtr->flapping == NOT_FLAPPING)
+    {
+        bird_flap(birdPtr);
+    }
 }
