@@ -47,11 +47,32 @@
 #define FLAPPING_DOWN 1
 #define FLAPPING_UP 2
 
+#define BEAK_R 0.94902
+#define BEAK_G 0.623529
+#define BEAK_B 0.121569
+
+#define HEAD_R 1
+#define HEAD_G 0.980392
+#define HEAD_B 0.941176
+
+#define BACK_HEAD_R 0
+#define BACK_HEAD_G 0
+#define BACK_HEAD_B 1
+
+#define BODY_R 1
+#define BODY_G 1
+#define BODY_B 1
+
+#define WING_R 0
+#define WING_G 0
+#define WING_B 0
+
 #define NUM_WING_GUIDE_POINTS 5
 
 #include <stdio.h>
+#include <stdlib.h>
 
-#include "../flocking/boid.h"
+#import "constants.h"
 
 #include "quadobj.h"
 
@@ -81,8 +102,6 @@ typedef struct
     ColoredVertex * origFrontBottomRightWing;
     ColoredVertex * origBackBottomRightWing;
 
-    Boid * innerBoid;
-
     int startWingQuadIndex;
     int endWingQuadIndex;
 
@@ -97,7 +116,5 @@ void bird_draw(Bird * birdPtr);
 void bird_flap(Bird * birdPtr);
 
 void bird_animate(Bird * birdPtr);
-
-void bird_randomPosition(Bird * birdPtr);
 
 #endif

@@ -370,7 +370,10 @@ int main(int argc,char* argv[])
 
    // Create many birds
    for(i=0; i<NUM_BIRDS; i++)
+   {
       bird_initBird(&birds[i]);
+      bird_randomizePosition(&birds[i]);
+   }
 
    // Set up lighting
    glShadeModel(GL_SMOOTH); // Smooth shading

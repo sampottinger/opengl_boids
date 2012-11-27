@@ -121,13 +121,6 @@ void bird_initBird(Bird * birdPtr)
             sizeof(ColoredVertex)
         );
     }
-
-    Boid_init(&(birdPtr->innerBoid), 400, 400, 400);
-}
-
-void bird_randomPosition(Bird * birdPtr)
-{
-    
 }
 
 void bird_animate(Bird * birdPtr)
@@ -151,7 +144,7 @@ void bird_animate(Bird * birdPtr)
     {
         if(birdPtr->flappingAmount >= 1)
             birdPtr->flapping = NOT_FLAPPING;
-        else if(birdPtr->flappingAmount <= -1)
+        else if(birdPtr->flappingAmount <= -0.5)
             birdPtr->flapping = FLAPPING_UP;
 
         if(birdPtr->flapping == FLAPPING_DOWN)
@@ -185,6 +178,13 @@ void bird_animate(Bird * birdPtr)
             QuadObject_fixQuad(birdPtr, i);
         }
     }
+}
+
+void bird_randomizePosition(Bird * birdPtr)
+{
+    birdPtr->quadObject.curX = (rand() % (MAX_X - MIN_X)) + MIN_X;
+    birdPtr->quadObject.curY = (rand() % (MAX_Y - MIN_Y)) + MIN_Y;
+    birdPtr->quadObject.curZ = (rand() % (MAX_Z - MIN_Z)) + MIN_Z;
 }
 
 void bird_flap(Bird * birdPtr)
@@ -265,6 +265,8 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
 
     /* BEAK */
 
+    QuadObject_setNextColor(birdPtr, BEAK_R, BEAK_G, BEAK_B);
+
     // End - 4 vert, 1 face
     /*QuadObject_setNextPos(
         birdPtr,
@@ -326,6 +328,8 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     );
 
     /* HEAD */
+
+    QuadObject_setNextColor(birdPtr, HEAD_R, HEAD_G, HEAD_B);
 
     // Front head part - 4 vert, 1 head
     QuadObject_moveNextZ(birdPtr, HEAD_END_LENGTH);
@@ -459,6 +463,8 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
         headMidBackBottom
     );
 
+    QuadObject_setNextColor(birdPtr, BACK_HEAD_R, BACK_HEAD_G, BACK_HEAD_B);
+
     // Front body part - 4 vert, 1 face
     QuadObject_moveNextZ(birdPtr, BODY_FRONT_LENGTH);
     QuadObject_moveNextX(birdPtr, -BODY_FRONT_X_SHIFT);
@@ -504,6 +510,9 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     );
 
     // Mid body part - 4 vert, 1 face
+
+    QuadObject_setNextColor(birdPtr, BODY_R, BODY_G, BODY_B);
+
     QuadObject_moveNextZ(birdPtr, BODY_MID_LENGTH);
     QuadObject_moveNextX(birdPtr, -BODY_MID_X_SHIFT);
     QuadObject_moveNextY(birdPtr, -BODY_MID_SHIFT);
@@ -636,6 +645,8 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     );
 
     /* LEFT WING */
+
+    QuadObject_setNextColor(birdPtr, WING_R, WING_G, WING_B);
 
     // Create model curve - 5 vert, 0 face
     QuadObject_moveNextZ(birdPtr, -BODY_REAR_LENGTH);

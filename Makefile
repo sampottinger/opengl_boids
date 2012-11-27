@@ -2,9 +2,9 @@ final: final.c flock.o boid.o physics.o
 	gcc -g -Wall final.c flock.o boid.o physics.o -o final
 
 graphics_test: ./graphics/graphics.c balloon.o ground.o bird.o
-	gcc -g -Wall ./graphics/graphics.c balloon.o bird.o ground.o objutil.o quadobj.o linalg.o -o graphics_test  -framework GLUT -framework OpenGL
+	gcc -g -Wall ./graphics/graphics.c balloon.o bird.o ground.o objutil.o quadobj.o linalg.o boid.o physics.o -o graphics_test  -framework GLUT -framework OpenGL
 
-bird.o: ./graphics/bird.c
+bird.o: ./graphics/bird.c boid.o
 	gcc -g -Wall -c ./graphics/bird.c -o bird.o
 
 balloon.o: ./graphics/balloon.c objutil.o quadobj.o
