@@ -13,6 +13,8 @@
 #include <stdarg.h>
 #include <math.h>
 
+ #include "flock.h"
+
 #include "openglwrapper.h"
 #include "balloon.h"
 #include "bird.h"
@@ -41,9 +43,9 @@ float moveBy = 1;
 
 int moveLight;
 
-float ambient_0[4]={0.5,0.5,0.5,1.0};
+float ambient_0[4]={0.9,0.9,0.9,1.0};
 float specular_0[4]={0.4,0.4,0.4,1.0};
-float diffuse_0[4]={0.7,0.7,0.7,1.0};
+float diffuse_0[4]={0.9,0.9,0.9,1.0};
 
 // Mouse positions
 float lastx = -1;
@@ -66,11 +68,10 @@ QuadObject balloon3;
 QuadObject balloon4;
 QuadObject ground;
 
-// Birds
-Bird birds[NUM_BIRDS];
+Flock flock;
 
 // Projection values
-GLdouble dim=250;
+GLdouble dim=500;
 
 // Azimuth and elevation of view angle
 int th=0;
@@ -81,7 +82,6 @@ int ph=0;
  */
 void display()
 {
-   int i;
 
    //  Erase the window and the depth buffer
    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -167,8 +167,7 @@ void display()
    QuadObject_draw(&ground);
 
    // Draw birds
-   for(i=0; i<NUM_BIRDS; i++)
-      bird_draw(&(birds[i]));
+   Flock_draw(&flock);
 
    // Render scene and flip buffers
    glFlush();
@@ -181,6 +180,8 @@ void display()
 **/
 void animate()
 {
+   Flock_step(&flock);
+
    balloon1.curRot += moveBy;
    balloon2.curRot += moveBy * 1.25;
    balloon3.curRot += moveBy * 1.50;
@@ -316,6 +317,7 @@ void handleReshape(int width,int height)
  */
 int main(int argc,char* argv[])
 {
+   Bird * curBird;
    int i;
 
    // Initialize GLUT and process user parameters
@@ -369,10 +371,14 @@ int main(int argc,char* argv[])
    ground.curY = -5;
 
    // Create many birds
+   Flock_init(&flock, NUM_BIRDS);
    for(i=0; i<NUM_BIRDS; i++)
    {
-      bird_initBird(&birds[i]);
-      bird_randomizePosition(&birds[i]);
+      curBird = Flock_getBird(&flock, i);
+      bird_randomizePosition(curBird);
+      curBird->quadObject.xScale = 0.1;
+      curBird->quadObject.yScale = 0.1;
+      curBird->quadObject.zScale = 0.1;
    }
 
    // Set up lighting

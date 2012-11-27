@@ -166,16 +166,15 @@ void PhysicsObject_updateVelocity(PhysicsObject * physicsObject, float timeDur)
 void PhysicsObject_updatePosition(PhysicsObject * physicsObject, float timeDur)
 {
     PhysicsVector * accelerationPtr;
-    PhysicsVector deltaVelocity;
-    PhysicsVector * deltaVelocityPtr = &deltaVelocity;
+    PhysicsVector deltaPos;
+    PhysicsVector * deltaPosPtr = &deltaPos;
 
     PhysicsVector * velocityPtr = &(physicsObject->velocity);
     PhysicsVector * positionPtr = &(physicsObject->position);
 
     // Calculate change in velocity
-    accelerationPtr = &(physicsObject->acceleration);
-    PhysicsVector_multScalar(deltaVelocityPtr, accelerationPtr, timeDur);
+    PhysicsVector_multScalar(deltaPosPtr, velocityPtr, timeDur);
 
     // Add change in velocity
-    PhysicsVector_add(positionPtr, velocityPtr, deltaVelocityPtr);
+    PhysicsVector_add(positionPtr, positionPtr, deltaPosPtr);
 }

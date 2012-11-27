@@ -1,6 +1,6 @@
 #include "bird.h"
 
-void bird_initBird(Bird * birdPtr)
+void bird_initBird(Bird * birdPtr, Boid * boidPtr)
 {
     int i;
     QuadObject * quadObject;
@@ -121,6 +121,8 @@ void bird_initBird(Bird * birdPtr)
             sizeof(ColoredVertex)
         );
     }
+
+    birdPtr->boid = boidPtr;
 }
 
 void bird_animate(Bird * birdPtr)
@@ -182,9 +184,14 @@ void bird_animate(Bird * birdPtr)
 
 void bird_randomizePosition(Bird * birdPtr)
 {
-    birdPtr->quadObject.curX = (rand() % (MAX_X - MIN_X)) + MIN_X;
-    birdPtr->quadObject.curY = (rand() % (MAX_Y - MIN_Y)) + MIN_Y;
-    birdPtr->quadObject.curZ = (rand() % (MAX_Z - MIN_Z)) + MIN_Z;
+    float x = (rand() % (MAX_X - MIN_X)) + MIN_X;
+    float y = (rand() % (MAX_Y - MIN_Y)) + MIN_Y;
+    float z = (rand() % (MAX_Z - MIN_Z)) + MIN_Z;
+    birdPtr->quadObject.curX = x;
+    birdPtr->quadObject.curY = y;
+    birdPtr->quadObject.curZ = z;
+    Boid_setPos(birdPtr->boid, x, y, z);
+    Boid_setVel(birdPtr->boid, rand() % 2, rand() % 2, rand() % 2);
 }
 
 void bird_flap(Bird * birdPtr)
@@ -912,4 +919,12 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
 void bird_draw(Bird * birdPtr)
 {
     QuadObject_draw(&(birdPtr->quadObject));
+}
+
+void bird_step(Bird * birdPtr, Boid * boids, int totalBirds, float timestep)
+{
+    Boid_step(birdPtr->boid, boids, totalBirds, timestep);
+    birdPtr->quadObject.curX = Boid_getX(birdPtr->boid);
+    birdPtr->quadObject.curY = Boid_getY(birdPtr->boid);
+    birdPtr->quadObject.curZ = Boid_getZ(birdPtr->boid);
 }

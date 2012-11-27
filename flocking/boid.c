@@ -21,6 +21,13 @@ void Boid_initFull(Boid * boid, float x, float y, float z, int minX, int minY,
     boid->maxZ = maxZ;
 }
 
+void Boid_setPos(Boid * boid, float x, float y, float z)
+{
+    boid->physicsObject.position.x = x;
+    boid->physicsObject.position.y = y;
+    boid->physicsObject.position.z = z;
+}
+
 void Boid_step(Boid * boid, Boid * boids, int numBoids, float timestep)
 {
     PhysicsVector * acceleration;
@@ -261,17 +268,68 @@ void Boid_updatePosition(Boid * boid, float timestep)
 void Boid_wrapOnBorders(Boid * boid)
 {
     PhysicsVector * position = &(boid->physicsObject.position);
+    PhysicsVector * velocity = &(boid->physicsObject.velocity);
     float r = boid->r;
 
-    if(position->x < boid->minX - r)
-        position->x = boid->maxX + r;
+    if(position->x < boid->minX)
+    {
+        position->x = boid->minX;
+        velocity->x = -velocity->x ;
+    }
 
-    if(position->y < boid->minY - r) 
-        position->y = boid->maxY + r;
+    if(position->y < boid->minY) 
+    {
+        position->y = boid->minY;
+        velocity->y = -velocity->y ;
+    }
 
-    if(position->x > boid->maxX + r)
-        position->x = boid->minX - r;
+    if(position->z < boid->minZ) 
+    {
+        position->z = boid->minZ;
+        velocity->z = -velocity->z ;
+    }
 
-    if(position->y > boid->maxY + r)
-        position->y = boid->minY - r;
+    if(position->x > boid->maxX)
+    {
+        position->x = boid->maxX;
+        velocity->x = -velocity->x ;
+    }
+
+    if(position->y > boid->maxY)
+    {
+        position->y = boid->maxY;
+        velocity->y = -velocity->y ;
+    }
+
+    if(position->z > boid->maxZ)
+    {
+        position->z = boid->maxZ;
+        velocity->z = -velocity->z ;
+    }
+}
+
+float Boid_getX(Boid * boid)
+{
+    PhysicsVector * position = &(boid->physicsObject.position);
+    return position->x;
+}
+
+float Boid_getY(Boid * boid)
+{
+    PhysicsVector * position = &(boid->physicsObject.position);
+    return position->y;
+}
+
+float Boid_getZ(Boid * boid)
+{
+    PhysicsVector * position = &(boid->physicsObject.position);
+    return position->z;
+}
+
+Boid_setVel(Boid * boid, float x, float y, float z)
+{
+    PhysicsVector * velocity = &(boid->physicsObject.velocity);
+    velocity->x = x;
+    velocity->y = y;
+    velocity->z = z;
 }

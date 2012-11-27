@@ -72,6 +72,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../flocking/boid.h"
+
 #import "constants.h"
 
 #include "quadobj.h"
@@ -105,9 +107,11 @@ typedef struct
     int startWingQuadIndex;
     int endWingQuadIndex;
 
+    Boid * boid;
+
 } Bird;
 
-void bird_initBird(Bird * birdPtr);
+void bird_initBird(Bird * birdPtr, Boid * boidPtr);
 
 void bird_initBirdModel(Bird * birdModelPtr);
 
@@ -116,5 +120,9 @@ void bird_draw(Bird * birdPtr);
 void bird_flap(Bird * birdPtr);
 
 void bird_animate(Bird * birdPtr);
+
+void bird_step(Bird * birdPtr, Boid * boids, int totalBirds, float timestep);
+
+void bird_randomizePosition(Bird * birdPtr);
 
 #endif

@@ -40,6 +40,8 @@ void Boid_init(Boid * boid, float x, float y, float z);
 
 void Boid_randomForce(Boid * boid);
 
+void Boid_setPos(Boid * boid, float x, float y, float z);
+
 /**
  * Name: Boid_initFull
  * Desc: Full constructor for a Boid with custom position bounds
@@ -134,5 +136,11 @@ void Boid_updatePosition(Boid * boid, float timestep);
  * Para: boid, The Boid to wrap.
 **/
 void Boid_wrapOnBorders(Boid * boid);
+
+float Boid_getX(Boid * boid);
+float Boid_getY(Boid * boid);
+float Boid_getZ(Boid * boid);
+
+void Boid_setVel(Boid * boid, float x, float y, float z);
 
 #endif
