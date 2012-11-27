@@ -291,6 +291,8 @@ int QuadObject_addQuadBackwards(QuadObject * obj, unsigned int v0Index,
 **/
 void QuadObject_del(QuadObject * obj);
 
+void QuadObject_fixQuad(QuadObject * obj, int id);
+
 /**
  * Name: Quad_init(Quad * obj, unsigned int * ver, ColoredVertex * pointa,
  *                 ColoredVertex * pointb, ColoredVertex * pointc)
@@ -305,6 +307,9 @@ void QuadObject_del(QuadObject * obj);
  *               normal.
 **/
 void Quad_init(Quad * obj, unsigned int * ver, ColoredVertex * pointa,
+    ColoredVertex * pointb, ColoredVertex * pointc);
+
+void Quad_fixNormal(Quad * obj, ColoredVertex * pointa,
     ColoredVertex * pointb, ColoredVertex * pointc);
 
 #endif

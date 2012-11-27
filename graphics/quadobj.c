@@ -164,6 +164,15 @@ ColoredVertex * QuadObject_getVer(QuadObject * obj, unsigned int vertId)
     return &(obj->ver[vertId]);
 }
 
+QuadObject_fixQuad(QuadObject * obj, int id)
+{
+    Quad * targetQuad = &(obj->quad[id]);
+    ColoredVertex * pointa = QuadObject_getVer(obj, targetQuad->ver[2]);
+    ColoredVertex * pointb = QuadObject_getVer(obj, targetQuad->ver[1]);
+    ColoredVertex * pointc = QuadObject_getVer(obj, targetQuad->ver[0]);
+    Quad_fixNormal(targetQuad, pointa, pointb, pointc);
+}
+
 int QuadObject_addQuadBackwards(QuadObject * obj, unsigned int v0Index,
     unsigned int v1Index, unsigned int v2Index, unsigned int v3Index)
 {
@@ -326,5 +335,11 @@ void Quad_init(Quad * obj, unsigned int * ver, ColoredVertex * pointa,
     ColoredVertex * pointb, ColoredVertex * pointc)
 {
     memcpy(obj->ver, ver, sizeof(unsigned int) * NUM_VERT_PER_QUAD);
+    linalg_getFaceNormal(obj->norm, pointa->pos, pointb->pos, pointc->pos);
+}
+
+void Quad_fixNormal(Quad * obj, ColoredVertex * pointa, ColoredVertex * pointb,
+    ColoredVertex * pointc)
+{
     linalg_getFaceNormal(obj->norm, pointa->pos, pointb->pos, pointc->pos);
 }
