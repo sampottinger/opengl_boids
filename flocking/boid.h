@@ -1,7 +1,8 @@
 /**
  * Desc: Header file for a single boid in a boids birds implementation.
- * Auth:
- * Ref: "The Nature of Code" by Daniel Shiffman chapter 6
+ * Auth: Sam Pottinger
+ * Refr: "The Nature of Code" by Daniel Shiffman chapter 6
+ * Licn: GNU GPL v2
 **/
 
 #ifndef FINAL_BOID_HEADER
@@ -141,12 +142,49 @@ void Boid_updatePosition(Boid * boid, float timestep);
 **/
 void Boid_wrapOnBorders(Boid * boid);
 
+/**
+ * Name: Boid_getX(Boid * boid)
+ * Desc: Get the current global x position of this boid.
+ * Para: boid, The boid to get the current x position for.
+**/
 float Boid_getX(Boid * boid);
+
+/**
+ * Name: Boid_getY(Boid * boid)
+ * Desc: Get the current global y position of this boid.
+ * Para: boid, The boid to get the current y position for.
+**/
 float Boid_getY(Boid * boid);
+
+/**
+ * Name: Boid_getZ(Boid * boid)
+ * Desc: Get the current global z position of this boid.
+**/
 float Boid_getZ(Boid * boid);
 
+/**
+ * Name: Boid_setVel(Boid * boid, float x, float y, float z)
+ * Desc: Artifically set the current velocity for this boid.
+ * Para: boid, The boid to set the velocity.
+ *       x, The new x component of this boid's velocity.
+ *       y, The new y component of this boid's velocity.
+ *       z, The new z component of this boid's velocity.
+**/
 void Boid_setVel(Boid * boid, float x, float y, float z);
 
-void Boid_setWeights(Boid * boid, float seperationWeight, float alignWeight, float cohesionWeight);
+/**
+ * Name: Boid_setWeights(Boid * boid, float seperationWeight, float alignWeight,
+ *          float cohesionWeight)
+ * Desc: Set how much each of the forces on a boid affects it.
+ * Para: boid, The boid to set weights for.
+ *       seperationWeight, How much the boid will try to distance itself from
+ *          other boids.
+ *       alignWeight, How much the boid will try to orient itself like the boids
+ *          around it.
+ *       cohesionWeight, How much a boid will try to stay with other boids close
+ *          by.
+**/
+void Boid_setWeights(Boid * boid, float seperationWeight, float alignWeight,
+    float cohesionWeight);
 
 #endif

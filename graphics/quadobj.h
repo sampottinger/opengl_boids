@@ -1,7 +1,7 @@
 /**
- * Name: data.h
+ * Name: quadobj.h
  * Desc: Header files for structures and functions for building and operating on
- *       lighting ready models.
+ *       lighting-ready models based on quadrangles.
  * Auth: Sam Pottinger
 **/
 

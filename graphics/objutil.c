@@ -1,17 +1,13 @@
+/**
+ * Name: objutil.c
+ * Desc: Implementation of logic for generating simple 3D structures.
+ * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
+**/
+
 #include "objutil.h"
 
-/**
- * Name: obj_utiladdRectPrismTex(QuadObject * obj, GLfloat x, GLfloat y,
- *          GLfloat z, GLfloat width, GLfloat height, GLfloat depth)
- * Desc: Creates a 3D rectangular prism.
- * Para: obj, The QuadObjct to create the new prism in.
- *       x, The x position of the prism (relative to object)
- *       y, The y position of the prism (relative to object)
- *       z, The z position of the prism (relative to object)
- *       width, The x size of the rectangular prism.
- *       height, The y size of the rectangular prism.
- *       depth, The z size of the rectangular prism.
-**/
+
 void objutil_addRectPrismTex(QuadObject * obj, GLfloat x, GLfloat y, GLfloat z,
    GLfloat width, GLfloat height, GLfloat depth, int texture)
 {
@@ -72,9 +68,6 @@ void objutil_addRectPrism(QuadObject * obj, GLfloat x, GLfloat y, GLfloat z,
    objutil_addRectPrismTex(obj, x, y, z, width, height, depth, -1);
 }
 
-/*
- *  Draw vertex in polar coordinates with normal (shamelessly stolen from class)
- */
 void objutil_radialVertex(double th,double ph)
 {
    double x = trig_rad_sin(th) * trig_rad_cos(ph);
@@ -86,10 +79,6 @@ void objutil_radialVertex(double th,double ph)
    glVertex3d(x,y,z);
 }
 
-/**
- * Name: ball(double x,double y,double z,double r)
- * Desc: Ball generation routine shamelessly stolen from class.
-**/
 void objutil_ball(double x,double y,double z,double r)
 {
    int th,ph;

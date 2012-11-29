@@ -1,3 +1,10 @@
+/**
+ * Name: ground.h
+ * Desc: Structures and method definitions for drawing a ground surface.
+ * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
+**/
+
 #ifndef GROUND_INC_GUARD
 #define GROUND_INC_GUARD
 

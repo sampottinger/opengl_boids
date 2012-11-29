@@ -1,3 +1,10 @@
+/**
+ * Name: bird.h
+ * Desc: Header file for 3D bird model that has Boid behavior.
+ * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
+**/
+
 #ifndef BIRD_INC_GUARD
 #define BIRD_INC_GUARD
 
@@ -74,10 +81,14 @@
 
 #include "../flocking/boid.h"
 
-#import "constants.h"
+#include "constants.h"
 
 #include "quadobj.h"
 
+/**
+ * Name: Bird
+ * Desc: 3D bird that has boid flocking behavior.
+**/
 typedef struct
 {
     QuadObject quadObject;
@@ -111,18 +122,61 @@ typedef struct
 
 } Bird;
 
+/**
+ * Name: bird_initBird(Bird * birdPtr, Boid * boidPtr)
+ * Desc: Constructor for a new bird.
+ * Para: birdPtr, The bird struct to initalize.
+ *       boidPtr, Boid defining flocking behavior of this bird.
+**/
 void bird_initBird(Bird * birdPtr, Boid * boidPtr);
 
+/**
+ * Name: bird_initBirdModel(Bird * birdModelPtr)
+ * Desc: Create the actual 3D model for a bird.
+ * Para: birdModelPtr, The bird whose 3D model should be initialized.
+**/
 void bird_initBirdModel(Bird * birdModelPtr);
 
+/**
+ * Name: bird_draw(Bird * birdPtr)
+ * Desc: Draw this bird.
+ * Para: birdPtr, The bird to draw.
+**/
 void bird_draw(Bird * birdPtr);
 
+/**
+ * Name: bird_flap(Bird * birdPtr)
+ * Desc: Have this bird start flapping.
+ * Para: birdPtr, The bird to start the wing flap motion on.
+**/
 void bird_flap(Bird * birdPtr);
 
+/**
+ * Name: bird_animate(Bird * birdPtr)
+ * Desc: Animate the bird's flapping if it is currently flapping its wings.
+ * Para: birdPtr, The bird to animate.
+**/
 void bird_animate(Bird * birdPtr);
 
-void bird_step(Bird * birdPtr, Boid * boids, int totalBirds, float timestep);
+/**
+ * Name: bird_step(Bird * birdPtr, Boid * boids, int totalBirds, float timestep)
+ * Desc: Calcuate forces on this bird according to its boid flocking behavior
+ *       and update its position.
+ * Para: birdPtr, The bird to calculate forces for.
+ *       boids, The other boids that exert forces in this bird through its boid
+ *          behavior.
+ *       totalBoids, The number of boids in the boids array passed in.
+ *       timestep, How many "game" seconds to advance the simulation of this
+ *          bird's position (how long to pretend it has been since this was
+ *          last called).
+**/
+void bird_step(Bird * birdPtr, Boid * boids, int totalBoids, float timestep);
 
+/**
+ * Name: bird_randomizePosition(Bird * birdPtr)
+ * Desc: Randomize the position of this bird.
+ * Para: birdPtr, The bird whose position should be randomized.
+**/
 void bird_randomizePosition(Bird * birdPtr);
 
 #endif

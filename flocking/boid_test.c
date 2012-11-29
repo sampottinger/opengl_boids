@@ -1,3 +1,10 @@
+/**
+ * Name: boid_test.c
+ * Desc: Unit testing for high level boid flocking logic.
+ * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
+**/
+
 #include "clockmac.c"
 #include "minunit.h"
 #include "boid.h"

@@ -1,3 +1,10 @@
+/**
+ * Name: bird.c
+ * Desc: Logic and method implementations for 3D flocking bird model.
+ * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
+**/
+
 #include "bird.h"
 
 void bird_initBird(Bird * birdPtr, Boid * boidPtr)

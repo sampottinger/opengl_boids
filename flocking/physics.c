@@ -165,7 +165,6 @@ void PhysicsObject_updateVelocity(PhysicsObject * physicsObject, float timeDur)
 
 void PhysicsObject_updatePosition(PhysicsObject * physicsObject, float timeDur)
 {
-    PhysicsVector * accelerationPtr;
     PhysicsVector deltaPos;
     PhysicsVector * deltaPosPtr = &deltaPos;
 

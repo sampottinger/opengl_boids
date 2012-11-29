@@ -5,6 +5,7 @@
  *       (with some help from http://www.gamedev.net/page/resources/_/technical/
  *       opengl/lighting-and-normals-r1682)
  * Note: Documentation in util.h
+ * Licn: GNU GPL v2.
 **/
 
 #include "linalg.h"

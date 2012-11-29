@@ -1,3 +1,10 @@
+/**
+ * Name: ground.c
+ * Desc: Implementation of structures and logic for drawing a ground surface.
+ * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
+**/
+
 #include "ground.h"
 
 void ground_initGround(QuadObject * obj, int texID)

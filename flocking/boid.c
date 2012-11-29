@@ -1,3 +1,10 @@
+/**
+ * Name: boid.c
+ * Desc: Implementation of structures and logic in boid.h
+ * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
+**/
+
 #include "boid.h"
 
 void Boid_init(Boid * boid, float x, float y, float z)
@@ -281,42 +288,41 @@ void Boid_wrapOnBorders(Boid * boid)
 {
     PhysicsVector * position = &(boid->physicsObject.position);
     PhysicsVector * velocity = &(boid->physicsObject.velocity);
-    float r = boid->r;
-
+    
     if(position->x < boid->minX)
     {
         position->x = boid->minX;
-        velocity->x = -velocity->x ;
+        velocity->x = -velocity->x;
     }
 
     if(position->y < boid->minY) 
     {
         position->y = boid->minY;
-        velocity->y = -velocity->y ;
+        velocity->y = -velocity->y;
     }
 
     if(position->z < boid->minZ) 
     {
         position->z = boid->minZ;
-        velocity->z = -velocity->z ;
+        velocity->z = -velocity->z;
     }
 
     if(position->x > boid->maxX)
     {
         position->x = boid->maxX;
-        velocity->x = -velocity->x ;
+        velocity->x = -velocity->x;
     }
 
     if(position->y > boid->maxY)
     {
         position->y = boid->maxY;
-        velocity->y = -velocity->y ;
+        velocity->y = -velocity->y;
     }
 
     if(position->z > boid->maxZ)
     {
         position->z = boid->maxZ;
-        velocity->z = -velocity->z ;
+        velocity->z = -velocity->z;
     }
 }
 

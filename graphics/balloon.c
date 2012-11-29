@@ -1,11 +1,12 @@
 /**
  * Name: birds.c
- * Desc: Hot air balloon display.
+ * Desc: Hot air balloon logic and method implementations.
  * Auth: Sam Pottinger
- * Note: Help from http://www.swiftless.com/tutorials/opengl/camera2.html,
+ * Refr: Help from http://www.swiftless.com/tutorials/opengl/camera2.html,
  *       http://www.gamedev.net/page/resources/_/technical/opengl/
  *       lighting-and-normals-r1682, and http://www.cse.msu.edu/~cse872/
  *       tutorial3.html
+ * Licn: GNU GPL v2
 **/
 
 #include "balloon.h"

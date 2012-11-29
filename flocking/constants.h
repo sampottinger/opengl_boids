@@ -1,5 +1,12 @@
-#ifndef FINAL_CONSTANTS
-#define FINAL_CONSTANTS
+/**
+ * Name: constants.h
+ * Desc: Constants for boid flocking behavior.
+ * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
+**/
+
+#ifndef BOID_FLOCKING_CONSTANTS
+#define BOID_FLOCKING_CONSTANTS
 
 #define MAX_BOID_SPEED 3
 #define MAX_BOID_FORCE 0.05

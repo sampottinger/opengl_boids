@@ -2,6 +2,7 @@
  * Name: physics.h
  * Desc: Header file for basic physics constructs like position and forces.
  * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
 **/
 
 #ifndef FINAL_PHYSICS_HEADER

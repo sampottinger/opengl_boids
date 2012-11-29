@@ -1,3 +1,10 @@
+/**
+ * Name: balloon.h
+ * Desc: Structures and methods for 3D hot air balloon model.
+ * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
+**/
+
 #ifndef BALLOON_INC_GUARD
 #define BALLOON_INC_GUARD
 

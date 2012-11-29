@@ -1,11 +1,12 @@
 /**
- * Name: birds.c
- * Desc: Hot air balloon display.
+ * Name: graphics.c
+ * Desc: Driver for visualization of boids flocking behavior.
  * Auth: Sam Pottinger
  * Note: Help from http://www.swiftless.com/tutorials/opengl/camera2.html,
  *       http://www.gamedev.net/page/resources/_/technical/opengl/'
  *       lighting-and-normals-r1682, and http://www.cse.msu.edu/~cse872/
  *       tutorial3.html
+ * Licn: GNU GPL v2.
 **/
 
 #include <stdio.h>

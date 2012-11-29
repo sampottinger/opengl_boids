@@ -2,6 +2,7 @@
  * Name: linalg.h
  * Desc: Header file for linear algebra utility functions.
  * Auth: Sam Pottinger
+ * Licn: GNU GPL v2.
 **/
 
 #ifndef LINALG_INC_GUARD

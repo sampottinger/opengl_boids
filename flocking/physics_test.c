@@ -1,6 +1,8 @@
 /**
  * Name: physics_test.c
- * Desc: Unittest for physics components
+ * Desc: Unit tests for physics / linear algebra logic.
+ * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
 **/
 
 #include "clockmac.c"
@@ -144,7 +146,6 @@ MU_TEST(test_object)
     PhysicsVector * ans1ptr = &ans1;
     PhysicsVector * ans2ptr = &ans2;
     PhysicsVector * ans3ptr = &ans3;
-    PhysicsVector * ans4ptr = &ans4;
 
     PhysicsVector_init(v1ptr, 1, 2, 3);
     PhysicsVector_init(v2ptr, 4, 5, 6);

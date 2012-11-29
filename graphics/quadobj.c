@@ -164,7 +164,7 @@ ColoredVertex * QuadObject_getVer(QuadObject * obj, unsigned int vertId)
     return &(obj->ver[vertId]);
 }
 
-QuadObject_fixQuad(QuadObject * obj, int id)
+void QuadObject_fixQuad(QuadObject * obj, int id)
 {
     Quad * targetQuad = &(obj->quad[id]);
     ColoredVertex * pointa = QuadObject_getVer(obj, targetQuad->ver[2]);

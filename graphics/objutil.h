@@ -1,3 +1,10 @@
+/**
+ * Name: objutil.h
+ * Desc: Function definitions for routines for generating 3D structures.
+ * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
+**/
+
 #ifndef OBJUTIL_INC_GUARD
 #define OBJUTIL_INC_GUARD
 
