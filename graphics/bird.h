@@ -53,6 +53,7 @@
 #define NOT_FLAPPING 0
 #define FLAPPING_DOWN 1
 #define FLAPPING_UP 2
+#define RETURNING 3
 
 #define BEAK_R 0.94902
 #define BEAK_G 0.623529

@@ -441,9 +441,9 @@ int main(int argc,char* argv[])
    {
       curBird = Flock_getBird(&flock, i);
       bird_randomizePosition(curBird);
-      curBird->quadObject.xScale = 0.5;
-      curBird->quadObject.yScale = 0.5;
-      curBird->quadObject.zScale = 0.5;
+      curBird->quadObject.xScale = 0.3;
+      curBird->quadObject.yScale = 0.3;
+      curBird->quadObject.zScale = 0.3;
    }
 
    // Set up lighting

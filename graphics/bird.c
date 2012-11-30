@@ -151,12 +151,14 @@ void bird_animate(Bird * birdPtr)
     }
     else
     {
-        if(birdPtr->flappingAmount >= 1)
-            birdPtr->flapping = NOT_FLAPPING;
+        if(birdPtr->flappingAmount >= 2)
+            birdPtr->flapping = RETURNING;
         else if(birdPtr->flappingAmount <= -0.5)
             birdPtr->flapping = FLAPPING_UP;
+        else if(birdPtr->flappingAmount == 0 && birdPtr->flapping == RETURNING)
+            birdPtr->flapping = NOT_FLAPPING;
 
-        if(birdPtr->flapping == FLAPPING_DOWN)
+        if(birdPtr->flapping == FLAPPING_DOWN || birdPtr->flapping == RETURNING)
             birdPtr->flappingAmount -= 0.1;
         else if(birdPtr->flapping == FLAPPING_UP)
             birdPtr->flappingAmount += 0.1;
@@ -941,7 +943,7 @@ void bird_step(Bird * birdPtr, Boid * boids, int totalBirds, float timestep)
     birdPtr->quadObject.curPitch = linalg_calcPitchDeg(&from,
         &(birdPtr->boid->heading));
 
-    if(rand() % 10 <= 1 && birdPtr->flapping == NOT_FLAPPING)
+    if(rand() % 500 <= 1 && birdPtr->flapping == NOT_FLAPPING)
     {
         bird_flap(birdPtr);
     }
