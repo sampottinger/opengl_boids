@@ -930,13 +930,16 @@ void bird_draw(Bird * birdPtr)
 
 void bird_step(Bird * birdPtr, Boid * boids, int totalBirds, float timestep)
 {
+    PhysicsVector from;
+
+    PhysicsVector_init(&from, 0, 0, 0);
+
     Boid_step(birdPtr->boid, boids, totalBirds, timestep);
     birdPtr->quadObject.curX = Boid_getX(birdPtr->boid);
     birdPtr->quadObject.curY = Boid_getY(birdPtr->boid);
     birdPtr->quadObject.curZ = Boid_getZ(birdPtr->boid);
-    birdPtr->quadObject.curRoll = birdPtr->boid->heading.x * 360;
-    birdPtr->quadObject.curPitch = birdPtr->boid->heading.y * 360;
-    birdPtr->quadObject.curYaw = birdPtr->boid->heading.z * 360;
+    birdPtr->quadObject.curPitch = linalg_calcPitchDeg(&from,
+        &(birdPtr->boid->heading));
 
     if(rand() % 10 <= 1 && birdPtr->flapping == NOT_FLAPPING)
     {

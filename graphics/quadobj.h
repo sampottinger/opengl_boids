@@ -3,6 +3,7 @@
  * Desc: Header files for structures and functions for building and operating on
  *       lighting-ready models based on quadrangles.
  * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
 **/
 
 #ifndef QUAD_OBJ_INC_GUARD

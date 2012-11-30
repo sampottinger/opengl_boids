@@ -1,3 +1,10 @@
+/**
+ * Name: openglwrapper.h
+ * Desc: Simplified header file for including OpenGL cross-platform.
+ * Auth: Sam Pottinger
+ * Licn: GNU GPL v2
+**/
+
 #ifndef OPEN_GL_LOADED
 #define OPEN_GL_LOADED
 

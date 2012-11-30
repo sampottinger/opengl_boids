@@ -1,8 +1,10 @@
 /**
- * Name: data.c
- * Desc: Implementation of headers described in data.h
+ * Name: quadobj.c
+ * Desc: Implementation of headers for quadrangle-based objects and logic
+ *       described in quadobj.h
  * Auth: Sam Pottinger
  * Note: Documentation in header file.
+ * Licn: GNU GPL v2
 **/
 
 #include "quadobj.h"
@@ -241,7 +243,9 @@ void QuadObject_drawSpecific(QuadObject * obj, int numQuad, int startQuad)
 
     glPushMatrix();
       glTranslatef(obj->curX,obj->curY,obj->curZ);
-      glRotatef(obj->curRot,obj->curRoll,obj->curPitch,obj->curYaw);
+      glRotatef(obj->curRoll,1,0,0);
+      glRotatef(obj->curPitch,0,1,0);
+      glRotatef(obj->curYaw,0,0,1);
       glScalef(obj->xScale,obj->yScale,obj->zScale);
 
       for (a=startQuad;a<numQuad;++a)

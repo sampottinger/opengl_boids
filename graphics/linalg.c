@@ -59,3 +59,23 @@ void linalg_crossProduct(float *c,float a[3], float b[3])
    c[1]=a[2]*b[0] - b[2]*a[0];
    c[2]=a[0]*b[1] - b[0]*a[1];
 }
+
+float linalg_calcPitch(PhysicsVector * from, PhysicsVector * to)
+{
+   return atan2f(to->x - from->x, to->z - from->z) + PI;
+}
+
+float linalg_calcYaw(PhysicsVector * from, PhysicsVector * to)
+{
+   return atan2f(to->x - from->x, to->y - from->y);
+}
+
+float linalg_calcPitchDeg(PhysicsVector * from, PhysicsVector * to)
+{
+   return linalg_calcPitch(from, to) / PI * 180;
+}
+
+float linalg_calcYawDeg(PhysicsVector * from, PhysicsVector * to)
+{
+   return linalg_calcYaw(from, to) / PI * 180;
+}

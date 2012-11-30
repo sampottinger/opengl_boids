@@ -19,7 +19,7 @@ objutil.o: ./graphics/objutil.c quadobj.o
 quadobj.o: ./graphics/quadobj.c linalg.o
 	gcc -g -Wall -c ./graphics/quadobj.c -o quadobj.o
 
-linalg.o: ./graphics/linalg.c
+linalg.o: ./graphics/linalg.c physics.o
 	gcc -g -Wall -c ./graphics/linalg.c -o linalg.o
 
 boid.o: ./flocking/boid.c physics.o
