@@ -73,7 +73,7 @@ int balloon2Multiplier;
 int balloon3Multiplier;
 int balloon4Multiplier;
 
-int textures[2];
+int textures[8];
 
 // Balloons and ground
 QuadObject balloon1;
@@ -162,6 +162,14 @@ void display()
    glScalef(1.8,1.8,1.8);
    glTranslatef(0,-100,10);
 
+   glDisable(GL_DEPTH_TEST);
+   glDisable(GL_LIGHTING);
+   glDisable(GL_BLEND);
+   QuadObject_draw(&skybox);
+   glEnable(GL_DEPTH_TEST);
+   glEnable(GL_LIGHTING);
+   glEnable(GL_BLEND);
+
    objutil_ball(lightPosition0[0], lightPosition0[1], lightPosition0[2], 1);
 
    glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuse_0);
@@ -220,8 +228,6 @@ void display()
    );
 
    QuadObject_draw(&ground);
-
-   QuadObject_draw(&skybox);
 
    // Draw birds
    Flock_draw(&flock);
@@ -539,6 +545,12 @@ int main(int argc,char* argv[])
    // Load textures
    textures[0] = LoadTexBMP("crate.bmp");
    textures[1] = LoadTexBMP("groundsoil.bmp");
+   textures[2] = LoadTexBMP("sky_top.bmp");
+   textures[3] = LoadTexBMP("sky_left.bmp");
+   textures[4] = LoadTexBMP("sky_back.bmp");
+   textures[5] = LoadTexBMP("sky_right.bmp");
+   textures[6] = LoadTexBMP("sky_front.bmp");
+   textures[7] = LoadTexBMP("sky_bottom.bmp");
 
    // Create first balloon
    balloon_initBalloon(&balloon1, textures[0]);
@@ -566,7 +578,7 @@ int main(int argc,char* argv[])
    ground_initGround(&ground, textures[1]);
    ground.curY = -5;
 
-   sky_initSky(&skybox, textures[1]);
+   sky_initSky(&skybox, &textures[2]);
    skybox.curY = -5.1;
 
    // Create many birds

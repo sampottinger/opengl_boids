@@ -1,0 +1,42 @@
+initanim "C:\skyrender", 1
+
+;_ft
+Zoom 1.0
+CamH 0
+CamP 0
+CamB 0
+frend
+
+;_lf
+Zoom 1.0
+CamH 90
+CamP 0
+CamB 0
+frend
+
+;_up
+Zoom 1.0
+CamH 270
+CamP 90
+CamB 0
+frend
+;_bk
+Zoom 1.0
+CamH 180
+CamP 0
+CamB 0
+frend
+
+;_rt
+Zoom 1.0
+CamH 270
+CamP 0
+CamB 0
+frend
+
+;_dn
+Zoom 1.0
+CamH 270
+CamP -90
+CamB 0
+frend

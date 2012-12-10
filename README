@@ -1,0 +1,48 @@
+Midpoint Review: Final Project
+A. Samuel Pottinger
+
+Build instructions:
+--
+$ make final
+$ ./final
+
+
+Controls:
+--
+ * Mouse changes viewing angle.
+ * P pauses the spinning light.
+ * W increases the altitude of the light.
+ * S decreases the altitude of the light.
+ * d decreases the seperation force in the boyds simulation
+ * D increases the seperation force in the boyds simulation
+ * a decreases the alignment force in the boyds simulation
+ * A increases the alignment force in the boyds simulation
+ * c decreases the cohesion force in the boyds simulation
+ * C increases the cohesion force in the boyds simulation
+
+
+Resources:
+--
+I found the given ground texture at http://users.csc.calpoly.edu/~zwood/
+teaching/csc471/finalprojw12/sbong/
+
+
+Left to do:
+--
+ * I have dynamic recalculation of normals and subtle flapping for the birds but
+   I want to make the motion more pronounced.
+ * I have a vector indicating where the bird is going but I need it to face that
+   direction.
+ * The hot air balloons should disrupt the birds.
+ * The 3rd person view from a hot air balloon. This should provide a better look
+   at birds.
+ * A better lit environment. Perhaps softer wings with radial lighting / 
+   normals.
+
+
+Stretch goals:
+--
+ * Larger scene
+ * Some terrain objects (a few scattered trees)
+ * Procedurally generated terrain
+ * Maybe skybox
