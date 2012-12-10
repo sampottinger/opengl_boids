@@ -43,7 +43,7 @@
 
 float xpos = 0, ypos = 0, zpos = 0, xrot = 0, yrot = 0, angle=0.0;
 
-float lightPosition0[3]={20.0,50.0,20.0};
+float lightPosition0[3]={320.0,100.0,320.0};
 float lightAccumulator0 = 0;
 
 float moveBy = 1;
@@ -280,8 +280,8 @@ void animate()
    {
       lightAccumulator0 += 0.03;
    }
-   lightPosition0[2] = cos(lightAccumulator0) * 100;
-   lightPosition0[0] = sin(lightAccumulator0) * 100;
+   lightPosition0[2] = cos(lightAccumulator0) * 320;
+   lightPosition0[0] = sin(lightAccumulator0) * 320;
 
    glutPostRedisplay();
    glutTimerFunc(25,animate,0);
