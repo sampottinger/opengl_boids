@@ -30,6 +30,7 @@
 
 #define PERSPECTIVE 1
 #define ORTHOGRAPHIC 2
+#define FIRST_PERSON 3
 
 #define TRUE 1
 #define FALSE 0
@@ -38,6 +39,8 @@
 #define MIN_BALLOON_HEIGHT 0
 
 #define NUM_BIRDS 100
+
+float xpos = 0, ypos = 0, zpos = 0, xrot = 0, yrot = 0, angle=0.0;
 
 float lightPosition0[3]={20.0,50.0,20.0};
 float lightAccumulator0 = 0;
@@ -60,7 +63,7 @@ float lastx = -1;
 float lasty = -1;
 
 // Camera mode
-int cameraMode = PERSPECTIVE;
+int cameraMode = FIRST_PERSON;
 int lastWidth;
 int lastHeight;
 
@@ -107,6 +110,13 @@ void Print(const char* format , ...)
       glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,*ch++);
 }
 
+void applyCamera()
+{
+   glRotatef(xrot,1.0,0.0,0.0);  //rotate our camera on the x-axis (left and right)
+   glRotatef(yrot,0.0,1.0,0.0);  //rotate our camera on the y-axis (up and down)
+   glTranslated(-xpos,-ypos,-zpos); //translate the screen to the position of our camera
+}
+
 /*
  *  OpenGL (GLUT) calls this routine to display the scene
  */
@@ -126,6 +136,10 @@ void display()
       double Ey = 2 * dim * trig_rad_sin(ph);
       double Ez = 2 * dim * trig_rad_cos(th) * trig_rad_cos(ph);
       gluLookAt(Ex, Ey, Ez, 0, 0, 0, 0, trig_rad_cos(ph), 0);
+   }
+   else if(cameraMode == FIRST_PERSON)
+   {
+      applyCamera();
    }
    //  Orthogonal - set world orientation
    else
@@ -286,7 +300,61 @@ void setUpPerspective()
  * Note: Got some help from http://www.swiftless.com/tutorials/opengl/
  *       camera2.html
 **/
-void keyboard(unsigned char key, int x, int y)
+
+void keyboardFPS(unsigned char key, int x, int y)
+{
+   float xrotrad, yrotrad;
+   if (key=='q')
+    {
+    xrot += 1;
+    if (xrot >360) xrot -= 360;
+    }
+
+    if (key=='z')
+    {
+    xrot -= 1;
+    if (xrot < -360) xrot += 360;
+    }
+
+    if (key=='w')
+    {
+    yrotrad = (yrot / 180 * 3.141592654f);
+    xrotrad = (xrot / 180 * 3.141592654f); 
+    xpos += (float)(sin(yrotrad)) ;
+    zpos -= (float)(cos(yrotrad)) ;
+    ypos -= (float)(sin(xrotrad)) ;
+    }
+
+    if (key=='s')
+    {
+    yrotrad = (yrot / 180 * 3.141592654f);
+    xrotrad = (xrot / 180 * 3.141592654f); 
+    xpos -= (float)(sin(yrotrad));
+    zpos += (float)(cos(yrotrad)) ;
+    ypos += (float)(sin(xrotrad));
+    }
+
+    if (key=='d')
+    {
+    yrotrad = (yrot / 180 * 3.141592654f);
+    xpos += (float)(cos(yrotrad)) * 0.2;
+    zpos += (float)(sin(yrotrad)) * 0.2;
+    }
+
+    if (key=='a')
+    {
+    yrotrad = (yrot / 180 * 3.141592654f);
+    xpos -= (float)(cos(yrotrad)) * 0.2;
+    zpos -= (float)(sin(yrotrad)) * 0.2;
+    }
+
+    if (key==27)
+    {
+    exit(0);
+    }
+}
+
+void keyboardOverview(unsigned char key, int x, int y)
 {
    if(key=='p')
    {
@@ -335,6 +403,14 @@ void keyboard(unsigned char key, int x, int y)
    Flock_setWeights(&flock, seperation_weight, align_weight, cohesion_weight);
 }
 
+void keyboard(unsigned char key, int x, int y)
+{
+   if(cameraMode == PERSPECTIVE)
+      keyboardOverview(key, x, y);
+   else
+      keyboardFPS(key, x, y);
+}
+
 /**
  * Name: mouseMovement(int x, int y)
  * Desc: Function preodically called to adjust "camera" in response to mouse
@@ -344,7 +420,18 @@ void keyboard(unsigned char key, int x, int y)
  * Note: To figure out how to attach this to the "camera," I got help from a
  *       tutorial at http://www.swiftless.com/tutorials/opengl/camera2.html
 **/
-void mouseMovement(int x, int y)
+
+void mouseMovementFPS(int x, int y)
+{
+   int diffx=x-lastx; //check the difference between the  current x and the last x position
+   int diffy=y-lasty; //check the difference between the  current y and the last y position
+   lastx=x; //set lastx to the current x position
+   lasty=y; //set lasty to the current y position
+   xrot += (float) diffy; //set the xrot to xrot with the addition of the difference in the y position
+   yrot += (float) diffx; //set the xrot to yrot with the addition of the difference in the x position
+}
+
+void mouseMovementOverview(int x, int y)
 {
    if(lastx == -1 || lasty == -1)
    {
@@ -359,6 +446,14 @@ void mouseMovement(int x, int y)
    lasty=y; //set lasty to the current y position
    ph += (float) diffy * 2; //set the xrot to xrot with the addition of the difference in the y position
    th += (float) diffx;    //set the xrot to yrot with the addition of the difference in the x position
+}
+
+void mouseMovement(int x, int y)
+{
+   if(cameraMode == PERSPECTIVE)
+      mouseMovementOverview(x, y);
+   else
+      mouseMovementFPS(x, y);
 }
 
 /**
