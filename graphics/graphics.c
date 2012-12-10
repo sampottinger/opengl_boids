@@ -348,6 +348,12 @@ void keyboardFPS(unsigned char key, int x, int y)
     zpos -= (float)(sin(yrotrad)) * 0.2;
     }
 
+    if(key=='v')
+    {
+      cameraMode = PERSPECTIVE;
+      setUpPerspective();
+    }
+
     if (key==27)
     {
     exit(0);
@@ -394,6 +400,10 @@ void keyboardOverview(unsigned char key, int x, int y)
    else if(key=='c')
    {
       cohesion_weight -= 0.1;
+   }
+   else if(key=='v')
+   {
+      cameraMode = FIRST_PERSON;
    }
    else if (key==27)
    {
