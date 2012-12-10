@@ -22,6 +22,7 @@
 #include "balloon.h"
 #include "bird.h"
 #include "ground.h"
+#include "sky.h"
 
 #define TITLE "title"
 
@@ -80,6 +81,7 @@ QuadObject balloon2;
 QuadObject balloon3;
 QuadObject balloon4;
 QuadObject ground;
+QuadObject skybox;
 
 Flock flock;
 
@@ -110,11 +112,20 @@ void Print(const char* format , ...)
       glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,*ch++);
 }
 
+/**
+ * Name: applyCamera()
+ * Desc: Apply rotation and translation due to camera.
+**/
 void applyCamera()
 {
-   glRotatef(xrot,1.0,0.0,0.0);  //rotate our camera on the x-axis (left and right)
-   glRotatef(yrot,0.0,1.0,0.0);  //rotate our camera on the y-axis (up and down)
-   glTranslated(-xpos,-ypos,-zpos); //translate the screen to the position of our camera
+   // rotate our camera on the x-axis (left and right)
+   glRotatef(xrot,1.0,0.0,0.0);
+
+   // rotate our camera on the y-axis (up and down)
+   glRotatef(yrot,0.0,1.0,0.0);
+
+   // translate the screen to the position of our camera
+   glTranslated(-xpos,-ypos,-zpos);
 }
 
 /*
@@ -210,6 +221,8 @@ void display()
 
    QuadObject_draw(&ground);
 
+   QuadObject_draw(&skybox);
+
    // Draw birds
    Flock_draw(&flock);
 
@@ -292,15 +305,12 @@ void setUpPerspective()
 }
 
 /**
- * Name: keyboard(unsigned char key, int x, int y)
- * Desc: Allows FPS-style movement of the "camera" via keyboard keys.
- * Para: key, The key pressed.
+ * Name: keyboardFPS(unsigned char key, int x, int y)
+ * Desc: Respond to keyboard events while in first person perspective mode.
+ * Para: key, The key pressed that needs to be responded to.
  *       x, The x position of the mouse cursor when the key was pressed.
  *       y, The y position of the mouse cursor when the key was pressed.
- * Note: Got some help from http://www.swiftless.com/tutorials/opengl/
- *       camera2.html
 **/
-
 void keyboardFPS(unsigned char key, int x, int y)
 {
    float xrotrad, yrotrad;
@@ -360,6 +370,13 @@ void keyboardFPS(unsigned char key, int x, int y)
     }
 }
 
+/**
+ * Name: keyboardOverview(unsigned char key, int x, int y)
+ * Desc: Respond to keyboard events while in overview perspective.
+ * Para: key, The key pressed.
+ *       x, The x position of the mouse cursor when the key was pressed.
+ *       y, The y position of the mouse cursor when the key was pressed.
+**/
 void keyboardOverview(unsigned char key, int x, int y)
 {
    if(key=='p')
@@ -413,6 +430,15 @@ void keyboardOverview(unsigned char key, int x, int y)
    Flock_setWeights(&flock, seperation_weight, align_weight, cohesion_weight);
 }
 
+/**
+ * Name: keyboard(unsigned char key, int x, int y)
+ * Desc: Allows FPS-style movement of the "camera" via keyboard keys.
+ * Para: key, The key pressed.
+ *       x, The x position of the mouse cursor when the key was pressed.
+ *       y, The y position of the mouse cursor when the key was pressed.
+ * Note: Got some help from http://www.swiftless.com/tutorials/opengl/
+ *       camera2.html
+**/
 void keyboard(unsigned char key, int x, int y)
 {
    if(cameraMode == PERSPECTIVE)
@@ -539,6 +565,9 @@ int main(int argc,char* argv[])
    // Create the ground
    ground_initGround(&ground, textures[1]);
    ground.curY = -5;
+
+   sky_initSky(&skybox, textures[1]);
+   skybox.curY = -5.1;
 
    // Create many birds
    Flock_init(&flock, NUM_BIRDS);

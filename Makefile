@@ -1,5 +1,5 @@
-final: ./graphics/graphics.c balloon.o ground.o bird.o flock.o errcheck.o fatal.o loadtexbmp.o
-	gcc -g -Wall ./graphics/graphics.c balloon.o flock.o bird.o ground.o objutil.o quadobj.o linalg.o boid.o physics.o errcheck.o fatal.o loadtexbmp.o -o final  -framework GLUT -framework OpenGL
+final: ./graphics/graphics.c balloon.o ground.o sky.o bird.o flock.o errcheck.o fatal.o loadtexbmp.o
+	gcc -g -Wall ./graphics/graphics.c balloon.o flock.o bird.o ground.o sky.o objutil.o quadobj.o linalg.o boid.o physics.o errcheck.o fatal.o loadtexbmp.o -o final  -framework GLUT -framework OpenGL
 
 flock.o: ./graphics/flock.c
 	gcc -g -Wall -c ./graphics/flock.c -o flock.o
@@ -9,6 +9,9 @@ bird.o: ./graphics/bird.c boid.o
 
 balloon.o: ./graphics/balloon.c objutil.o quadobj.o
 	gcc -g -Wall -c ./graphics/balloon.c -o balloon.o
+
+sky.o: ./graphics/sky.c objutil.o quadobj.o
+	gcc -g -Wall -c ./graphics/sky.c -o sky.o
 
 ground.o: ./graphics/ground.c objutil.o quadobj.o
 	gcc -g -Wall -c ./graphics/ground.c -o ground.o

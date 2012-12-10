@@ -7,9 +7,9 @@
 
 #include "objutil.h"
 
-
-void objutil_addRectPrismTex(QuadObject * obj, GLfloat x, GLfloat y, GLfloat z,
-   GLfloat width, GLfloat height, GLfloat depth, int texture)
+void objutil_addRectPrismTexNorm(QuadObject * obj, GLfloat x, GLfloat y,
+   GLfloat z, GLfloat width, GLfloat height, GLfloat depth, int texture,
+   int reverseNormals)
 {
    int bottomForwardLeft;
    int bottomForwardRight;
@@ -48,18 +48,42 @@ void objutil_addRectPrismTex(QuadObject * obj, GLfloat x, GLfloat y, GLfloat z,
    QuadObject_setNextPos(obj, x, y, z);
    bottomBackwardLeft = QuadObject_addVer(obj);
 
-   QuadObject_addQuad(obj, topForwardLeft, topForwardRight,
-      topBackwardRight, topBackwardLeft);
-   QuadObject_addQuad(obj, topForwardLeft, topBackwardLeft,
-      bottomBackwardLeft, bottomForwardLeft);
-   QuadObject_addQuad(obj, topBackwardLeft, topBackwardRight,
-      bottomBackwardRight, bottomBackwardLeft);
-   QuadObject_addQuad(obj, topBackwardRight, topForwardRight,
-      bottomForwardRight, bottomBackwardRight);
-   QuadObject_addQuad(obj, topForwardLeft, bottomForwardLeft,
-      bottomForwardRight, topForwardRight);
-   QuadObject_addQuad(obj, bottomForwardLeft, bottomBackwardLeft,
-      bottomBackwardRight, bottomForwardRight);
+   if(reverseNormals == TRUE)
+   {
+      QuadObject_addQuadBackwards(obj, topForwardLeft, topForwardRight,
+         topBackwardRight, topBackwardLeft);
+      QuadObject_addQuadBackwards(obj, topForwardLeft, topBackwardLeft,
+         bottomBackwardLeft, bottomForwardLeft);
+      QuadObject_addQuadBackwards(obj, topBackwardLeft, topBackwardRight,
+         bottomBackwardRight, bottomBackwardLeft);
+      QuadObject_addQuadBackwards(obj, topBackwardRight, topForwardRight,
+         bottomForwardRight, bottomBackwardRight);
+      QuadObject_addQuadBackwards(obj, topForwardLeft, bottomForwardLeft,
+         bottomForwardRight, topForwardRight);
+      QuadObject_addQuadBackwards(obj, bottomForwardLeft, bottomBackwardLeft,
+         bottomBackwardRight, bottomForwardRight);
+   }
+   else
+   {
+      QuadObject_addQuad(obj, topForwardLeft, topForwardRight,
+         topBackwardRight, topBackwardLeft);
+      QuadObject_addQuad(obj, topForwardLeft, topBackwardLeft,
+         bottomBackwardLeft, bottomForwardLeft);
+      QuadObject_addQuad(obj, topBackwardLeft, topBackwardRight,
+         bottomBackwardRight, bottomBackwardLeft);
+      QuadObject_addQuad(obj, topBackwardRight, topForwardRight,
+         bottomForwardRight, bottomBackwardRight);
+      QuadObject_addQuad(obj, topForwardLeft, bottomForwardLeft,
+         bottomForwardRight, topForwardRight);
+      QuadObject_addQuad(obj, bottomForwardLeft, bottomBackwardLeft,
+         bottomBackwardRight, bottomForwardRight);
+   }
+}
+
+void objutil_addRectPrismTex(QuadObject * obj, GLfloat x, GLfloat y, GLfloat z,
+   GLfloat width, GLfloat height, GLfloat depth, int texture)
+{
+   objutil_addRectPrismTexNorm(obj, x, y, z, width, height, depth, texture, 0);
 }
 
 void objutil_addRectPrism(QuadObject * obj, GLfloat x, GLfloat y, GLfloat z,

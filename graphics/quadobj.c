@@ -14,7 +14,7 @@ light_t light={
       {1,1,1,1},     //diffuse
       {0,0,0,1},     //specular
       {0.1,0.1,0.1,1}      //ambient
-};
+}; 
 
 void QuadObject_init(QuadObject * obj, int numVer, int numQuad)
 {
@@ -246,6 +246,7 @@ void QuadObject_drawSpecific(QuadObject * obj, int numQuad, int startQuad)
       glRotatef(obj->curRoll,1,0,0);
       glRotatef(obj->curPitch,0,1,0);
       glRotatef(obj->curYaw,0,0,1);
+      glRotatef(obj->curRot,obj->curRoll,obj->curPitch,obj->curYaw);
       glScalef(obj->xScale,obj->yScale,obj->zScale);
 
       for (a=startQuad;a<numQuad;++a)

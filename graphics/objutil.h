@@ -13,6 +13,10 @@
 #include "quadobj.h"
 #include "trig.h"
 
+
+void objutil_addRectPrismTexNorm(QuadObject * obj, GLfloat x, GLfloat y, GLfloat z,
+   GLfloat width, GLfloat height, GLfloat depth, int texture, int reverse);
+
 /**
  * Name: objutil_addRectPrismTex(QuadObject * obj, GLfloat x, GLfloat y,
  *          GLfloat z, GLfloat width, GLfloat height, GLfloat depth)
