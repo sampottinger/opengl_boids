@@ -33,6 +33,7 @@
 #define PERSPECTIVE 1
 #define ORTHOGRAPHIC 2
 #define FIRST_PERSON 3
+#define THIRD_PERSON 4
 
 #define TRUE 1
 #define FALSE 0
@@ -121,14 +122,34 @@ void Print(const char* format , ...)
 **/
 void applyCamera()
 {
-   // rotate our camera on the x-axis (left and right)
-   glRotatef(xrot,1.0,0.0,0.0);
+  if(cameraMode == FIRST_PERSON)
+  {
+    // rotate our camera on the x-axis (left and right)
+    glRotatef(xrot,1.0,0.0,0.0);
 
-   // rotate our camera on the y-axis (up and down)
+    // rotate our camera on the y-axis (up and down)
+    glRotatef(yrot,0.0,1.0,0.0);
+
+    // translate the screen to the position of our camera
+    glTranslated(-xpos,-ypos,-zpos);
+  }
+  else if(cameraMode == THIRD_PERSON)
+  {
+    glTranslated(0, -20, -40);
+    glRotatef(xrot,1.0,0.0,0.0);
+    QuadObject_drawSpecific(&balloon1, 92, 0);
+    float yRadiationCenter = BALLOON_HEIGHT / 2;
+   QuadObject_drawSpecificRadially(
+      &balloon1,
+      balloon1.numQuad,
+      92,
+      0,
+      yRadiationCenter,
+      0
+   );
    glRotatef(yrot,0.0,1.0,0.0);
-
-   // translate the screen to the position of our camera
    glTranslated(-xpos,-ypos,-zpos);
+  }
 }
 
 /*
@@ -151,7 +172,7 @@ void display()
       double Ez = 2 * dim * trig_rad_cos(th) * trig_rad_cos(ph);
       gluLookAt(Ex, Ey, Ez, 0, 0, 0, 0, trig_rad_cos(ph), 0);
    }
-   else if(cameraMode == FIRST_PERSON)
+   else if(cameraMode == FIRST_PERSON || cameraMode == THIRD_PERSON)
    {
       applyCamera();
    }
@@ -165,11 +186,9 @@ void display()
    glScalef(1.8,1.8,1.8);
    glTranslatef(0,-100,10);
 
-   glDisable(GL_DEPTH_TEST);
    glDisable(GL_LIGHTING);
    glDisable(GL_BLEND);
    QuadObject_draw(&skybox);
-   glEnable(GL_DEPTH_TEST);
    glEnable(GL_LIGHTING);
    glEnable(GL_BLEND);
 
@@ -191,20 +210,20 @@ void display()
    glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shiny_material);
    glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,emission_material);
 
-   QuadObject_drawSpecific(&balloon1, 92, 0);
+   //QuadObject_drawSpecific(&balloon1, 92, 0);
    QuadObject_drawSpecific(&balloon2, 92, 0);
    QuadObject_drawSpecific(&balloon3, 92, 0);
    QuadObject_drawSpecific(&balloon4, 92, 0);
 
    float yRadiationCenter = BALLOON_HEIGHT / 2;
-   QuadObject_drawSpecificRadially(
+   /*QuadObject_drawSpecificRadially(
       &balloon1,
       balloon1.numQuad,
       92,
       0,
       yRadiationCenter,
       0
-   );
+   );*/
    QuadObject_drawSpecificRadially(
       &balloon2,
       balloon2.numQuad,
@@ -262,20 +281,28 @@ void copyQuadObjPosToVector(QuadObject * quadObj, PhysicsVector * vector)
 void animate()
 {
     PhysicsVector balloonObstacles[4];
-    copyQuadObjPosToVector(&balloon1, balloonObstacles+0);
-    copyQuadObjPosToVector(&balloon2, balloonObstacles+1);
-    copyQuadObjPosToVector(&balloon3, balloonObstacles+2);
-    copyQuadObjPosToVector(&balloon4, balloonObstacles+3);
-    Flock_step(&flock, balloonObstacles, 4);
+    copyQuadObjPosToVector(&balloon2, balloonObstacles+0);
+    copyQuadObjPosToVector(&balloon3, balloonObstacles+1);
+    copyQuadObjPosToVector(&balloon4, balloonObstacles+2);
 
-    balloon1.curRot += moveBy;
+    if(cameraMode == PERSPECTIVE)
+    {
+      Flock_step(&flock, balloonObstacles, 3);
+    }
+    else if(cameraMode == FIRST_PERSON || cameraMode == THIRD_PERSON)
+    {
+      PhysicsVector_init(balloonObstacles+3, xpos, ypos, zpos);
+      Flock_step(&flock, balloonObstacles, 4);
+    }
+
+    //balloon1.curRot += moveBy;
     balloon2.curRot += moveBy * 1.25;
     balloon3.curRot += moveBy * 1.50;
     balloon4.curRot += moveBy * 1.75;
 
-    if(balloon1.curY > MAX_BALLOON_HEIGHT || balloon1.curY < MIN_BALLOON_HEIGHT)
+    /*if(balloon1.curY > MAX_BALLOON_HEIGHT || balloon1.curY < MIN_BALLOON_HEIGHT)
       balloon1Multiplier *= -1;
-    balloon1.curY += moveBy * 0.1 * balloon1Multiplier;
+    balloon1.curY += moveBy * 0.1 * balloon1Multiplier;*/
 
     if(balloon2.curY > MAX_BALLOON_HEIGHT || balloon2.curY < MIN_BALLOON_HEIGHT)
       balloon2Multiplier *= -1;
@@ -379,8 +406,15 @@ void keyboardFPS(unsigned char key, int x, int y)
 
     if(key=='v')
     {
-      cameraMode = PERSPECTIVE;
-      setUpPerspective();
+      if(cameraMode == FIRST_PERSON)
+      {
+        cameraMode = THIRD_PERSON;
+      }
+      else if(cameraMode == THIRD_PERSON)
+      {
+        cameraMode = PERSPECTIVE;
+        setUpPerspective();
+      }
     }
 
     if (key==27)
@@ -388,6 +422,7 @@ void keyboardFPS(unsigned char key, int x, int y)
     exit(0);
     }
 }
+
 
 /**
  * Name: keyboardOverview(unsigned char key, int x, int y)
@@ -460,10 +495,10 @@ void keyboardOverview(unsigned char key, int x, int y)
 **/
 void keyboard(unsigned char key, int x, int y)
 {
-   if(cameraMode == PERSPECTIVE)
-      keyboardOverview(key, x, y);
-   else
-      keyboardFPS(key, x, y);
+  if(cameraMode == PERSPECTIVE)
+    keyboardOverview(key, x, y);
+  else if(cameraMode == FIRST_PERSON || cameraMode == THIRD_PERSON)
+    keyboardFPS(key, x, y);
 }
 
 /**
@@ -567,7 +602,7 @@ int main(int argc,char* argv[])
 
    // Create first balloon
    balloon_initBalloon(&balloon1, textures[0]);
-   balloon1.curY = 30;
+   //balloon1.curY = 30;
 
    // Create second balloon
    balloon_initBalloon(&balloon2, textures[0]);
