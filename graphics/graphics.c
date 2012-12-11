@@ -15,6 +15,7 @@
 #include <math.h>
 
 #include "../CSCIx229.h"
+#include "../flocking/physics.h"
 
 #include "flock.h"
 
@@ -249,44 +250,54 @@ void display()
    glutSwapBuffers();
 }
 
+void copyQuadObjPosToVector(QuadObject * quadObj, PhysicsVector * vector)
+{
+    PhysicsVector_init(vector, quadObj->x, quadObj->y, quadObj->z);
+}
+
 /**
  * Name: animate()
  * Desc: Function that changes the height and rotation of the balloons.
 **/
 void animate()
 {
-   Flock_step(&flock);
+    PhysicsVector balloonObstacles[4];
+    copyQuadObjPosToVector(&balloon1, balloonObstacles+0);
+    copyQuadObjPosToVector(&balloon2, balloonObstacles+1);
+    copyQuadObjPosToVector(&balloon3, balloonObstacles+2);
+    copyQuadObjPosToVector(&balloon4, balloonObstacles+3);
+    Flock_step(&flock, balloonObstacles, 4);
 
-   balloon1.curRot += moveBy;
-   balloon2.curRot += moveBy * 1.25;
-   balloon3.curRot += moveBy * 1.50;
-   balloon4.curRot += moveBy * 1.75;
+    balloon1.curRot += moveBy;
+    balloon2.curRot += moveBy * 1.25;
+    balloon3.curRot += moveBy * 1.50;
+    balloon4.curRot += moveBy * 1.75;
 
-   if(balloon1.curY > MAX_BALLOON_HEIGHT || balloon1.curY < MIN_BALLOON_HEIGHT)
+    if(balloon1.curY > MAX_BALLOON_HEIGHT || balloon1.curY < MIN_BALLOON_HEIGHT)
       balloon1Multiplier *= -1;
-   balloon1.curY += moveBy * 0.1 * balloon1Multiplier;
+    balloon1.curY += moveBy * 0.1 * balloon1Multiplier;
 
-   if(balloon2.curY > MAX_BALLOON_HEIGHT || balloon2.curY < MIN_BALLOON_HEIGHT)
+    if(balloon2.curY > MAX_BALLOON_HEIGHT || balloon2.curY < MIN_BALLOON_HEIGHT)
       balloon2Multiplier *= -1;
-   balloon2.curY += moveBy * 0.2 * balloon2Multiplier;
+    balloon2.curY += moveBy * 0.2 * balloon2Multiplier;
 
-   if(balloon3.curY > MAX_BALLOON_HEIGHT || balloon3.curY < MIN_BALLOON_HEIGHT)
+    if(balloon3.curY > MAX_BALLOON_HEIGHT || balloon3.curY < MIN_BALLOON_HEIGHT)
       balloon3Multiplier *= -1;
-   balloon3.curY += moveBy * 0.3 * balloon3Multiplier;
+    balloon3.curY += moveBy * 0.3 * balloon3Multiplier;
 
-   if(balloon4.curY > MAX_BALLOON_HEIGHT || balloon4.curY < MIN_BALLOON_HEIGHT)
+    if(balloon4.curY > MAX_BALLOON_HEIGHT || balloon4.curY < MIN_BALLOON_HEIGHT)
       balloon4Multiplier *= -1;
-   balloon4.curY += moveBy * 0.4 * balloon4Multiplier;
+    balloon4.curY += moveBy * 0.4 * balloon4Multiplier;
 
-   if(moveLight)
-   {
+    if(moveLight)
+    {
       lightAccumulator0 += 0.03;
-   }
-   lightPosition0[2] = cos(lightAccumulator0) * 320;
-   lightPosition0[0] = sin(lightAccumulator0) * 320;
+    }
+    lightPosition0[2] = cos(lightAccumulator0) * 320;
+    lightPosition0[0] = sin(lightAccumulator0) * 320;
 
-   glutPostRedisplay();
-   glutTimerFunc(25,animate,0);
+    glutPostRedisplay();
+    glutTimerFunc(25,animate,0);
 }
 
 /**

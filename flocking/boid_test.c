@@ -36,6 +36,7 @@ MU_TEST(test_calculateSeperation)
 {
     PhysicsVector ans;
     Boid boids[3];
+    PhysicsVector testObstacles[1];
 
     PhysicsVector * ansPtr = &ans;
     Boid * b1ptr = &boids[0];
@@ -47,7 +48,7 @@ MU_TEST(test_calculateSeperation)
     Boid_init(b2ptr, 10, 4, 0);
     Boid_init(b3ptr, 10, 10, 0);
 
-    Boid_calculateSeperation(b3ptr, (Boid *)(&boids), 3, 2);
+    Boid_calculateSeperation(b3ptr, (Boid *)(&boids), 3, testObstacles, 0, 2);
 
     PhysicsVector_init(ansPtr, 0.076822124, 0.06401844, 0);
     mu_check(PhysicsVector_eq(accelerationPtr, ansPtr, 0.000005));

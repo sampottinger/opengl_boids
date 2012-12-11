@@ -171,7 +171,8 @@ void bird_animate(Bird * birdPtr);
  *          bird's position (how long to pretend it has been since this was
  *          last called).
 **/
-void bird_step(Bird * birdPtr, Boid * boids, int totalBoids, float timestep);
+void bird_step(Bird * birdPtr, Boid * boids, int totalBoids,
+    PhysicsVector * obstacles, int numObstacles, float timestep);
 
 /**
  * Name: bird_randomizePosition(Bird * birdPtr)

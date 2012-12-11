@@ -72,7 +72,8 @@ void Boid_initFull(Boid * boid, float x, float y, float z, int minX, int minY,
  *       numBoids, The number of boids in boids.
  *       timestep, The time to apply the resulting force for.
 **/
-void Boid_step(Boid * boid, Boid * boids, int numBoids, float timestep);
+void Boid_step(Boid * boid, Boid * boids, int numBoids,
+    PhysicsVector * obstacles, int numObstacles, float timestep);
 
 /**
  * Name: Boid_respondToFlock
@@ -81,7 +82,8 @@ void Boid_step(Boid * boid, Boid * boids, int numBoids, float timestep);
  *       boids, The other Boids in the simulation.
  *       numBoids, The number of boids in boids.
 **/
-void Boid_respondToFlock(Boid * boid, Boid * boids, int numBoids);
+void Boid_respondToFlock(Boid * boid, Boid * boids, int numBoids,
+    PhysicsVector * obstacles, int numObstacles);
 
 /**
  * Name: Boid_calculateSeperation
@@ -92,7 +94,7 @@ void Boid_respondToFlock(Boid * boid, Boid * boids, int numBoids);
  *       weight, The artifical weight to apply to the seperation force.
 **/
 void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
-    float weight);
+    PhysicsVector * obstacles, int numObstacles, float weight);
 
 /**
  * Name: Boid_calculateAlign

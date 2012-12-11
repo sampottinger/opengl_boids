@@ -930,13 +930,15 @@ void bird_draw(Bird * birdPtr)
     QuadObject_draw(&(birdPtr->quadObject));
 }
 
-void bird_step(Bird * birdPtr, Boid * boids, int totalBirds, float timestep)
+void bird_step(Bird * birdPtr, Boid * boids, int totalBirds, 
+    PhysicsVector * obstacles, int numObstacles, float timestep)
 {
     PhysicsVector from;
 
     PhysicsVector_init(&from, 0, 0, 0);
 
-    Boid_step(birdPtr->boid, boids, totalBirds, timestep);
+    Boid_step(birdPtr->boid, boids, totalBirds, obstacles, numObstacles,
+        timestep);
     birdPtr->quadObject.curX = Boid_getX(birdPtr->boid);
     birdPtr->quadObject.curY = Boid_getY(birdPtr->boid);
     birdPtr->quadObject.curZ = Boid_getZ(birdPtr->boid);

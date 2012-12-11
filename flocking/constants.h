@@ -20,11 +20,11 @@
 
 #define MAX_NEIGHBOR_DISTANCE 50
 
-#define BOID_MIN_X -200
-#define BOID_MAX_X 200
+#define BOID_MIN_X -310
+#define BOID_MAX_X 310
 #define BOID_MIN_Y 20
-#define BOID_MAX_Y 300
-#define BOID_MIN_Z -200
-#define BOID_MAX_Z 200
+#define BOID_MAX_Y 310
+#define BOID_MIN_Z -310
+#define BOID_MAX_Z 310
 
 #endif

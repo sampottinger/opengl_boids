@@ -45,10 +45,11 @@ void Boid_setPos(Boid * boid, float x, float y, float z)
     boid->physicsObject.position.z = z;
 }
 
-void Boid_step(Boid * boid, Boid * boids, int numBoids, float timestep)
+void Boid_step(Boid * boid, Boid * boids, int numBoids,
+    PhysicsVector * obstacles, int numObstacles, float timestep)
 {
     PhysicsVector * acceleration;
-    Boid_respondToFlock(boid, boids, numBoids);
+    Boid_respondToFlock(boid, boids, numBoids, obstacles, numObstacles);
     Boid_updatePosition(boid, timestep);
 
     // Reset acceleration for next sum of forces
@@ -60,15 +61,17 @@ void Boid_step(Boid * boid, Boid * boids, int numBoids, float timestep)
     PhysicsVector_normalize(&(boid->heading), &(boid->physicsObject.velocity));
 }
 
-void Boid_respondToFlock(Boid * boid, Boid * boids, int numBoids)
+void Boid_respondToFlock(Boid * boid, Boid * boids, int numBoids,
+    PhysicsVector * obstacles, int numObstacles)
 {
-    Boid_calculateSeperation(boid, boids, numBoids, boid->seperationWeight);
+    Boid_calculateSeperation(boid, boids, numBoids, obstacles, numObstacles,
+        boid->seperationWeight);
     Boid_calculateAlign(boid, boids, numBoids, boid->alignWeight);
     Boid_calculateCohesion(boid, boids, numBoids, boid->cohesionWeight);
 }
 
 void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
-    float weight)
+    PhysicsVector * obstacles, int numObstacles, float weight)
 {
     int i;
     int count;
@@ -102,6 +105,24 @@ void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
 
         // If the distance is larger than 0 but less than desired seperation
         if((distance > 0) && (distance < DESIRED_SEPERATION))
+        {
+            // Find way to pull current boid away
+            PhysicsVector_sub(diffPtr, curPos, otherPos);
+            PhysicsVector_normalize(diffPtr, diffPtr);
+            PhysicsVector_divScalar(diffPtr, diffPtr, distance);
+            PhysicsVector_add(steerVectorPtr, steerVectorPtr, diffPtr);
+
+            // Indicate that a boid was too close
+            count++;
+        }
+    }
+
+    // Look for obstacles which are too close
+    for(i=0; i<numObstacles; i++)
+    {
+        otherPos = (obstacles+i);
+
+        if((distance > 0) && (distance < DESIRED_SEPERATION*4))
         {
             // Find way to pull current boid away
             PhysicsVector_sub(diffPtr, curPos, otherPos);

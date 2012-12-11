@@ -52,7 +52,7 @@ Bird * Flock_getBird(Flock * flock, int index);
  * Desc: Update all of the birds in this flock via boids flocking behavior.
  * Para: flock, The flock to run flocking behavior for.
 **/
-void Flock_step(Flock * flock);
+void Flock_step(Flock * flock, PhysicsVector * obstacles, int numObstacles);
 
 /**
  * Name: Flock_setWeights(Flock * flock, float seperationWeight,

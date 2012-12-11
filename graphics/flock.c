@@ -37,7 +37,7 @@ void Flock_draw(Flock * flock)
         bird_draw(flock->birds+i);
 }
 
-void Flock_step(Flock * flock)
+void Flock_step(Flock * flock, PhysicsVector * obstacles, int numObstacles)
 {
     Bird * curBird;
     Boid * flockBoids;
@@ -49,7 +49,7 @@ void Flock_step(Flock * flock)
     for(i=0; i<totalBirds; i++)
     {
         curBird = Flock_getBird(flock, i);
-        bird_step(curBird, flockBoids, totalBirds, 1);
+        bird_step(curBird, flockBoids, totalBirds, obstacles, numObstacles, 1);
         bird_animate(curBird);
     }
 }
