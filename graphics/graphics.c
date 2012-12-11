@@ -41,6 +41,8 @@
 
 #define NUM_BIRDS 100
 
+#define FPS_FORWARD_AMOUNT 5
+
 float xpos = 0, ypos = 0, zpos = 0, xrot = 0, yrot = 0, angle=0.0;
 
 float lightPosition0[3]={320.0,100.0,320.0};
@@ -304,7 +306,7 @@ void setUpPerspective()
    glLoadIdentity ();
    //set the perspective (angle of sight, width, height, , depth)
    double w2h = (lastHeight>0) ? (double)lastWidth/lastHeight : 1;
-   gluPerspective (60, w2h, dim/4, 4*dim);
+   gluPerspective (60, w2h, dim/16, 16*dim);
 
    //set the matrix back to model
    glMatrixMode (GL_MODELVIEW);
@@ -336,9 +338,9 @@ void keyboardFPS(unsigned char key, int x, int y)
     {
     yrotrad = (yrot / 180 * 3.141592654f);
     xrotrad = (xrot / 180 * 3.141592654f); 
-    xpos += (float)(sin(yrotrad)) ;
-    zpos -= (float)(cos(yrotrad)) ;
-    ypos -= (float)(sin(xrotrad)) ;
+    xpos += (float)(sin(yrotrad)) * FPS_FORWARD_AMOUNT;
+    zpos -= (float)(cos(yrotrad)) * FPS_FORWARD_AMOUNT;
+    ypos -= (float)(sin(xrotrad)) * FPS_FORWARD_AMOUNT;
     }
 
     if (key=='s')
@@ -346,7 +348,7 @@ void keyboardFPS(unsigned char key, int x, int y)
     yrotrad = (yrot / 180 * 3.141592654f);
     xrotrad = (xrot / 180 * 3.141592654f); 
     xpos -= (float)(sin(yrotrad));
-    zpos += (float)(cos(yrotrad)) ;
+    zpos += (float)(cos(yrotrad));
     ypos += (float)(sin(xrotrad));
     }
 
