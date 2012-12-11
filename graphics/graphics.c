@@ -168,7 +168,7 @@ void display()
    if (cameraMode == PERSPECTIVE)
    {
       double Ex = -2 * dim * trig_rad_sin(th) * trig_rad_cos(ph);
-      double Ey = 2 * dim * trig_rad_sin(ph);
+      double Ey = 4 * dim * trig_rad_sin(ph);
       double Ez = 2 * dim * trig_rad_cos(th) * trig_rad_cos(ph);
       gluLookAt(Ex, Ey, Ez, 0, 0, 0, 0, trig_rad_cos(ph), 0);
    }

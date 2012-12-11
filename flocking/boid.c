@@ -121,17 +121,19 @@ void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
     for(i=0; i<numObstacles; i++)
     {
         otherPos = (obstacles+i);
+        distance = PhysicsVector_dist(curPos, otherPos);
 
-        if((distance > 0) && (distance < DESIRED_SEPERATION*4))
+        if((distance > 0) && (distance < DESIRED_SEPERATION*10))
         {
             // Find way to pull current boid away
             PhysicsVector_sub(diffPtr, curPos, otherPos);
             PhysicsVector_normalize(diffPtr, diffPtr);
             PhysicsVector_divScalar(diffPtr, diffPtr, distance);
             PhysicsVector_add(steerVectorPtr, steerVectorPtr, diffPtr);
+            PhysicsVector_add(steerVectorPtr, steerVectorPtr, diffPtr);
 
             // Indicate that a boid was too close
-            count++;
+            count += 2;
         }
     }
 
