@@ -228,11 +228,7 @@ void display()
     glTranslatef(0,-100,10);
 
     // Draw skybox
-    glDisable(GL_LIGHTING);
-    glDisable(GL_BLEND);
-    quadobject_draw(&skybox);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_BLEND);
+    sky_draw(&skybox);
 
     // Draw sun
     objutil_ball(lightPosition0[0], lightPosition0[1], lightPosition0[2], 1);

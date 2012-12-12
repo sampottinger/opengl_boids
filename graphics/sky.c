@@ -72,3 +72,12 @@ void sky_initSky(QuadObject * obj, int * texIDs)
     quadobject_addQuadBackwards(obj, bottomForwardLeft, bottomBackwardLeft,
         bottomBackwardRight, bottomForwardRight);
 }
+
+void sky_draw(QuadObject * obj)
+{
+    glDisable(GL_LIGHTING);
+    glDisable(GL_BLEND);
+    quadobject_draw(obj);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_BLEND);
+}
