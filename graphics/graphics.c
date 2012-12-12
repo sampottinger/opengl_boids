@@ -64,6 +64,20 @@
 #define LIGHT_ROT_RATE 0.03
 #define LIGHT_ROT_RADIUS 320
 
+#define SKY_TEXTURES_START_INDEX 2
+#define TREE_TEXTURES_START_INDEX 8
+
+#define CRATE_TEXTURE_INDEX 0
+#define GROUND_TEXTURE_INDEX 1
+#define SKY_TOP_TEXTURE_INDEX 2
+#define SKY_LEFT_TEXTURE_INDEX 3
+#define SKY_BACK_TEXTURE_INDEX 4
+#define SKY_RIGHT_TEXTURE_INDEX 5
+#define SKY_FRONT_TEXTURE_INDEX 6
+#define SKY_BOTTOM_TEXTURE_INDEX 7
+#define TREE_BARK_INDEX 8
+#define TREE_LEAVES_INDEX 9
+
 float xpos = 0, ypos = 0, zpos = 0, xrot = 0, yrot = 0, angle=0.0;
 
 float lightPosition0[3]={SCENE_START_X / 2, 100.0, SCENE_START_Z / 2};
@@ -715,49 +729,49 @@ int main(int argc,char* argv[])
     glEnable(GL_DEPTH_TEST);
 
     // Load textures
-    textures[0] = LoadTexBMP("crate.bmp");
-    textures[1] = LoadTexBMP("groundsoil.bmp");
-    textures[2] = LoadTexBMP("sky_top.bmp");
-    textures[3] = LoadTexBMP("sky_left.bmp");
-    textures[4] = LoadTexBMP("sky_back.bmp");
-    textures[5] = LoadTexBMP("sky_right.bmp");
-    textures[6] = LoadTexBMP("sky_front.bmp");
-    textures[7] = LoadTexBMP("sky_bottom.bmp");
-    textures[8] = LoadTexBMP("tree_bark.bmp");
-    textures[9] = LoadTexBMP("tree_leaves.bmp");
+    textures[CRATE_TEXTURE_INDEX] = LoadTexBMP("crate.bmp");
+    textures[GROUND_TEXTURE_INDEX] = LoadTexBMP("groundsoil.bmp");
+    textures[SKY_TOP_TEXTURE_INDEX] = LoadTexBMP("sky_top.bmp");
+    textures[SKY_LEFT_TEXTURE_INDEX] = LoadTexBMP("sky_left.bmp");
+    textures[SKY_BACK_TEXTURE_INDEX] = LoadTexBMP("sky_back.bmp");
+    textures[SKY_RIGHT_TEXTURE_INDEX] = LoadTexBMP("sky_right.bmp");
+    textures[SKY_FRONT_TEXTURE_INDEX] = LoadTexBMP("sky_front.bmp");
+    textures[SKY_BOTTOM_TEXTURE_INDEX] = LoadTexBMP("sky_bottom.bmp");
+    textures[TREE_BARK_INDEX] = LoadTexBMP("tree_bark.bmp");
+    textures[TREE_LEAVES_INDEX] = LoadTexBMP("tree_leaves.bmp");
 
     // Create first balloon
-    balloon_initBalloon(&balloon1, textures[0]);
+    balloon_initBalloon(&balloon1, textures[CRATE_TEXTURE_INDEX]);
     
     // Create second balloon
-    balloon_initBalloon(&balloon2, textures[0]);
+    balloon_initBalloon(&balloon2, textures[CRATE_TEXTURE_INDEX]);
     balloon2.curX = 50;
     balloon2.curZ = 50;
     balloon2.curY = 20;
 
     // Create third balloon
-    balloon_initBalloon(&balloon3, textures[0]);
+    balloon_initBalloon(&balloon3, textures[CRATE_TEXTURE_INDEX]);
     balloon3.curX = -50;
     balloon3.curZ = -50;
     balloon3.curY = 30;
 
     // Create fourth balloon
-    balloon_initBalloon(&balloon4, textures[0]);
+    balloon_initBalloon(&balloon4, textures[CRATE_TEXTURE_INDEX]);
     balloon4.curX = 0;
     balloon4.curZ = 50;
     balloon4.curY = 30;
 
     // Create the ground
-    ground_initGround(&ground, textures[1]);
+    ground_initGround(&ground, textures[GROUND_TEXTURE_INDEX]);
     ground.curY = -5;
 
-    sky_initSky(&skybox, textures + 2);
+    sky_initSky(&skybox, textures + SKY_TEXTURES_START_INDEX);
     skybox.curY = -5.1;
 
     // Create plants
     for(i=0; i<NUM_TREES; i++)
     {
-        tree_initTree(trees+i, textures + 8);
+        tree_initTree(trees+i, textures + TREE_TEXTURES_START_INDEX);
         trees[i].curX = rand() % SCENE_WIDTH + SCENE_START_X;
         trees[i].curY = -3;
         trees[i].curZ = rand() % SCENE_DEPTH + SCENE_START_Z;
