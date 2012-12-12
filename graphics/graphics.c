@@ -254,35 +254,9 @@ void display()
     glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shiny_material);
     glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,emission_material);
 
-    QuadObject_drawSpecific(&balloon2, 92, 0);
-    QuadObject_drawSpecific(&balloon3, 92, 0);
-    QuadObject_drawSpecific(&balloon4, 92, 0);
-
-    float yRadiationCenter = BALLOON_HEIGHT / 2;
-    QuadObject_drawSpecificRadially(
-        &balloon2,
-        balloon2.numQuad,
-        92,
-        0,
-        yRadiationCenter,
-        0
-    );
-    QuadObject_drawSpecificRadially(
-        &balloon3,
-        balloon3.numQuad,
-        92,
-        0,
-        yRadiationCenter,
-        0
-    );
-    QuadObject_drawSpecificRadially(
-        &balloon4,
-        balloon4.numQuad,
-        92,
-        0,
-        yRadiationCenter,
-        0
-    );
+    balloon_draw(&balloon2);
+    balloon_draw(&balloon3);
+    balloon_draw(&balloon4);
 
     QuadObject_draw(&ground);
 
@@ -296,6 +270,7 @@ void display()
     // Display current weights
     glColor3f(1,1,1);
 
+    // Display mode specific message
     if(cameraMode == PERSPECTIVE)
     {
         glWindowPos2i(10,35);

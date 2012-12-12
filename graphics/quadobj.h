@@ -119,7 +119,18 @@ void QuadObject_setNextColor(QuadObject * obj, GLfloat r, GLfloat g, GLfloat b);
 **/
 void QuadObject_setNextPos(QuadObject * obj, GLfloat x, GLfloat y, GLfloat z);
 
+/**
+ * Name: QuadObject_setNextTexture(QuadObject * obj, int texture)
+ * Desc: Indicate the next verticies should use the given textures.
+ * Para: obj, The object to operate on.
+ *       texture, The index / ID of the texture to use.
+**/
 void QuadObject_setNextTexture(QuadObject * obj, int texture);
+
+/** 
+ * Name: QuadObject_setNoTexture(QuadObject * obj)
+ * Desc: Indicate that the next verticies should not use any texture.
+**/
 void QuadObject_setNoTexture(QuadObject * obj);
 
 /**
@@ -292,6 +303,12 @@ int QuadObject_addQuadBackwards(QuadObject * obj, unsigned int v0Index,
 **/
 void QuadObject_del(QuadObject * obj);
 
+/**
+ * Name: QuadObject_fixQuad(QuadObject * obj, int id)
+ * Desc: Recalculate the normal for the given quad.
+ * Para: obj, The object to recalculate a normal for.
+ *       id, The integer ID of the quad whose normal should be re-calculated.
+**/
 void QuadObject_fixQuad(QuadObject * obj, int id);
 
 /**
@@ -310,6 +327,18 @@ void QuadObject_fixQuad(QuadObject * obj, int id);
 void Quad_init(Quad * obj, unsigned int * ver, ColoredVertex * pointa,
     ColoredVertex * pointb, ColoredVertex * pointc);
 
+/**
+ * Name: Quad_fixNormal(Quad * obj, ColoredVertex * pointa,
+ *          ColoredVertex * pointb, ColoredVertex * pointc)
+ * Desc: Recalculate the normal for the given quad.
+ * Para: obj, The quad to recalculate normals for.
+ *       pointa, The first vertex that defines the plane to calculate the normal
+ *          from.
+ *       pointb, The second vertex that defines the plane to calculate the
+ *          normal from.
+ *       pointc, The third vertex that defines the plane to calculate the normal
+ *          from.
+**/ 
 void Quad_fixNormal(Quad * obj, ColoredVertex * pointa,
     ColoredVertex * pointb, ColoredVertex * pointc);
 

@@ -284,12 +284,6 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     QuadObject_setNextColor(birdPtr, BEAK_R, BEAK_G, BEAK_B);
 
     // End - 4 vert, 1 face
-    /*QuadObject_setNextPos(
-        birdPtr,
-        0,
-        BIRD_HEIGHT / 2,
-        BIRD_LENGTH / 2
-    );*/
     beakEndBackTop = QuadObject_addVer(birdPtr);
     QuadObject_moveNextY(birdPtr, -BEAK_INNER_SIDE_LEN);
     beakEndBackBottom = QuadObject_addVer(birdPtr);

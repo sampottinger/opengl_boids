@@ -34,6 +34,7 @@
 
 #define NUM_BALLOON_RADI 10
 #define BALLOON_HEIGHT 66
+#define BALLOON_RADIATION_CENTER 33
 #define BALLOON_RADIAL_STEPS 10
 
 #define POLE_HEIGHT 20
@@ -45,6 +46,8 @@
 #define HEATING_ELEMENT_WIDTH 1
 #define HEATING_ELEMENT_HEIGHT 1
 #define HEATING_ELEMENT_DEPTH 1
+
+#define BALLOON_START_VERTEX 92
 
 /**
  * Name: balloon_generateRadialPositions(float * xVals, float * yVals,
@@ -73,7 +76,16 @@ void balloon_generateBalloon(QuadObject * obj, GLfloat * radi,
  * Name: initBalloon(QuadObject * ballPtr)
  * Desc: Create a hot air balloon.
  * Para: ballPtr, Pointer to QuadObject that will be the hot air balloon.
+ *       textureID, The id of the texture to use for the balloon's basket.
 **/
 void balloon_initBalloon(QuadObject * ballPtr, int textureID);
+
+/**
+ * Name: balloon_draw(QuadObject * ballPtr)
+ * Desc: Draw the given balloon
+ * Para: ballPtr, The pointer to the quad object that should be drawn as a
+ *           hot air balloon.
+**/
+void balloon_draw(QuadObject * ballPtr);
 
 #endif
