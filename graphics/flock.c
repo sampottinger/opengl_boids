@@ -8,7 +8,7 @@
 
 #include "flock.h"
 
-void Flock_init(Flock * flock, int numBirds)
+void flock_init(Flock * flock, int numBirds)
 {
     int i;
 
@@ -24,12 +24,12 @@ void Flock_init(Flock * flock, int numBirds)
     }
 }
 
-Bird * Flock_getBird(Flock * flock, int index)
+Bird * flock_getBird(Flock * flock, int index)
 {
     return flock->birds+index;
 }
 
-void Flock_draw(Flock * flock)
+void flock_draw(Flock * flock)
 {
     int i;
     int totalBirds = flock->numBirds;
@@ -37,7 +37,7 @@ void Flock_draw(Flock * flock)
         bird_draw(flock->birds+i);
 }
 
-void Flock_step(Flock * flock, PhysicsVector * obstacles, int numObstacles)
+void flock_step(Flock * flock, PhysicsVector * obstacles, int numObstacles)
 {
     Bird * curBird;
     Boid * flockBoids;
@@ -48,13 +48,13 @@ void Flock_step(Flock * flock, PhysicsVector * obstacles, int numObstacles)
     flockBoids = flock->boids;
     for(i=0; i<totalBirds; i++)
     {
-        curBird = Flock_getBird(flock, i);
+        curBird = flock_getBird(flock, i);
         bird_step(curBird, flockBoids, totalBirds, obstacles, numObstacles, 1);
         bird_animate(curBird);
     }
 }
 
-void Flock_setWeights(Flock * flock, float seperationWeight, float alignWeight, float cohesionWeight)
+void flock_setWeights(Flock * flock, float seperationWeight, float alignWeight, float cohesionWeight)
 {
     int i;
     int totalBirds = flock->numBirds;

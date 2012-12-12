@@ -7,8 +7,8 @@
  * Licn: GNU GPL v2
 **/
 
-#ifndef FLOCK_HEADER
-#define FLOCK_HEADER
+#ifndef flock_HEADER
+#define flock_HEADER
 
 #include "bird.h"
 
@@ -25,37 +25,37 @@ typedef struct
 } Flock;
 
 /**
- * Name: Flock_init(Flock * flock, int numBirds)
+ * Name: flock_init(Flock * flock, int numBirds)
  * Desc: Create a new flock of given size.
  * Para: flock, The flock to initalize.
  *       numBirds, The number of birds that this flock needs to hold.
 **/
-void Flock_init(Flock * flock, int numBirds);
+void flock_init(Flock * flock, int numBirds);
 
 /**
- * Name: Flock_draw(Flock * flock)
+ * Name: flock_draw(Flock * flock)
  * Desc: Draw the birds in this flock.
  * Para: flock, The flock whose birds need to be drawn.
 **/
-void Flock_draw(Flock * flock);
+void flock_draw(Flock * flock);
 
 /**
- * Name: Flock_getBird(Flock * flock, int index)
+ * Name: flock_getBird(Flock * flock, int index)
  * Desc: Get a bird from this flock by index / numerical ID.
  * Para: flock, The flock to get the bird from.
  *       index, The index of the bird to get.
 **/
-Bird * Flock_getBird(Flock * flock, int index);
+Bird * flock_getBird(Flock * flock, int index);
 
 /**
- * Name: Flock_step(Flock * flock)
+ * Name: flock_step(Flock * flock)
  * Desc: Update all of the birds in this flock via boids flocking behavior.
  * Para: flock, The flock to run flocking behavior for.
 **/
-void Flock_step(Flock * flock, PhysicsVector * obstacles, int numObstacles);
+void flock_step(Flock * flock, PhysicsVector * obstacles, int numObstacles);
 
 /**
- * Name: Flock_setWeights(Flock * flock, float seperationWeight,
+ * Name: flock_setWeights(Flock * flock, float seperationWeight,
  *       float alignWeight, float cohesionWeight)
  * Desc: Set the weights of each of the forces in flocking behavior for all of
  *       the birds in this flock.
@@ -67,7 +67,7 @@ void Flock_step(Flock * flock, PhysicsVector * obstacles, int numObstacles);
  *       cohesionWeight, How much the birds in this flock will try to stay
  *          together.
 **/
-void Flock_setWeights(Flock * flock, float seperationWeight, float alignWeight,
+void flock_setWeights(Flock * flock, float seperationWeight, float alignWeight,
     float cohesionWeight);
 
 #endif

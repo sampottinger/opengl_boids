@@ -261,7 +261,7 @@ void display()
     quadobject_draw(&ground);
 
     // Draw birds
-    Flock_draw(&flock);
+    flock_draw(&flock);
 
     // Draw plants
     for(i=0; i<NUM_TREES; i++)
@@ -353,12 +353,12 @@ void animate()
 
     if(cameraMode == PERSPECTIVE)
     {
-        Flock_step(&flock, balloonObstacles, 3);
+        flock_step(&flock, balloonObstacles, 3);
     }
     else if(cameraMode == FIRST_PERSON || cameraMode == THIRD_PERSON)
     {
         PhysicsVector_init(balloonObstacles+3, xpos, ypos, zpos);
-        Flock_step(&flock, balloonObstacles, 4);
+        flock_step(&flock, balloonObstacles, 4);
     }
 
     // Rotate balloons
@@ -581,7 +581,7 @@ void keyboardOverview(unsigned char key, int x, int y)
     }
 
     // Update boid simulation behavior
-    Flock_setWeights(&flock, seperation_weight, align_weight, cohesion_weight);
+    flock_setWeights(&flock, seperation_weight, align_weight, cohesion_weight);
 }
 
 /**
@@ -756,10 +756,10 @@ int main(int argc,char* argv[])
     }
 
     // Create many birds
-    Flock_init(&flock, NUM_BIRDS);
+    flock_init(&flock, NUM_BIRDS);
     for(i=0; i<NUM_BIRDS; i++)
     {
-        curBird = Flock_getBird(&flock, i);
+        curBird = flock_getBird(&flock, i);
         bird_randomizePosition(curBird);
         curBird->quadObject.xScale = 0.3;
         curBird->quadObject.yScale = 0.3;
