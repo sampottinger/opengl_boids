@@ -55,20 +55,20 @@ void sky_initSky(QuadObject * obj, int * texIDs)
 
     quadobject_setNextTexture(obj, texIDs[0]); // Top 
     quadobject_addQuadBackwards(obj, topForwardLeft, topForwardRight,
-      topBackwardRight, topBackwardLeft);
+        topBackwardRight, topBackwardLeft);
     quadobject_setNextTexture(obj, texIDs[1]); // Left
     quadobject_addQuadBackwards(obj, topForwardLeft, topBackwardLeft,
-      bottomBackwardLeft, bottomForwardLeft);
+        bottomBackwardLeft, bottomForwardLeft);
     quadobject_setNextTexture(obj, texIDs[2]); // Back
     quadobject_addQuadBackwards(obj, topBackwardLeft, topBackwardRight,
-      bottomBackwardRight, bottomBackwardLeft);
+        bottomBackwardRight, bottomBackwardLeft);
     quadobject_setNextTexture(obj, texIDs[3]); // Right
     quadobject_addQuadBackwards(obj, topBackwardRight, topForwardRight,
-      bottomForwardRight, bottomBackwardRight);
+        bottomForwardRight, bottomBackwardRight);
     quadobject_setNextTexture(obj, texIDs[4]); // Forward
     quadobject_addQuadBackwards(obj, topForwardRight, topForwardLeft,
-      bottomForwardLeft, bottomForwardRight);
+        bottomForwardLeft, bottomForwardRight);
     quadobject_setNextTexture(obj, texIDs[5]); // Bottom
     quadobject_addQuadBackwards(obj, bottomForwardLeft, bottomBackwardLeft,
-      bottomBackwardRight, bottomForwardRight);
+        bottomBackwardRight, bottomForwardRight);
 }

@@ -19,6 +19,8 @@
  * Name: ground_initGround(QuadObject * obj, int texID)
  * Desc: Function that creates the (poorly textured) ground.
  * Para: obj, The QuadObject to turn into the ground.
+ *       texID, integer array of size 2. First element should have bark texture
+ *          index / ID and the second should have a leaves texture.
 **/
 void sky_initSky(QuadObject * obj, int * texID);
 
