@@ -174,10 +174,10 @@ void applyCamera()
             THIRD_PERSON_CAMERA_Z_OFFEST
         );
         glRotatef(xrot,1.0,0.0,0.0);
-        QuadObject_drawSpecific(&balloon1, 92, 0);
+        quadobject_drawSpecific(&balloon1, 92, 0);
         
         float yRadiationCenter = BALLOON_HEIGHT / 2;
-        QuadObject_drawSpecificRadially(
+        quadobject_drawSpecificRadially(
             &balloon1,
             balloon1.numQuad,
             92,
@@ -230,7 +230,7 @@ void display()
     // Draw skybox
     glDisable(GL_LIGHTING);
     glDisable(GL_BLEND);
-    QuadObject_draw(&skybox);
+    quadobject_draw(&skybox);
     glEnable(GL_LIGHTING);
     glEnable(GL_BLEND);
 
@@ -258,14 +258,14 @@ void display()
     balloon_draw(&balloon3);
     balloon_draw(&balloon4);
 
-    QuadObject_draw(&ground);
+    quadobject_draw(&ground);
 
     // Draw birds
     Flock_draw(&flock);
 
     // Draw plants
     for(i=0; i<NUM_TREES; i++)
-        QuadObject_draw(trees+i);
+        quadobject_draw(trees+i);
 
     // Display current weights
     glColor3f(1,1,1);

@@ -75,7 +75,7 @@ void balloon_generateBalloon(QuadObject * obj, GLfloat * radi,
     float xRadialPositions [BALLOON_RADIAL_STEPS];
     float zRadialPositions [BALLOON_RADIAL_STEPS];
 
-    QuadObject_setNextPos(obj, 0, POLE_HEIGHT + BALLOON_HEIGHT, 0);
+    quadobject_setNextPos(obj, 0, POLE_HEIGHT + BALLOON_HEIGHT, 0);
 
     color = 0;
     for(i=0; i<NUM_BALLOON_RADI; i++)
@@ -88,7 +88,7 @@ void balloon_generateBalloon(QuadObject * obj, GLfloat * radi,
             if(color == 1)
             {
                 color = 0;
-                QuadObject_setNextColor(
+                quadobject_setNextColor(
                     obj,
                     BALLOON_COLOR_1_R,
                     BALLOON_COLOR_1_G,
@@ -98,7 +98,7 @@ void balloon_generateBalloon(QuadObject * obj, GLfloat * radi,
             else
             {
                 color = 1;
-                QuadObject_setNextColor(
+                quadobject_setNextColor(
                     obj,
                     BALLOON_COLOR_2_R,
                     BALLOON_COLOR_2_G,
@@ -106,9 +106,9 @@ void balloon_generateBalloon(QuadObject * obj, GLfloat * radi,
                 );
             }
 
-            QuadObject_setNextX(obj, xRadialPositions[j]);
-            QuadObject_setNextZ(obj, zRadialPositions[j]);
-            newVert = QuadObject_addVer(obj);
+            quadobject_setNextX(obj, xRadialPositions[j]);
+            quadobject_setNextZ(obj, zRadialPositions[j]);
+            newVert = quadobject_addVer(obj);
 
             // Create face if appropriate
             if(newVert - startNumVertAssigned >= BALLOON_RADIAL_STEPS)
@@ -117,7 +117,7 @@ void balloon_generateBalloon(QuadObject * obj, GLfloat * radi,
                 lowerLeftID = lowerRightID - 1;
                 upperRightID = lowerRightID - BALLOON_RADIAL_STEPS;
                 upperLeftID = upperRightID - 1;
-                QuadObject_addQuad(
+                quadobject_addQuad(
                     obj,
                     upperRightID,
                     upperLeftID,
@@ -127,7 +127,7 @@ void balloon_generateBalloon(QuadObject * obj, GLfloat * radi,
             }
         }
 
-        QuadObject_moveNextY(obj, -BALLOON_RADI_DIST[i]);
+        quadobject_moveNextY(obj, -BALLOON_RADI_DIST[i]);
       
     }
 }
@@ -154,7 +154,7 @@ void balloon_initBalloon(QuadObject * ballPtr, int textureID)
     int innerTopBackwardLeft;
     int innerTopBackwardRight;
 
-    QuadObject_init(ballPtr, 216, 172);
+    quadobject_init(ballPtr, 216, 172);
 
     // Set location
     ballPtr->xScale = 0.35;
@@ -163,46 +163,46 @@ void balloon_initBalloon(QuadObject * ballPtr, int textureID)
     ballPtr->curPitch = 1;
 
     // Basket outline
-    QuadObject_setNextTexture(ballPtr, textureID);
-    QuadObject_setNextColor(
+    quadobject_setNextTexture(ballPtr, textureID);
+    quadobject_setNextColor(
         ballPtr,
         BASKET_RAIL_R,
         BASKET_RAIL_G,
         BASKET_RAIL_B
     );
-    QuadObject_setNextPos(ballPtr, -BASKET_WIDTH, BASKET_HEIGHT, BASKET_DEPTH);
-    topForwardLeft = QuadObject_addVer(ballPtr);
+    quadobject_setNextPos(ballPtr, -BASKET_WIDTH, BASKET_HEIGHT, BASKET_DEPTH);
+    topForwardLeft = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(ballPtr, BASKET_WIDTH, BASKET_HEIGHT, BASKET_DEPTH);
-    topForwardRight = QuadObject_addVer(ballPtr);
+    quadobject_setNextPos(ballPtr, BASKET_WIDTH, BASKET_HEIGHT, BASKET_DEPTH);
+    topForwardRight = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(ballPtr, BASKET_WIDTH, BASKET_HEIGHT, -BASKET_DEPTH);
-    topBackwardRight = QuadObject_addVer(ballPtr);
+    quadobject_setNextPos(ballPtr, BASKET_WIDTH, BASKET_HEIGHT, -BASKET_DEPTH);
+    topBackwardRight = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(ballPtr, -BASKET_WIDTH, BASKET_HEIGHT, -BASKET_DEPTH);
-    topBackwardLeft = QuadObject_addVer(ballPtr);
+    quadobject_setNextPos(ballPtr, -BASKET_WIDTH, BASKET_HEIGHT, -BASKET_DEPTH);
+    topBackwardLeft = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(ballPtr, -BASKET_WIDTH, 0, BASKET_DEPTH);
-    bottomForwardLeft = QuadObject_addVer(ballPtr);
+    quadobject_setNextPos(ballPtr, -BASKET_WIDTH, 0, BASKET_DEPTH);
+    bottomForwardLeft = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(ballPtr, BASKET_WIDTH, 0, BASKET_DEPTH);
-    bottomForwardRight = QuadObject_addVer(ballPtr);
+    quadobject_setNextPos(ballPtr, BASKET_WIDTH, 0, BASKET_DEPTH);
+    bottomForwardRight = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(ballPtr, BASKET_WIDTH, 0, -BASKET_DEPTH);
-    bottomBackwardRight = QuadObject_addVer(ballPtr);
+    quadobject_setNextPos(ballPtr, BASKET_WIDTH, 0, -BASKET_DEPTH);
+    bottomBackwardRight = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(ballPtr, -BASKET_WIDTH, 0, -BASKET_DEPTH);
-    bottomBackwardLeft = QuadObject_addVer(ballPtr);
+    quadobject_setNextPos(ballPtr, -BASKET_WIDTH, 0, -BASKET_DEPTH);
+    bottomBackwardLeft = quadobject_addVer(ballPtr);
 
-    QuadObject_addQuad(ballPtr, topForwardLeft, topBackwardLeft,
+    quadobject_addQuad(ballPtr, topForwardLeft, topBackwardLeft,
         bottomBackwardLeft, bottomForwardLeft);
-    QuadObject_addQuad(ballPtr, topBackwardLeft, topBackwardRight,
+    quadobject_addQuad(ballPtr, topBackwardLeft, topBackwardRight,
         bottomBackwardRight, bottomBackwardLeft);
-    QuadObject_addQuad(ballPtr, topBackwardRight, topForwardRight,
+    quadobject_addQuad(ballPtr, topBackwardRight, topForwardRight,
         bottomForwardRight, bottomBackwardRight);
-    QuadObject_addQuad(ballPtr, topForwardLeft, bottomForwardLeft,
+    quadobject_addQuad(ballPtr, topForwardLeft, bottomForwardLeft,
         bottomForwardRight, topForwardRight);
-    QuadObject_addQuad(ballPtr, bottomForwardLeft, bottomBackwardLeft,
+    quadobject_addQuad(ballPtr, bottomForwardLeft, bottomBackwardLeft,
         bottomBackwardRight, bottomForwardRight);
 
     outerTopForwardLeft = topForwardLeft;
@@ -211,80 +211,80 @@ void balloon_initBalloon(QuadObject * ballPtr, int textureID)
     outerTopBackwardRight = topBackwardRight;
 
     // Basket innards
-    QuadObject_setNextColor(ballPtr, BASKET_R, BASKET_G, BASKET_B);
-    QuadObject_setNextPos(
+    quadobject_setNextColor(ballPtr, BASKET_R, BASKET_G, BASKET_B);
+    quadobject_setNextPos(
         ballPtr,
         -BASKET_WIDTH + BASKET_THICKNESS,
         BASKET_HEIGHT - BASKET_THICKNESS,
         BASKET_DEPTH - BASKET_THICKNESS
     );
-    topForwardLeft = QuadObject_addVer(ballPtr);
+    topForwardLeft = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(
+    quadobject_setNextPos(
         ballPtr,
         BASKET_WIDTH - BASKET_THICKNESS,
         BASKET_HEIGHT - BASKET_THICKNESS,
         BASKET_DEPTH - BASKET_THICKNESS
     );
-    topForwardRight = QuadObject_addVer(ballPtr);
+    topForwardRight = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(
+    quadobject_setNextPos(
         ballPtr,
         BASKET_WIDTH - BASKET_THICKNESS,
         BASKET_HEIGHT - BASKET_THICKNESS,
         -BASKET_DEPTH + BASKET_THICKNESS
     );
-    topBackwardRight = QuadObject_addVer(ballPtr);
+    topBackwardRight = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(
+    quadobject_setNextPos(
         ballPtr,
         -BASKET_WIDTH + BASKET_THICKNESS,
         BASKET_HEIGHT - BASKET_THICKNESS,
         -BASKET_DEPTH + BASKET_THICKNESS
     );
-    topBackwardLeft = QuadObject_addVer(ballPtr);
+    topBackwardLeft = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(
+    quadobject_setNextPos(
         ballPtr,
         -BASKET_WIDTH + BASKET_THICKNESS,
         0,
         BASKET_DEPTH - BASKET_THICKNESS
     );
-    bottomForwardLeft = QuadObject_addVer(ballPtr);
+    bottomForwardLeft = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(
+    quadobject_setNextPos(
         ballPtr,
         BASKET_WIDTH - BASKET_THICKNESS,
         0,
         BASKET_DEPTH - BASKET_THICKNESS
     );
-    bottomForwardRight = QuadObject_addVer(ballPtr);
+    bottomForwardRight = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(
+    quadobject_setNextPos(
         ballPtr, 
         BASKET_WIDTH - BASKET_THICKNESS, 
         0, 
         -BASKET_DEPTH + BASKET_THICKNESS
     );
-    bottomBackwardRight = QuadObject_addVer(ballPtr);
+    bottomBackwardRight = quadobject_addVer(ballPtr);
 
-    QuadObject_setNextPos(
+    quadobject_setNextPos(
         ballPtr, 
         -BASKET_WIDTH + BASKET_THICKNESS, 
         0, 
         -BASKET_DEPTH + BASKET_THICKNESS
     );
-    bottomBackwardLeft = QuadObject_addVer(ballPtr);
+    bottomBackwardLeft = quadobject_addVer(ballPtr);
 
-    QuadObject_addQuadBackwards(ballPtr, topForwardLeft, topBackwardLeft,
+    quadobject_addQuadBackwards(ballPtr, topForwardLeft, topBackwardLeft,
         bottomBackwardLeft, bottomForwardLeft);
-    QuadObject_addQuadBackwards(ballPtr, topBackwardLeft, topBackwardRight,
+    quadobject_addQuadBackwards(ballPtr, topBackwardLeft, topBackwardRight,
         bottomBackwardRight, bottomBackwardLeft);
-    QuadObject_addQuadBackwards(ballPtr, topBackwardRight, topForwardRight,
+    quadobject_addQuadBackwards(ballPtr, topBackwardRight, topForwardRight,
         bottomForwardRight, bottomBackwardRight);
-    QuadObject_addQuadBackwards(ballPtr, topForwardLeft, bottomForwardLeft,
+    quadobject_addQuadBackwards(ballPtr, topForwardLeft, bottomForwardLeft,
         bottomForwardRight, topForwardRight);
-    QuadObject_addQuadBackwards(ballPtr, bottomForwardLeft, bottomBackwardLeft,
+    quadobject_addQuadBackwards(ballPtr, bottomForwardLeft, bottomBackwardLeft,
         bottomBackwardRight, bottomForwardRight);
 
     innerTopForwardLeft = topForwardLeft;
@@ -293,31 +293,31 @@ void balloon_initBalloon(QuadObject * ballPtr, int textureID)
     innerTopBackwardRight = topBackwardRight;
 
     // Basket railing
-    QuadObject_setNextColor(ballPtr, BASKET_RAIL_R, BASKET_RAIL_G,
+    quadobject_setNextColor(ballPtr, BASKET_RAIL_R, BASKET_RAIL_G,
         BASKET_RAIL_B);
 
-    QuadObject_addQuad(
+    quadobject_addQuad(
         ballPtr, 
         outerTopForwardRight, 
         innerTopForwardRight, 
         innerTopForwardLeft, 
         outerTopForwardLeft
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         ballPtr, 
         outerTopBackwardLeft, 
         innerTopBackwardLeft, 
         innerTopBackwardRight, 
         outerTopBackwardRight
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         ballPtr, 
         outerTopBackwardRight, 
         innerTopBackwardRight, 
         innerTopForwardRight, 
         outerTopForwardRight
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         ballPtr,
         outerTopForwardLeft,
         innerTopForwardLeft,
@@ -326,7 +326,7 @@ void balloon_initBalloon(QuadObject * ballPtr, int textureID)
     );
 
     // Poles
-    QuadObject_setNextColor(
+    quadobject_setNextColor(
         ballPtr,
         BASKET_RAIL_R,
         BASKET_RAIL_G,
@@ -442,10 +442,10 @@ void balloon_initBalloon(QuadObject * ballPtr, int textureID)
         BASKET_DEPTH*2
     );
 
-    QuadObject_setNoTexture(ballPtr);
+    quadobject_setNoTexture(ballPtr);
 
     // Heating element
-    QuadObject_setNextColor(ballPtr, HEATING_ELEMENT_R, HEATING_ELEMENT_G,
+    quadobject_setNextColor(ballPtr, HEATING_ELEMENT_R, HEATING_ELEMENT_G,
         HEATING_ELEMENT_B);
     objutil_addRectPrism(ballPtr, -HEATING_ELEMENT_WIDTH, POLE_HEIGHT, 
         -HEATING_ELEMENT_DEPTH, HEATING_ELEMENT_WIDTH*2, HEATING_ELEMENT_HEIGHT*2,
@@ -456,8 +456,8 @@ void balloon_initBalloon(QuadObject * ballPtr, int textureID)
 
 void balloon_draw(QuadObject * ballPtr)
 {
-    QuadObject_drawSpecific(ballPtr, BALLOON_START_VERTEX, 0);
-    QuadObject_drawSpecificRadially(
+    quadobject_drawSpecific(ballPtr, BALLOON_START_VERTEX, 0);
+    quadobject_drawSpecificRadially(
         ballPtr,
         ballPtr->numQuad,
         BALLOON_START_VERTEX,

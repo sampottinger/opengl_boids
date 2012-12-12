@@ -89,42 +89,42 @@ void bird_initBird(Bird * birdPtr, Boid * boidPtr)
     {
         memcpy(
             origFrontTopLeftWing+i,
-            QuadObject_getVer(quadObject, frontTopLeftWing[i]),
+            quadobject_getVer(quadObject, frontTopLeftWing[i]),
             sizeof(ColoredVertex)
         );
         memcpy(
             origBackTopLeftWing+i,
-            QuadObject_getVer(quadObject, backTopLeftWing[i]),
+            quadobject_getVer(quadObject, backTopLeftWing[i]),
             sizeof(ColoredVertex)
         );
         memcpy(
             origFrontBottomLeftWing+i,
-            QuadObject_getVer(quadObject, frontBottomLeftWing[i]),
+            quadobject_getVer(quadObject, frontBottomLeftWing[i]),
             sizeof(ColoredVertex)
         );
         memcpy(
             origBackBottomLeftWing+i,
-            QuadObject_getVer(quadObject, backBottomLeftWing[i]),
+            quadobject_getVer(quadObject, backBottomLeftWing[i]),
             sizeof(ColoredVertex)
         );
         memcpy(
             origFrontTopRightWing+i,
-            QuadObject_getVer(quadObject, frontTopRightWing[i]),
+            quadobject_getVer(quadObject, frontTopRightWing[i]),
             sizeof(ColoredVertex)
         );
         memcpy(
             origBackTopRightWing+i,
-            QuadObject_getVer(quadObject, backTopRightWing[i]),
+            quadobject_getVer(quadObject, backTopRightWing[i]),
             sizeof(ColoredVertex)
         );
         memcpy(
             origFrontBottomRightWing+i,
-            QuadObject_getVer(quadObject, frontBottomRightWing[i]),
+            quadobject_getVer(quadObject, frontBottomRightWing[i]),
             sizeof(ColoredVertex)
         );
         memcpy(
             origBackBottomRightWing+i,
-            QuadObject_getVer(quadObject, backBottomRightWing[i]),
+            quadobject_getVer(quadObject, backBottomRightWing[i]),
             sizeof(ColoredVertex)
         );
     }
@@ -165,14 +165,14 @@ void bird_animate(Bird * birdPtr)
 
         for(i=0; i<NUM_WING_GUIDE_POINTS; i++)
         {
-            frontTopLeftWing = QuadObject_getVer(quadObject, birdPtr->frontTopLeftWing[i]);
-            backTopLeftWing = QuadObject_getVer(quadObject, birdPtr->backTopLeftWing[i]);
-            frontBottomLeftWing = QuadObject_getVer(quadObject, birdPtr->frontBottomLeftWing[i]);
-            backBottomLeftWing = QuadObject_getVer(quadObject, birdPtr->backBottomLeftWing[i]);
-            frontTopRightWing = QuadObject_getVer(quadObject, birdPtr->frontTopRightWing[i]);
-            backTopRightWing = QuadObject_getVer(quadObject, birdPtr->backTopRightWing[i]);
-            frontBottomRightWing = QuadObject_getVer(quadObject, birdPtr->frontBottomRightWing[i]);
-            backBottomRightWing = QuadObject_getVer(quadObject, birdPtr->backBottomRightWing[i]);
+            frontTopLeftWing = quadobject_getVer(quadObject, birdPtr->frontTopLeftWing[i]);
+            backTopLeftWing = quadobject_getVer(quadObject, birdPtr->backTopLeftWing[i]);
+            frontBottomLeftWing = quadobject_getVer(quadObject, birdPtr->frontBottomLeftWing[i]);
+            backBottomLeftWing = quadobject_getVer(quadObject, birdPtr->backBottomLeftWing[i]);
+            frontTopRightWing = quadobject_getVer(quadObject, birdPtr->frontTopRightWing[i]);
+            backTopRightWing = quadobject_getVer(quadObject, birdPtr->backTopRightWing[i]);
+            frontBottomRightWing = quadobject_getVer(quadObject, birdPtr->frontBottomRightWing[i]);
+            backBottomRightWing = quadobject_getVer(quadObject, birdPtr->backBottomRightWing[i]);
 
             frontTopLeftWing->pos[1] = birdPtr->origFrontTopLeftWing[i].pos[1] * birdPtr->flappingAmount - 2 + birdPtr->flappingAmount;
             backTopLeftWing->pos[1] = birdPtr->origBackTopLeftWing[i].pos[1] * birdPtr->flappingAmount - 2 + birdPtr->flappingAmount;
@@ -186,7 +186,7 @@ void bird_animate(Bird * birdPtr)
 
         for(i=birdPtr->startWingQuadIndex; i<=birdPtr->endWingQuadIndex; i++)
         {
-            QuadObject_fixQuad(&(birdPtr->quadObject), i);
+            quadobject_fixQuad(&(birdPtr->quadObject), i);
         }
     }
 }
@@ -277,59 +277,59 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
         4
     };
 
-    QuadObject_init(birdPtr, 76, 75);
+    quadobject_init(birdPtr, 76, 75);
 
     /* BEAK */
 
-    QuadObject_setNextColor(birdPtr, BEAK_R, BEAK_G, BEAK_B);
+    quadobject_setNextColor(birdPtr, BEAK_R, BEAK_G, BEAK_B);
 
     // End - 4 vert, 1 face
-    beakEndBackTop = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, -BEAK_INNER_SIDE_LEN);
-    beakEndBackBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextX(birdPtr, -BEAK_INNER_SIDE_LEN);
-    beakEndForwardBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, BEAK_INNER_SIDE_LEN);
-    beakEndForwardTop = QuadObject_addVer(birdPtr);
-    QuadObject_createQuadFromPrev(birdPtr);
+    beakEndBackTop = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, -BEAK_INNER_SIDE_LEN);
+    beakEndBackBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextX(birdPtr, -BEAK_INNER_SIDE_LEN);
+    beakEndForwardBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, BEAK_INNER_SIDE_LEN);
+    beakEndForwardTop = quadobject_addVer(birdPtr);
+    quadobject_createQuadFromPrev(birdPtr);
 
     // Start - 4 vert, 1 face
-    QuadObject_moveNextZ(birdPtr, BEAK_LENGTH);
-    QuadObject_moveNextX(birdPtr, BEAK_SHIFT);
-    QuadObject_moveNextY(birdPtr, BEAK_SHIFT);
-    QuadObject_moveNextX(birdPtr, -BEAK_OUTER_SIDE_LEN / 2);
-    beakStartForwardTop = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, -BEAK_OUTER_SIDE_LEN);
-    beakStartForwardBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextX(birdPtr, BEAK_OUTER_SIDE_LEN);
-    beakStartBackBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, BEAK_OUTER_SIDE_LEN);
-    beakStartBackTop = QuadObject_addVer(birdPtr);
-    QuadObject_createQuadFromPrev(birdPtr);
+    quadobject_moveNextZ(birdPtr, BEAK_LENGTH);
+    quadobject_moveNextX(birdPtr, BEAK_SHIFT);
+    quadobject_moveNextY(birdPtr, BEAK_SHIFT);
+    quadobject_moveNextX(birdPtr, -BEAK_OUTER_SIDE_LEN / 2);
+    beakStartForwardTop = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, -BEAK_OUTER_SIDE_LEN);
+    beakStartForwardBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextX(birdPtr, BEAK_OUTER_SIDE_LEN);
+    beakStartBackBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, BEAK_OUTER_SIDE_LEN);
+    beakStartBackTop = quadobject_addVer(birdPtr);
+    quadobject_createQuadFromPrev(birdPtr);
 
     // Fill in - 0 vert, 4 face
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         beakEndBackTop,
         beakEndForwardTop,
         beakStartForwardTop,
         beakStartBackTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         beakStartBackBottom,
         beakEndBackBottom,
         beakEndBackTop,
         beakStartBackTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         beakStartForwardTop,
         beakEndForwardTop,
         beakEndForwardBottom,
         beakStartForwardBottom
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         beakStartBackBottom,
         beakStartForwardBottom,
@@ -339,45 +339,45 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
 
     /* HEAD */
 
-    QuadObject_setNextColor(birdPtr, HEAD_R, HEAD_G, HEAD_B);
+    quadobject_setNextColor(birdPtr, HEAD_R, HEAD_G, HEAD_B);
 
     // Front head part - 4 vert, 1 head
-    QuadObject_moveNextZ(birdPtr, HEAD_END_LENGTH);
-    QuadObject_moveNextX(birdPtr, -HEAD_END_SHIFT);
-    QuadObject_moveNextY(birdPtr, HEAD_END_SHIFT);
-    QuadObject_moveNextX(birdPtr, -HEAD_END_RAD / 2);
-    headEndForwardTop = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, -HEAD_END_RAD);
-    headEndForwardBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextX(birdPtr, HEAD_END_RAD);
-    headEndBackBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, HEAD_END_RAD);
-    headEndBackTop = QuadObject_addVer(birdPtr);
-    QuadObject_createQuadFromPrev(birdPtr);
+    quadobject_moveNextZ(birdPtr, HEAD_END_LENGTH);
+    quadobject_moveNextX(birdPtr, -HEAD_END_SHIFT);
+    quadobject_moveNextY(birdPtr, HEAD_END_SHIFT);
+    quadobject_moveNextX(birdPtr, -HEAD_END_RAD / 2);
+    headEndForwardTop = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, -HEAD_END_RAD);
+    headEndForwardBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextX(birdPtr, HEAD_END_RAD);
+    headEndBackBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, HEAD_END_RAD);
+    headEndBackTop = quadobject_addVer(birdPtr);
+    quadobject_createQuadFromPrev(birdPtr);
 
     // Connect head to beak - 0 vert, 4 face
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         beakStartBackTop,
         beakStartForwardTop,
         headEndForwardTop,
         headEndBackTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         beakStartBackTop,
         headEndBackTop,
         headEndBackBottom,
         beakStartBackBottom
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         beakStartForwardBottom,
         headEndForwardBottom,
         headEndForwardTop,
         beakStartForwardTop
     );
-    QuadObject_addQuadBackwards(
+    quadobject_addQuadBackwards(
         birdPtr,
         beakStartBackBottom,
         beakStartForwardBottom,
@@ -386,42 +386,42 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     );
 
     // Mid head part - 4 vert, 1 face
-    QuadObject_moveNextZ(birdPtr, HEAD_INNER_LENGTH);
-    QuadObject_moveNextX(birdPtr, -HEAD_INNER_X_SHIFT);
-    QuadObject_moveNextY(birdPtr, HEAD_INNER_SHIFT);
-    QuadObject_moveNextX(birdPtr, -HEAD_INNER_RAD / 2);
-    headMidForwardTop = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, -HEAD_INNER_RAD);
-    headMidForwardBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextX(birdPtr, HEAD_INNER_RAD);
-    headMidBackBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, HEAD_INNER_RAD);
-    headMidBackTop = QuadObject_addVer(birdPtr);
-    QuadObject_createQuadFromPrev(birdPtr);
+    quadobject_moveNextZ(birdPtr, HEAD_INNER_LENGTH);
+    quadobject_moveNextX(birdPtr, -HEAD_INNER_X_SHIFT);
+    quadobject_moveNextY(birdPtr, HEAD_INNER_SHIFT);
+    quadobject_moveNextX(birdPtr, -HEAD_INNER_RAD / 2);
+    headMidForwardTop = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, -HEAD_INNER_RAD);
+    headMidForwardBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextX(birdPtr, HEAD_INNER_RAD);
+    headMidBackBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, HEAD_INNER_RAD);
+    headMidBackTop = quadobject_addVer(birdPtr);
+    quadobject_createQuadFromPrev(birdPtr);
 
     // Connect to head end - 0 vert, 4 face
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         headEndBackTop,
         headEndForwardTop,
         headMidForwardTop,
         headMidBackTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         headEndBackTop,
         headMidBackTop,
         headMidBackBottom,
         headEndBackBottom
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         headEndForwardBottom,
         headMidForwardBottom,
         headMidForwardTop,
         headEndForwardTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         headMidBackBottom,
         headMidForwardBottom,
@@ -430,42 +430,42 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     );
 
     // Start head part - 4 vert, 1 face
-    QuadObject_moveNextZ(birdPtr, HEAD_START_LENGTH);
-    QuadObject_moveNextX(birdPtr, -HEAD_START_X_SHIFT);
-    QuadObject_moveNextY(birdPtr, -HEAD_START_SHIFT);
-    QuadObject_moveNextX(birdPtr, -HEAD_START_RAD / 2);
-    headStartForwardTop = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, -HEAD_START_RAD);
-    headStartForwardBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextX(birdPtr, HEAD_START_RAD);
-    headStartBackBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, HEAD_START_RAD);
-    headStartBackTop = QuadObject_addVer(birdPtr);
-    QuadObject_createQuadFromPrev(birdPtr);
+    quadobject_moveNextZ(birdPtr, HEAD_START_LENGTH);
+    quadobject_moveNextX(birdPtr, -HEAD_START_X_SHIFT);
+    quadobject_moveNextY(birdPtr, -HEAD_START_SHIFT);
+    quadobject_moveNextX(birdPtr, -HEAD_START_RAD / 2);
+    headStartForwardTop = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, -HEAD_START_RAD);
+    headStartForwardBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextX(birdPtr, HEAD_START_RAD);
+    headStartBackBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, HEAD_START_RAD);
+    headStartBackTop = quadobject_addVer(birdPtr);
+    quadobject_createQuadFromPrev(birdPtr);
 
     // Connect to head mid - 0 vert, 4 face
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         headMidBackTop,
         headMidForwardTop,
         headStartForwardTop,
         headStartBackTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         headMidBackTop,
         headStartBackTop,
         headStartBackBottom,
         headMidBackBottom
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         headMidForwardBottom,
         headStartForwardBottom,
         headStartForwardTop,
         headMidForwardTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         headStartBackBottom,
         headStartForwardBottom,
@@ -473,45 +473,45 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
         headMidBackBottom
     );
 
-    QuadObject_setNextColor(birdPtr, BACK_HEAD_R, BACK_HEAD_G, BACK_HEAD_B);
+    quadobject_setNextColor(birdPtr, BACK_HEAD_R, BACK_HEAD_G, BACK_HEAD_B);
 
     // Front body part - 4 vert, 1 face
-    QuadObject_moveNextZ(birdPtr, BODY_FRONT_LENGTH);
-    QuadObject_moveNextX(birdPtr, -BODY_FRONT_X_SHIFT);
-    QuadObject_moveNextY(birdPtr, -BODY_FRONT_SHIFT);
-    QuadObject_moveNextX(birdPtr, -BODY_FRONT_RAD / 2);
-    bodyFrontForwardTop = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, -BODY_FRONT_RAD);
-    bodyFrontForwardBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextX(birdPtr, BODY_FRONT_RAD);
-    bodyFrontBackBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, BODY_FRONT_RAD);
-    bodyFrontBackTop = QuadObject_addVer(birdPtr);
-    QuadObject_createQuadFromPrev(birdPtr);
+    quadobject_moveNextZ(birdPtr, BODY_FRONT_LENGTH);
+    quadobject_moveNextX(birdPtr, -BODY_FRONT_X_SHIFT);
+    quadobject_moveNextY(birdPtr, -BODY_FRONT_SHIFT);
+    quadobject_moveNextX(birdPtr, -BODY_FRONT_RAD / 2);
+    bodyFrontForwardTop = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, -BODY_FRONT_RAD);
+    bodyFrontForwardBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextX(birdPtr, BODY_FRONT_RAD);
+    bodyFrontBackBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, BODY_FRONT_RAD);
+    bodyFrontBackTop = quadobject_addVer(birdPtr);
+    quadobject_createQuadFromPrev(birdPtr);
 
     // Connect to head mid - 0 vert, 4 face
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         headStartBackTop,
         headStartForwardTop,
         bodyFrontForwardTop,
         bodyFrontBackTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         headStartBackTop,
         bodyFrontBackTop,
         bodyFrontBackBottom,
         headStartBackBottom
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         headStartForwardBottom,
         bodyFrontForwardBottom,
         bodyFrontForwardTop,
         headStartForwardTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyFrontBackBottom,
         bodyFrontForwardBottom,
@@ -521,44 +521,44 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
 
     // Mid body part - 4 vert, 1 face
 
-    QuadObject_setNextColor(birdPtr, BODY_R, BODY_G, BODY_B);
+    quadobject_setNextColor(birdPtr, BODY_R, BODY_G, BODY_B);
 
-    QuadObject_moveNextZ(birdPtr, BODY_MID_LENGTH);
-    QuadObject_moveNextX(birdPtr, -BODY_MID_X_SHIFT);
-    QuadObject_moveNextY(birdPtr, -BODY_MID_SHIFT);
-    QuadObject_moveNextX(birdPtr, -BODY_MID_RAD / 2);
-    bodyMidForwardTop = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, -BODY_MID_RAD);
-    bodyMidForwardBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextX(birdPtr, BODY_MID_RAD);
-    bodyMidBackBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, BODY_MID_RAD);
-    bodyMidBackTop = QuadObject_addVer(birdPtr);
-    QuadObject_createQuadFromPrev(birdPtr);
+    quadobject_moveNextZ(birdPtr, BODY_MID_LENGTH);
+    quadobject_moveNextX(birdPtr, -BODY_MID_X_SHIFT);
+    quadobject_moveNextY(birdPtr, -BODY_MID_SHIFT);
+    quadobject_moveNextX(birdPtr, -BODY_MID_RAD / 2);
+    bodyMidForwardTop = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, -BODY_MID_RAD);
+    bodyMidForwardBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextX(birdPtr, BODY_MID_RAD);
+    bodyMidBackBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, BODY_MID_RAD);
+    bodyMidBackTop = quadobject_addVer(birdPtr);
+    quadobject_createQuadFromPrev(birdPtr);
 
     // Connect to body front - 0 vert, 4 face
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyFrontBackTop,
         bodyFrontForwardTop,
         bodyMidForwardTop,
         bodyMidBackTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyFrontBackTop,
         bodyMidBackTop,
         bodyMidBackBottom,
         bodyFrontBackBottom
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyFrontForwardBottom,
         bodyMidForwardBottom,
         bodyMidForwardTop,
         bodyFrontForwardTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyMidBackBottom,
         bodyMidForwardBottom,
@@ -567,42 +567,42 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     );
 
     // Back body part - 4 vert, 1 face
-    QuadObject_moveNextZ(birdPtr, BODY_BACK_LENGTH);
-    QuadObject_moveNextX(birdPtr, -BODY_BACK_X_SHIFT);
-    QuadObject_moveNextY(birdPtr, -BODY_BACK_SHIFT);
-    QuadObject_moveNextX(birdPtr, -BODY_BACK_RAD / 2);
-    bodyBackForwardTop = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, -BODY_BACK_RAD);
-    bodyBackForwardBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextX(birdPtr, BODY_BACK_RAD);
-    bodyBackBackBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, BODY_BACK_RAD);
-    bodyBackBackTop = QuadObject_addVer(birdPtr);
-    QuadObject_createQuadFromPrev(birdPtr);
+    quadobject_moveNextZ(birdPtr, BODY_BACK_LENGTH);
+    quadobject_moveNextX(birdPtr, -BODY_BACK_X_SHIFT);
+    quadobject_moveNextY(birdPtr, -BODY_BACK_SHIFT);
+    quadobject_moveNextX(birdPtr, -BODY_BACK_RAD / 2);
+    bodyBackForwardTop = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, -BODY_BACK_RAD);
+    bodyBackForwardBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextX(birdPtr, BODY_BACK_RAD);
+    bodyBackBackBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, BODY_BACK_RAD);
+    bodyBackBackTop = quadobject_addVer(birdPtr);
+    quadobject_createQuadFromPrev(birdPtr);
 
     // Connect to body front - 0 vert, 4 face
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyMidBackTop,
         bodyMidForwardTop,
         bodyBackForwardTop,
         bodyBackBackTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyMidBackTop,
         bodyBackBackTop,
         bodyBackBackBottom,
         bodyMidBackBottom
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyMidForwardBottom,
         bodyBackForwardBottom,
         bodyBackForwardTop,
         bodyMidForwardTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyBackBackBottom,
         bodyBackForwardBottom,
@@ -611,42 +611,42 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     );
 
     // Back body part - 4 vert, 1 face
-    QuadObject_moveNextZ(birdPtr, BODY_REAR_LENGTH);
-    QuadObject_moveNextX(birdPtr, -BODY_REAR_X_SHIFT);
-    QuadObject_moveNextY(birdPtr, -BODY_REAR_SHIFT);
-    QuadObject_moveNextX(birdPtr, -BODY_REAR_RAD / 2);
-    bodyRearForwardTop = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, -BODY_REAR_RAD);
-    bodyRearForwardBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextX(birdPtr, BODY_REAR_RAD);
-    bodyRearBackBottom = QuadObject_addVer(birdPtr);
-    QuadObject_moveNextY(birdPtr, BODY_REAR_RAD);
-    bodyRearBackTop = QuadObject_addVer(birdPtr);
-    QuadObject_createQuadFromPrev(birdPtr);
+    quadobject_moveNextZ(birdPtr, BODY_REAR_LENGTH);
+    quadobject_moveNextX(birdPtr, -BODY_REAR_X_SHIFT);
+    quadobject_moveNextY(birdPtr, -BODY_REAR_SHIFT);
+    quadobject_moveNextX(birdPtr, -BODY_REAR_RAD / 2);
+    bodyRearForwardTop = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, -BODY_REAR_RAD);
+    bodyRearForwardBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextX(birdPtr, BODY_REAR_RAD);
+    bodyRearBackBottom = quadobject_addVer(birdPtr);
+    quadobject_moveNextY(birdPtr, BODY_REAR_RAD);
+    bodyRearBackTop = quadobject_addVer(birdPtr);
+    quadobject_createQuadFromPrev(birdPtr);
 
     // Connect to body front - 0 vert, 4 face
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyBackBackTop,
         bodyBackForwardTop,
         bodyRearForwardTop,
         bodyRearBackTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyBackBackTop,
         bodyRearBackTop,
         bodyRearBackBottom,
         bodyBackBackBottom
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyBackForwardBottom,
         bodyRearForwardBottom,
         bodyRearForwardTop,
         bodyBackForwardTop
     );
-    QuadObject_addQuad(
+    quadobject_addQuad(
         birdPtr,
         bodyRearBackBottom,
         bodyRearForwardBottom,
@@ -656,56 +656,56 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
 
     /* LEFT WING */
 
-    QuadObject_setNextColor(birdPtr, WING_R, WING_G, WING_B);
+    quadobject_setNextColor(birdPtr, WING_R, WING_G, WING_B);
 
     // Create model curve - 5 vert, 0 face
-    QuadObject_moveNextZ(birdPtr, -BODY_REAR_LENGTH);
-    QuadObject_moveNextZ(birdPtr, -BODY_BACK_LENGTH);
-    QuadObject_moveNextX(birdPtr, -2);
-    QuadObject_moveNextY(birdPtr, -2);
+    quadobject_moveNextZ(birdPtr, -BODY_REAR_LENGTH);
+    quadobject_moveNextZ(birdPtr, -BODY_BACK_LENGTH);
+    quadobject_moveNextX(birdPtr, -2);
+    quadobject_moveNextY(birdPtr, -2);
     i = 0;
-    frontTopLeftWing[i] = QuadObject_addVer(birdPtr);
+    frontTopLeftWing[i] = quadobject_addVer(birdPtr);
     i++;
 
-    QuadObject_moveNextZ(birdPtr, -1);
-    QuadObject_moveNextX(birdPtr, -1);
-    QuadObject_moveNextY(birdPtr, 1);
-    frontTopLeftWing[i] = QuadObject_addVer(birdPtr);
+    quadobject_moveNextZ(birdPtr, -1);
+    quadobject_moveNextX(birdPtr, -1);
+    quadobject_moveNextY(birdPtr, 1);
+    frontTopLeftWing[i] = quadobject_addVer(birdPtr);
     i++;
 
-    QuadObject_moveNextZ(birdPtr, -1);
-    QuadObject_moveNextX(birdPtr, -1);
-    QuadObject_moveNextY(birdPtr, 0.5);
-    frontTopLeftWing[i] = QuadObject_addVer(birdPtr);
+    quadobject_moveNextZ(birdPtr, -1);
+    quadobject_moveNextX(birdPtr, -1);
+    quadobject_moveNextY(birdPtr, 0.5);
+    frontTopLeftWing[i] = quadobject_addVer(birdPtr);
     i++;
 
-    QuadObject_moveNextX(birdPtr, -10);
-    frontTopLeftWing[i] = QuadObject_addVer(birdPtr);
+    quadobject_moveNextX(birdPtr, -10);
+    frontTopLeftWing[i] = quadobject_addVer(birdPtr);
     i++;
 
-    QuadObject_moveNextZ(birdPtr, 4);
-    QuadObject_moveNextX(birdPtr, -2);
-    QuadObject_moveNextY(birdPtr, -1.3);
-    frontTopLeftWing[i] = QuadObject_addVer(birdPtr);
+    quadobject_moveNextZ(birdPtr, 4);
+    quadobject_moveNextX(birdPtr, -2);
+    quadobject_moveNextY(birdPtr, -1.3);
+    frontTopLeftWing[i] = quadobject_addVer(birdPtr);
     i++;
 
     // Mirror points behind - 5 verts, 0 face
     for(i=0; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        curVer = QuadObject_getVer(birdPtr, frontTopLeftWing[i]);
-        QuadObject_setNextPos(
+        curVer = quadobject_getVer(birdPtr, frontTopLeftWing[i]);
+        quadobject_setNextPos(
             birdPtr,
             curVer->pos[0],
             curVer->pos[1],
             curVer->pos[2] + MID_WING_Z_LENGTHS[i]
         );
-        backTopLeftWing[i] = QuadObject_addVer(birdPtr);
+        backTopLeftWing[i] = quadobject_addVer(birdPtr);
     }
 
     // Create faces on top - 0 verts, 4 faces
     for(i=1; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        quadIndex = QuadObject_addQuadBackwards(
+        quadIndex = quadobject_addQuadBackwards(
             birdPtr,
             frontTopLeftWing[i],
             frontTopLeftWing[i-1],
@@ -718,33 +718,33 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     // Mirror points below front - 5 verts, 0 face
     for(i=0; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        curVer = QuadObject_getVer(birdPtr, frontTopLeftWing[i]);
-        QuadObject_setNextPos(
+        curVer = quadobject_getVer(birdPtr, frontTopLeftWing[i]);
+        quadobject_setNextPos(
             birdPtr,
             curVer->pos[0],
             curVer->pos[1] - 1,
             curVer->pos[2]
         );
-        frontBottomLeftWing[i] = QuadObject_addVer(birdPtr);
+        frontBottomLeftWing[i] = quadobject_addVer(birdPtr);
     }
 
     // Mirror points below back - 5 verts, 0 face
     for(i=0; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        curVer = QuadObject_getVer(birdPtr, frontBottomLeftWing[i]);
-        QuadObject_setNextPos(
+        curVer = quadobject_getVer(birdPtr, frontBottomLeftWing[i]);
+        quadobject_setNextPos(
             birdPtr,
             curVer->pos[0],
             curVer->pos[1],
             curVer->pos[2] + MID_WING_Z_LENGTHS[i]
         );
-        backBottomLeftWing[i] = QuadObject_addVer(birdPtr);
+        backBottomLeftWing[i] = quadobject_addVer(birdPtr);
     }
 
     // Create faces on bottom - 0 verts, 4 faces
     for(i=1; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        QuadObject_addQuad(
+        quadobject_addQuad(
             birdPtr,
             frontBottomLeftWing[i],
             frontBottomLeftWing[i-1],
@@ -756,7 +756,7 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     // Create faces on edges - 0 verts, 4 faces
     for(i=1; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        QuadObject_addQuad(
+        quadobject_addQuad(
             birdPtr,
             frontTopLeftWing[i],
             frontTopLeftWing[i-1],
@@ -768,7 +768,7 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     // Create faces on edges - 0 verts, 4 faces
     for(i=1; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        QuadObject_addQuadBackwards(
+        quadobject_addQuadBackwards(
             birdPtr,
             backTopLeftWing[i],
             backTopLeftWing[i-1],
@@ -778,7 +778,7 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     }
 
     // Seal off wing - 0 vert, 1 face
-    QuadObject_addQuadBackwards(
+    quadobject_addQuadBackwards(
         birdPtr,
         frontTopLeftWing[NUM_WING_GUIDE_POINTS-1],
         backTopLeftWing[NUM_WING_GUIDE_POINTS-1],
@@ -789,56 +789,56 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     /* RIGHT WING */
 
     // Create model curve - 5 vert, 0 face
-    curVer = QuadObject_getVer(birdPtr, frontTopLeftWing[0]);
-    QuadObject_setNextPos(
+    curVer = quadobject_getVer(birdPtr, frontTopLeftWing[0]);
+    quadobject_setNextPos(
         birdPtr,
         curVer->pos[0] + 3,
         curVer->pos[1],
         curVer->pos[2]
     );
     i = 0;
-    frontTopRightWing[i] = QuadObject_addVer(birdPtr);
+    frontTopRightWing[i] = quadobject_addVer(birdPtr);
     i++;
 
-    QuadObject_moveNextZ(birdPtr, -1);
-    QuadObject_moveNextX(birdPtr, 1);
-    QuadObject_moveNextY(birdPtr, 1);
-    frontTopRightWing[i] = QuadObject_addVer(birdPtr);
+    quadobject_moveNextZ(birdPtr, -1);
+    quadobject_moveNextX(birdPtr, 1);
+    quadobject_moveNextY(birdPtr, 1);
+    frontTopRightWing[i] = quadobject_addVer(birdPtr);
     i++;
 
-    QuadObject_moveNextZ(birdPtr, -1);
-    QuadObject_moveNextX(birdPtr, 1);
-    QuadObject_moveNextY(birdPtr, 0.5);
-    frontTopRightWing[i] = QuadObject_addVer(birdPtr);
+    quadobject_moveNextZ(birdPtr, -1);
+    quadobject_moveNextX(birdPtr, 1);
+    quadobject_moveNextY(birdPtr, 0.5);
+    frontTopRightWing[i] = quadobject_addVer(birdPtr);
     i++;
 
-    QuadObject_moveNextX(birdPtr, 10);
-    frontTopRightWing[i] = QuadObject_addVer(birdPtr);
+    quadobject_moveNextX(birdPtr, 10);
+    frontTopRightWing[i] = quadobject_addVer(birdPtr);
     i++;
 
-    QuadObject_moveNextZ(birdPtr, 4);
-    QuadObject_moveNextX(birdPtr, 2);
-    QuadObject_moveNextY(birdPtr, -1.3);
-    frontTopRightWing[i] = QuadObject_addVer(birdPtr);
+    quadobject_moveNextZ(birdPtr, 4);
+    quadobject_moveNextX(birdPtr, 2);
+    quadobject_moveNextY(birdPtr, -1.3);
+    frontTopRightWing[i] = quadobject_addVer(birdPtr);
     i++;
 
     // Mirror points behind - 5 verts, 0 face
     for(i=0; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        curVer = QuadObject_getVer(birdPtr, frontTopRightWing[i]);
-        QuadObject_setNextPos(
+        curVer = quadobject_getVer(birdPtr, frontTopRightWing[i]);
+        quadobject_setNextPos(
             birdPtr,
             curVer->pos[0],
             curVer->pos[1],
             curVer->pos[2] + MID_WING_Z_LENGTHS[i]
         );
-        backTopRightWing[i] = QuadObject_addVer(birdPtr);
+        backTopRightWing[i] = quadobject_addVer(birdPtr);
     }
 
     // Create faces on top - 0 verts, 4 faces
     for(i=1; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        QuadObject_addQuad(
+        quadobject_addQuad(
             birdPtr,
             frontTopRightWing[i],
             frontTopRightWing[i-1],
@@ -850,33 +850,33 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     // Mirror points below front - 5 verts, 0 face
     for(i=0; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        curVer = QuadObject_getVer(birdPtr, frontTopRightWing[i]);
-        QuadObject_setNextPos(
+        curVer = quadobject_getVer(birdPtr, frontTopRightWing[i]);
+        quadobject_setNextPos(
             birdPtr,
             curVer->pos[0],
             curVer->pos[1] - 1,
             curVer->pos[2]
         );
-        frontBottomRightWing[i] = QuadObject_addVer(birdPtr);
+        frontBottomRightWing[i] = quadobject_addVer(birdPtr);
     }
 
     // Mirror points below back - 5 verts, 0 face
     for(i=0; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        curVer = QuadObject_getVer(birdPtr, frontBottomRightWing[i]);
-        QuadObject_setNextPos(
+        curVer = quadobject_getVer(birdPtr, frontBottomRightWing[i]);
+        quadobject_setNextPos(
             birdPtr,
             curVer->pos[0],
             curVer->pos[1],
             curVer->pos[2] + MID_WING_Z_LENGTHS[i]
         );
-        backBottomRightWing[i] = QuadObject_addVer(birdPtr);
+        backBottomRightWing[i] = quadobject_addVer(birdPtr);
     }
 
     // Create faces on bottom - 0 verts, 4 faces
     for(i=1; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        QuadObject_addQuadBackwards(
+        quadobject_addQuadBackwards(
             birdPtr,
             frontBottomRightWing[i],
             frontBottomRightWing[i-1],
@@ -888,7 +888,7 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     // Create faces on edges - 0 verts, 4 faces
     for(i=1; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        QuadObject_addQuadBackwards(
+        quadobject_addQuadBackwards(
             birdPtr,
             frontTopRightWing[i],
             frontTopRightWing[i-1],
@@ -900,7 +900,7 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     // Create faces on edges - 0 verts, 4 faces
     for(i=1; i<NUM_WING_GUIDE_POINTS; i++)
     {
-        QuadObject_addQuad(
+        quadobject_addQuad(
             birdPtr,
             backTopRightWing[i],
             backTopRightWing[i-1],
@@ -910,7 +910,7 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
     }
 
     // Seal off wing - 0 vert, 1 face
-    decoratedBirdPtr->endWingQuadIndex = QuadObject_addQuad(
+    decoratedBirdPtr->endWingQuadIndex = quadobject_addQuad(
         birdPtr,
         frontTopRightWing[NUM_WING_GUIDE_POINTS-1],
         backTopRightWing[NUM_WING_GUIDE_POINTS-1],
@@ -921,7 +921,7 @@ void bird_initBirdModel(Bird * decoratedBirdPtr)
 
 void bird_draw(Bird * birdPtr)
 {
-    QuadObject_draw(&(birdPtr->quadObject));
+    quadobject_draw(&(birdPtr->quadObject));
 }
 
 void bird_step(Bird * birdPtr, Boid * boids, int totalBirds, 

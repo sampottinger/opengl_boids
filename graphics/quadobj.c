@@ -16,7 +16,7 @@ light_t light={
       {0.1,0.1,0.1,1}      //ambient
 }; 
 
-void QuadObject_init(QuadObject * obj, int numVer, int numQuad)
+void quadobject_init(QuadObject * obj, int numVer, int numQuad)
 {
     obj->ver = malloc(sizeof(ColoredVertex) * numVer);
     obj->quad = malloc(sizeof(Quad) * numQuad);
@@ -48,83 +48,83 @@ void QuadObject_init(QuadObject * obj, int numVer, int numQuad)
     obj->zScale = 1;
 }
 
-void QuadObject_setNextTexture(QuadObject * obj, int texture)
+void quadobject_setNextTexture(QuadObject * obj, int texture)
 {
     obj->hasTexture = 1;
     obj->textureNum = texture;
 }
 
-void QuadObject_setNoTexture(QuadObject * obj)
+void quadobject_setNoTexture(QuadObject * obj)
 {
     obj->hasTexture = 0;
 }
 
-void QuadObject_setNextColor(QuadObject * obj, GLfloat r, GLfloat g, GLfloat b)
+void quadobject_setNextColor(QuadObject * obj, GLfloat r, GLfloat g, GLfloat b)
 {
     obj->r = r;
     obj->g = g;
     obj->b = b;
 }
 
-void QuadObject_setNextPos(QuadObject * obj, GLfloat x, GLfloat y, GLfloat z)
+void quadobject_setNextPos(QuadObject * obj, GLfloat x, GLfloat y, GLfloat z)
 {
     obj->x = x;
     obj->y = y;
     obj->z = z;
 }
 
-void QuadObject_setNextR(QuadObject * obj, GLfloat r)
+void quadobject_setNextR(QuadObject * obj, GLfloat r)
 {
     obj->r = r;
 }
 
-void QuadObject_setNextG(QuadObject * obj, GLfloat g)
+void quadobject_setNextG(QuadObject * obj, GLfloat g)
 {
     obj->g = g;
 }
 
-void QuadObject_setNextB(QuadObject * obj, GLfloat b)
+void quadobject_setNextB(QuadObject * obj, GLfloat b)
 {
     obj->b = b;
 }
 
-void QuadObject_setNextX(QuadObject * obj, GLfloat x)
+void quadobject_setNextX(QuadObject * obj, GLfloat x)
 {
     obj->x = x;
 }
 
-void QuadObject_setNextY(QuadObject * obj, GLfloat y)
+void quadobject_setNextY(QuadObject * obj, GLfloat y)
 {
     obj->y = y;
 }
 
-void QuadObject_setNextZ(QuadObject * obj, GLfloat z)
+void quadobject_setNextZ(QuadObject * obj, GLfloat z)
 {
     obj->z = z;
 }
 
-void QuadObject_moveNextX(QuadObject * obj, GLfloat dx)
+void quadobject_moveNextX(QuadObject * obj, GLfloat dx)
 {
     obj->x += dx;
 }
 
-void QuadObject_moveNextY(QuadObject * obj, GLfloat dy)
+void quadobject_moveNextY(QuadObject * obj, GLfloat dy)
 {
     obj->y += dy;
 }
 
-void QuadObject_moveNextZ(QuadObject * obj, GLfloat dz)
+void quadobject_moveNextZ(QuadObject * obj, GLfloat dz)
 {
     obj->z += dz;
 }
 
-void QuadObject_createQuadFromPrev(QuadObject * obj)
+void quadobject_createQuadFromPrev(QuadObject * obj)
 {
     int i = obj->numVerAssigned - 1;
-    QuadObject_addQuad(obj, i-3, i-2, i-1, i);
+    quadobject_addQuad(obj, i-3, i-2, i-1, i);
 }
 
-void QuadObject_setVer(QuadObject * obj, int verId)
+void quadobject_setVer(QuadObject * obj, int verId)
 {
     ColoredVertex * vertex;
 
@@ -145,16 +145,16 @@ void QuadObject_setVer(QuadObject * obj, int verId)
     vertex->col[2] = obj->b;
 }
 
-int QuadObject_addVer(QuadObject * obj)
+int quadobject_addVer(QuadObject * obj)
 {
     int index = obj->numVerAssigned;
-    QuadObject_setVer(obj, index);
+    quadobject_setVer(obj, index);
     obj->numVerAssigned++;
 
     return index;
 }
 
-ColoredVertex * QuadObject_getVer(QuadObject * obj, unsigned int vertId)
+ColoredVertex * quadobject_getVer(QuadObject * obj, unsigned int vertId)
 {
     // Check bounds
     if(obj->numVer <= vertId)
@@ -166,22 +166,22 @@ ColoredVertex * QuadObject_getVer(QuadObject * obj, unsigned int vertId)
     return &(obj->ver[vertId]);
 }
 
-void QuadObject_fixQuad(QuadObject * obj, int id)
+void quadobject_fixQuad(QuadObject * obj, int id)
 {
     Quad * targetQuad = &(obj->quad[id]);
-    ColoredVertex * pointa = QuadObject_getVer(obj, targetQuad->ver[2]);
-    ColoredVertex * pointb = QuadObject_getVer(obj, targetQuad->ver[1]);
-    ColoredVertex * pointc = QuadObject_getVer(obj, targetQuad->ver[0]);
-    Quad_fixNormal(targetQuad, pointa, pointb, pointc);
+    ColoredVertex * pointa = quadobject_getVer(obj, targetQuad->ver[2]);
+    ColoredVertex * pointb = quadobject_getVer(obj, targetQuad->ver[1]);
+    ColoredVertex * pointc = quadobject_getVer(obj, targetQuad->ver[0]);
+    quad_fixNormal(targetQuad, pointa, pointb, pointc);
 }
 
-int QuadObject_addQuadBackwards(QuadObject * obj, unsigned int v0Index,
+int quadobject_addQuadBackwards(QuadObject * obj, unsigned int v0Index,
     unsigned int v1Index, unsigned int v2Index, unsigned int v3Index)
 {
-    return QuadObject_addQuad(obj, v3Index, v2Index, v1Index, v0Index);
+    return quadobject_addQuad(obj, v3Index, v2Index, v1Index, v0Index);
 }
 
-int QuadObject_addQuad(QuadObject * obj, unsigned int v0Index,
+int quadobject_addQuad(QuadObject * obj, unsigned int v0Index,
     unsigned int v1Index, unsigned int v2Index, unsigned int v3Index)
 {
     int index;
@@ -200,9 +200,9 @@ int QuadObject_addQuad(QuadObject * obj, unsigned int v0Index,
     }
 
     // Get verticies
-    v0 = QuadObject_getVer(obj, v0Index);
-    v1 = QuadObject_getVer(obj, v1Index);
-    v2 = QuadObject_getVer(obj, v2Index);
+    v0 = quadobject_getVer(obj, v0Index);
+    v1 = quadobject_getVer(obj, v1Index);
+    v2 = quadobject_getVer(obj, v2Index);
 
     if(obj->outOfBounds)
         return -1;
@@ -210,7 +210,7 @@ int QuadObject_addQuad(QuadObject * obj, unsigned int v0Index,
     // Set object
     index = obj->numQuadAssigned;
     quad = &(obj->quad[index]);
-    Quad_init(
+    quad_init(
         quad,
         vertexIndicies,
         v2,
@@ -225,18 +225,18 @@ int QuadObject_addQuad(QuadObject * obj, unsigned int v0Index,
     return index;
 }
 
-void QuadObject_del(QuadObject * obj)
+void quadobject_del(QuadObject * obj)
 {
     free(obj->ver);
     free(obj->quad);
 }
 
-void QuadObject_draw(QuadObject * obj)
+void quadobject_draw(QuadObject * obj)
 {
-    QuadObject_drawSpecific(obj, obj->numQuad, 0);
+    quadobject_drawSpecific(obj, obj->numQuad, 0);
 }
 
-void QuadObject_drawSpecific(QuadObject * obj, int numQuad, int startQuad)
+void quadobject_drawSpecific(QuadObject * obj, int numQuad, int startQuad)
 {
     int a;
     unsigned int currentVer;
@@ -292,7 +292,7 @@ void QuadObject_drawSpecific(QuadObject * obj, int numQuad, int startQuad)
    glPopMatrix();
 }
 
-void QuadObject_drawSpecificRadially(QuadObject * obj, int numQuads,
+void quadobject_drawSpecificRadially(QuadObject * obj, int numQuads,
    int startQuad, float xCenter, float yCenter, float zCenter)
 {
     int a;
@@ -336,14 +336,14 @@ void QuadObject_drawSpecificRadially(QuadObject * obj, int numQuads,
    glPopMatrix();
 }
 
-void Quad_init(Quad * obj, unsigned int * ver, ColoredVertex * pointa,
+void quad_init(Quad * obj, unsigned int * ver, ColoredVertex * pointa,
     ColoredVertex * pointb, ColoredVertex * pointc)
 {
     memcpy(obj->ver, ver, sizeof(unsigned int) * NUM_VERT_PER_QUAD);
     linalg_getFaceNormal(obj->norm, pointa->pos, pointb->pos, pointc->pos);
 }
 
-void Quad_fixNormal(Quad * obj, ColoredVertex * pointa, ColoredVertex * pointb,
+void quad_fixNormal(Quad * obj, ColoredVertex * pointa, ColoredVertex * pointb,
     ColoredVertex * pointc)
 {
     linalg_getFaceNormal(obj->norm, pointa->pos, pointb->pos, pointc->pos);

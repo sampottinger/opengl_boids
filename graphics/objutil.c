@@ -22,60 +22,60 @@ void objutil_addRectPrismTexNorm(QuadObject * obj, GLfloat x, GLfloat y,
     int topBackwardRight;
 
     if(texture != -1)
-        QuadObject_setNextTexture(obj, texture);
+        quadobject_setNextTexture(obj, texture);
 
-    QuadObject_setNextPos(obj, x, y+height, z+depth);
-    topForwardLeft = QuadObject_addVer(obj);
+    quadobject_setNextPos(obj, x, y+height, z+depth);
+    topForwardLeft = quadobject_addVer(obj);
 
-    QuadObject_setNextPos(obj, x+width, y+height, z+depth);
-    topForwardRight = QuadObject_addVer(obj);
+    quadobject_setNextPos(obj, x+width, y+height, z+depth);
+    topForwardRight = quadobject_addVer(obj);
 
-    QuadObject_setNextPos(obj, x+width, y+height, z);
-    topBackwardRight = QuadObject_addVer(obj);
+    quadobject_setNextPos(obj, x+width, y+height, z);
+    topBackwardRight = quadobject_addVer(obj);
 
-    QuadObject_setNextPos(obj, x, y+height, z);
-    topBackwardLeft = QuadObject_addVer(obj);
+    quadobject_setNextPos(obj, x, y+height, z);
+    topBackwardLeft = quadobject_addVer(obj);
 
-    QuadObject_setNextPos(obj, x, y, z+depth);
-    bottomForwardLeft = QuadObject_addVer(obj);
+    quadobject_setNextPos(obj, x, y, z+depth);
+    bottomForwardLeft = quadobject_addVer(obj);
 
-    QuadObject_setNextPos(obj, x+width, y, z+depth);
-    bottomForwardRight = QuadObject_addVer(obj);
+    quadobject_setNextPos(obj, x+width, y, z+depth);
+    bottomForwardRight = quadobject_addVer(obj);
 
-    QuadObject_setNextPos(obj, x+width, y, z);
-    bottomBackwardRight = QuadObject_addVer(obj);
+    quadobject_setNextPos(obj, x+width, y, z);
+    bottomBackwardRight = quadobject_addVer(obj);
 
-    QuadObject_setNextPos(obj, x, y, z);
-    bottomBackwardLeft = QuadObject_addVer(obj);
+    quadobject_setNextPos(obj, x, y, z);
+    bottomBackwardLeft = quadobject_addVer(obj);
 
     if(reverseNormals == TRUE)
     {
-        QuadObject_addQuadBackwards(obj, topForwardLeft, topForwardRight,
+        quadobject_addQuadBackwards(obj, topForwardLeft, topForwardRight,
             topBackwardRight, topBackwardLeft);
-        QuadObject_addQuadBackwards(obj, topForwardLeft, topBackwardLeft,
+        quadobject_addQuadBackwards(obj, topForwardLeft, topBackwardLeft,
             bottomBackwardLeft, bottomForwardLeft);
-        QuadObject_addQuadBackwards(obj, topBackwardLeft, topBackwardRight,
+        quadobject_addQuadBackwards(obj, topBackwardLeft, topBackwardRight,
             bottomBackwardRight, bottomBackwardLeft);
-        QuadObject_addQuadBackwards(obj, topBackwardRight, topForwardRight,
+        quadobject_addQuadBackwards(obj, topBackwardRight, topForwardRight,
             bottomForwardRight, bottomBackwardRight);
-        QuadObject_addQuadBackwards(obj, topForwardLeft, bottomForwardLeft,
+        quadobject_addQuadBackwards(obj, topForwardLeft, bottomForwardLeft,
             bottomForwardRight, topForwardRight);
-        QuadObject_addQuadBackwards(obj, bottomForwardLeft, bottomBackwardLeft,
+        quadobject_addQuadBackwards(obj, bottomForwardLeft, bottomBackwardLeft,
             bottomBackwardRight, bottomForwardRight);
     }
     else
     {
-        QuadObject_addQuad(obj, topForwardLeft, topForwardRight,
+        quadobject_addQuad(obj, topForwardLeft, topForwardRight,
             topBackwardRight, topBackwardLeft);
-        QuadObject_addQuad(obj, topForwardLeft, topBackwardLeft,
+        quadobject_addQuad(obj, topForwardLeft, topBackwardLeft,
             bottomBackwardLeft, bottomForwardLeft);
-        QuadObject_addQuad(obj, topBackwardLeft, topBackwardRight,
+        quadobject_addQuad(obj, topBackwardLeft, topBackwardRight,
             bottomBackwardRight, bottomBackwardLeft);
-        QuadObject_addQuad(obj, topBackwardRight, topForwardRight,
+        quadobject_addQuad(obj, topBackwardRight, topForwardRight,
             bottomForwardRight, bottomBackwardRight);
-        QuadObject_addQuad(obj, topForwardLeft, bottomForwardLeft,
+        quadobject_addQuad(obj, topForwardLeft, bottomForwardLeft,
             bottomForwardRight, topForwardRight);
-        QuadObject_addQuad(obj, bottomForwardLeft, bottomBackwardLeft,
+        quadobject_addQuad(obj, bottomForwardLeft, bottomBackwardLeft,
             bottomBackwardRight, bottomForwardRight);
     }
 }
