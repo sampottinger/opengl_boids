@@ -71,5 +71,4 @@ void sky_initSky(QuadObject * obj, int * texIDs)
     QuadObject_setNextTexture(obj, texIDs[5]); // Bottom
     QuadObject_addQuadBackwards(obj, bottomForwardLeft, bottomBackwardLeft,
       bottomBackwardRight, bottomForwardRight);
-   //objutil_addRectPrism(obj, -200, 0, -200, 400, 3, 400);
 }

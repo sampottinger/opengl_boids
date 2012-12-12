@@ -24,6 +24,7 @@
 #include "bird.h"
 #include "ground.h"
 #include "sky.h"
+#include "tree.h"
 
 #define TITLE "title"
 
@@ -42,6 +43,8 @@
 #define MIN_BALLOON_HEIGHT 0
 
 #define NUM_BIRDS 100
+
+#define NUM_TREES 30
 
 #define FPS_FORWARD_AMOUNT 5
 
@@ -77,7 +80,7 @@ int balloon2Multiplier;
 int balloon3Multiplier;
 int balloon4Multiplier;
 
-int textures[8];
+int textures[10];
 
 // Balloons and ground
 QuadObject balloon1;
@@ -86,6 +89,7 @@ QuadObject balloon3;
 QuadObject balloon4;
 QuadObject ground;
 QuadObject skybox;
+QuadObject trees[NUM_TREES];
 
 Flock flock;
 
@@ -157,6 +161,7 @@ void applyCamera()
  */
 void display()
 {
+  int i;
 
    //  Erase the window and the depth buffer
    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -253,6 +258,10 @@ void display()
 
    // Draw birds
    Flock_draw(&flock);
+
+   // Draw plants
+   for(i=0; i<NUM_TREES; i++)
+    QuadObject_draw(trees+i);
 
    // Display current weights
    glColor3f(1,1,1);
@@ -599,6 +608,8 @@ int main(int argc,char* argv[])
    textures[5] = LoadTexBMP("sky_right.bmp");
    textures[6] = LoadTexBMP("sky_front.bmp");
    textures[7] = LoadTexBMP("sky_bottom.bmp");
+   textures[8] = LoadTexBMP("tree_bark.bmp");
+   textures[9] = LoadTexBMP("tree_leaves.bmp");
 
    // Create first balloon
    balloon_initBalloon(&balloon1, textures[0]);
@@ -626,8 +637,19 @@ int main(int argc,char* argv[])
    ground_initGround(&ground, textures[1]);
    ground.curY = -5;
 
-   sky_initSky(&skybox, &textures[2]);
+   sky_initSky(&skybox, textures + 2);
    skybox.curY = -5.1;
+
+   // Create plants
+   for(i=0; i<NUM_TREES; i++)
+   {
+     tree_initTree(trees+i, textures + 8);
+     trees[i].curX = rand() % 640 - 320;
+     trees[i].curZ = rand() % 640 - 320;
+     trees[i].xScale = 0.4;
+     trees[i].yScale = 0.4;
+     trees[i].zScale = 0.6;
+   }
 
    // Create many birds
    Flock_init(&flock, NUM_BIRDS);
