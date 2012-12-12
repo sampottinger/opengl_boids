@@ -22,7 +22,7 @@
 
 #define BOID_MIN_X -310
 #define BOID_MAX_X 310
-#define BOID_MIN_Y 20
+#define BOID_MIN_Y 50
 #define BOID_MAX_Y 310
 #define BOID_MIN_Z -310
 #define BOID_MAX_Z 310

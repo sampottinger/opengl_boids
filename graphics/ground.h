@@ -14,6 +14,10 @@
 #define GROUND_R 1
 #define GROUND_G 1
 #define GROUND_B 1
+#define SCENE_WIDTH 640
+#define SCENE_DEPTH 640
+#define SCENE_START_X -320
+#define SCENE_START_Z -320
 
 /**
  * Name: ground_initGround(QuadObject * obj, int texID)
