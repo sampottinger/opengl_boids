@@ -40,7 +40,7 @@
 #define FALSE 0
 
 #define MAX_BALLOON_HEIGHT 300
-#define MIN_BALLOON_HEIGHT 0
+#define MIN_BALLOON_HEIGHT 50
 
 #define NUM_BIRDS 100
 
@@ -80,7 +80,8 @@
 
 #define NUM_TEXTURES 10
 
-float xpos = 0, ypos = 0, zpos = 0, xrot = 0, yrot = 0, angle=0.0;
+// Camera positions
+float xpos = 0, ypos = 50, zpos = 0, xrot = 0, yrot = 0, angle=0.0;
 
 float lightPosition0[3]={SCENE_START_X / 2, 100.0, SCENE_START_Z / 2};
 float lightAccumulator0 = 0;
@@ -492,6 +493,22 @@ void keyboardFPS(unsigned char key, int x, int y)
         }
     }
 
+    // Ensure positions in range
+    if(xpos < MIN_X)
+      xpos = MIN_X;
+    else if(xpos > MAX_X)
+      xpos = MAX_X;
+
+    if(ypos < MIN_Y)
+      ypos = MIN_Y;
+    else if(ypos > MAX_Y)
+      ypos = MAX_Y;
+
+    if(zpos < MIN_Z)
+      zpos = MIN_Z;
+    else if(zpos > MAX_Z)
+      zpos = MAX_Z;
+
     // Quit
     if (key==27)
     {
@@ -720,19 +737,19 @@ int main(int argc,char* argv[])
     balloon_initBalloon(&balloon2, textures[CRATE_TEXTURE_INDEX]);
     balloon2.curX = 50;
     balloon2.curZ = 50;
-    balloon2.curY = 20;
+    balloon2.curY = 60;
 
     // Create third balloon
     balloon_initBalloon(&balloon3, textures[CRATE_TEXTURE_INDEX]);
     balloon3.curX = -50;
     balloon3.curZ = -50;
-    balloon3.curY = 30;
+    balloon3.curY = 60;
 
     // Create fourth balloon
     balloon_initBalloon(&balloon4, textures[CRATE_TEXTURE_INDEX]);
     balloon4.curX = 0;
     balloon4.curZ = 50;
-    balloon4.curY = 30;
+    balloon4.curY = 60;
 
     // Create the ground
     ground_initGround(&ground, textures[GROUND_TEXTURE_INDEX]);
