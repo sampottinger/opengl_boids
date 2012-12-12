@@ -78,6 +78,8 @@
 #define TREE_BARK_INDEX 8
 #define TREE_LEAVES_INDEX 9
 
+#define NUM_TEXTURES 10
+
 float xpos = 0, ypos = 0, zpos = 0, xrot = 0, yrot = 0, angle=0.0;
 
 float lightPosition0[3]={SCENE_START_X / 2, 100.0, SCENE_START_Z / 2};
@@ -110,7 +112,7 @@ int balloon2Multiplier;
 int balloon3Multiplier;
 int balloon4Multiplier;
 
-int textures[10];
+int textures[NUM_TEXTURES];
 
 // Balloons and ground
 QuadObject balloon1;
