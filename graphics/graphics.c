@@ -665,16 +665,16 @@ int main(int argc,char* argv[])
     glEnable(GL_DEPTH_TEST);
 
     // Load textures
-    textures[CRATE_TEXTURE_INDEX] = LoadTexBMP("crate.bmp");
-    textures[GROUND_TEXTURE_INDEX] = LoadTexBMP("groundsoil.bmp");
-    textures[SKY_TOP_TEXTURE_INDEX] = LoadTexBMP("sky_top.bmp");
-    textures[SKY_LEFT_TEXTURE_INDEX] = LoadTexBMP("sky_left.bmp");
-    textures[SKY_BACK_TEXTURE_INDEX] = LoadTexBMP("sky_back.bmp");
-    textures[SKY_RIGHT_TEXTURE_INDEX] = LoadTexBMP("sky_right.bmp");
-    textures[SKY_FRONT_TEXTURE_INDEX] = LoadTexBMP("sky_front.bmp");
-    textures[SKY_BOTTOM_TEXTURE_INDEX] = LoadTexBMP("sky_bottom.bmp");
-    textures[TREE_BARK_INDEX] = LoadTexBMP("tree_bark.bmp");
-    textures[TREE_LEAVES_INDEX] = LoadTexBMP("tree_leaves.bmp");
+    textures[CRATE_TEXTURE_INDEX] = LoadTexBMP("./images/crate.bmp");
+    textures[GROUND_TEXTURE_INDEX] = LoadTexBMP("./images/groundsoil.bmp");
+    textures[SKY_TOP_TEXTURE_INDEX] = LoadTexBMP("./images/sky_top.bmp");
+    textures[SKY_LEFT_TEXTURE_INDEX] = LoadTexBMP("./images/sky_left.bmp");
+    textures[SKY_BACK_TEXTURE_INDEX] = LoadTexBMP("./images/sky_back.bmp");
+    textures[SKY_RIGHT_TEXTURE_INDEX] = LoadTexBMP("./images/sky_right.bmp");
+    textures[SKY_FRONT_TEXTURE_INDEX] = LoadTexBMP("./images/sky_front.bmp");
+    textures[SKY_BOTTOM_TEXTURE_INDEX] = LoadTexBMP("./images/sky_bottom.bmp");
+    textures[TREE_BARK_INDEX] = LoadTexBMP("./images/tree_bark.bmp");
+    textures[TREE_LEAVES_INDEX] = LoadTexBMP("./images/tree_leaves.bmp");
 
     // Create first balloon
     balloon_initBalloon(&balloon1, textures[CRATE_TEXTURE_INDEX]);

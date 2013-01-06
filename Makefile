@@ -52,4 +52,4 @@ loadtexbmp.o: ./schreuider/loadtexbmp.c
 clean:
 	rm *.o
 	rm -rf *.dSYM
-	rm final
+	rm birds
