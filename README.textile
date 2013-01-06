@@ -1,18 +1,21 @@
-OpenGL-based 3D Boids Birds Simulation
-A. Samuel Pottinger
+h2. OpenGL-based 3D Boids Birds Simulation
 
-h2. License
-Licensed under GNU GPL v2. See LICENSE.txt
-
+written by A. Samuel Pottinger ("http://gleap.org":http://gleap.org)
 Started for Professor Schreuder's Computer Graphics Course
 CU Boulder, CSCI 5229
 
+h2. License
+
+Licensed under GNU GPL v2. See LICENSE.txt
+
 h2. Build instructions
+
 $ make final
 $ ./birds
 
 
 h2. Controls
+
 * Mouse changes viewing angle.
 * P pauses the spinning light.
 * W increases the altitude of the light.
@@ -26,10 +29,11 @@ h2. Controls
 
 
 h2. Resources
+
 Some code provided by Professor Schreuider as part of his Computer Graphics
 course. Used with permission, his work is in the "schreuider" folder.
 
-h2. Textures
+Textures:
 * http://users.csc.calpoly.edu/~zwood/teaching/csc471/finalprojw12/sbong/
 * http://code.google.com/p/control3d/downloads/detail?name=Crate.bmp&can=2&q=
 * http://sixrevisions.com/freebies/textures/10-high-quality-free-tree-bark-textures/
