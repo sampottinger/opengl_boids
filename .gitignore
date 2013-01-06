@@ -1,0 +1,17 @@
+# Thanks https://github.com/github/gitignore/blob/master/C%2B%2B.gitignore
+
+*.DS_Store
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
