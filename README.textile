@@ -10,7 +10,7 @@ Licensed under GNU GPL v2. See LICENSE.txt
 
 h2. Build instructions
 
-$ make final
+$ make
 $ ./birds
 
 
