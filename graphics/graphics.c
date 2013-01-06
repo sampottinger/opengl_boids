@@ -14,8 +14,8 @@
 #include <stdarg.h>
 #include <math.h>
 
-#include "../CSCIx229.h"
 #include "../flocking/physics.h"
+#include "../schreuider/CSCIx229.h"
 
 #include "flock.h"
 
