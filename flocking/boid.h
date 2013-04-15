@@ -73,7 +73,8 @@ void Boid_initFull(Boid * boid, float x, float y, float z, int minX, int minY,
  *       timestep, The time to apply the resulting force for.
 **/
 void Boid_step(Boid * boid, Boid * boids, int numBoids,
-    PhysicsVector * obstacles, int numObstacles, float timestep);
+    PhysicsVector * obstacles, int numObstacles, float timestep,
+    char ignoreSight);
 
 /**
  * Name: Boid_respondToFlock
@@ -83,7 +84,7 @@ void Boid_step(Boid * boid, Boid * boids, int numBoids,
  *       numBoids, The number of boids in boids.
 **/
 void Boid_respondToFlock(Boid * boid, Boid * boids, int numBoids,
-    PhysicsVector * obstacles, int numObstacles);
+    PhysicsVector * obstacles, int numObstacles, char ignoreSight);
 
 /**
  * Name: Boid_calculateSeperation
@@ -94,7 +95,8 @@ void Boid_respondToFlock(Boid * boid, Boid * boids, int numBoids,
  *       weight, The artifical weight to apply to the seperation force.
 **/
 void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
-    PhysicsVector * obstacles, int numObstacles, float weight);
+    PhysicsVector * obstacles, int numObstacles, float weight,
+    char ignoreSight);
 
 /**
  * Name: Boid_calculateAlign
@@ -104,7 +106,8 @@ void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
  *       boids, The 
  *       weight, The artifical weight to apply to the seperation force.
 **/
-void Boid_calculateAlign(Boid * boid, Boid * boids, int numBoids, float weight);
+void Boid_calculateAlign(Boid * boid, Boid * boids, int numBoids, float weight,
+    char ignoreSight);
 
 /**
  * Name: Boid_calculateCohesion
@@ -116,7 +119,7 @@ void Boid_calculateAlign(Boid * boid, Boid * boids, int numBoids, float weight);
  *       weight, The artificial weight to apply to the cohesion force.
 **/
 void Boid_calculateCohesion(Boid * boid, Boid * boids, int numBoids,
-    float weight);
+    float weight, char ignoreSight);
 
 /**
  * Name: Boid_steerTowardsLocation
@@ -188,5 +191,7 @@ void Boid_setVel(Boid * boid, float x, float y, float z);
 **/
 void Boid_setWeights(Boid * boid, float seperationWeight, float alignWeight,
     float cohesionWeight);
+
+char Boid_inSight(Boid * boid, PhysicsVector * otherPos);
 
 #endif

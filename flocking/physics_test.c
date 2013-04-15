@@ -136,7 +136,6 @@ MU_TEST(test_object)
     PhysicsVector ans1;
     PhysicsVector ans2;
     PhysicsVector ans3;
-    PhysicsVector ans4;
 
     PhysicsVector * v1ptr = &v1;
     PhysicsVector * v2ptr = &v2;

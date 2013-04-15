@@ -932,7 +932,7 @@ void bird_step(Bird * birdPtr, Boid * boids, int totalBirds,
     PhysicsVector_init(&from, 0, 0, 0);
 
     Boid_step(birdPtr->boid, boids, totalBirds, obstacles, numObstacles,
-        timestep);
+        timestep, FALSE);
     birdPtr->quadObject.curX = Boid_getX(birdPtr->boid);
     birdPtr->quadObject.curY = Boid_getY(birdPtr->boid);
     birdPtr->quadObject.curZ = Boid_getZ(birdPtr->boid);

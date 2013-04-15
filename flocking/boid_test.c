@@ -48,7 +48,8 @@ MU_TEST(test_calculateSeperation)
     Boid_init(b2ptr, 10, 4, 0);
     Boid_init(b3ptr, 10, 10, 0);
 
-    Boid_calculateSeperation(b3ptr, (Boid *)(&boids), 3, testObstacles, 0, 2);
+    Boid_calculateSeperation(b3ptr, (Boid *)(&boids), 3, testObstacles, 0, 2,
+        TRUE);
 
     PhysicsVector_init(ansPtr, 0.076822124, 0.06401844, 0);
     mu_check(PhysicsVector_eq(accelerationPtr, ansPtr, 0.000005));
@@ -74,7 +75,7 @@ MU_TEST(test_calculateAlign)
     b2ptr->physicsObject.velocity.x = 3;
     b2ptr->physicsObject.velocity.y = 4;
 
-    Boid_calculateAlign(b3ptr, (Boid *)(&boids), 3, 2);
+    Boid_calculateAlign(b3ptr, (Boid *)(&boids), 3, 2, TRUE);
 
     PhysicsVector_init(ansPtr, 0.05547002, 0.08320503, 0);
     mu_check(PhysicsVector_eq(accelerationPtr, ansPtr, 0.000005));
@@ -95,7 +96,7 @@ MU_TEST(test_calculateCohesion)
     Boid_init(b2ptr, 10, 4, 0);
     Boid_init(b3ptr, 10, 10, 0);
 
-    Boid_calculateCohesion(b3ptr, (Boid *)(&boids), 3, 2);
+    Boid_calculateCohesion(b3ptr, (Boid *)(&boids), 3, 2, TRUE);
 
     PhysicsVector_init(ansPtr, -0.06401844, -0.076822124, 0);
     mu_check(PhysicsVector_eq(accelerationPtr, ansPtr, 0.000005));

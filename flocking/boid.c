@@ -31,7 +31,8 @@ void Boid_initFull(Boid * boid, float x, float y, float z, int minX, int minY,
     boid->cohesionWeight = COHESION_WEIGHT;
 }
 
-void Boid_setWeights(Boid * boid, float seperationWeight, float alignWeight, float cohesionWeight)
+void Boid_setWeights(Boid * boid, float seperationWeight, float alignWeight,
+    float cohesionWeight)
 {
     boid->seperationWeight = seperationWeight;
     boid->alignWeight = alignWeight;
@@ -46,10 +47,12 @@ void Boid_setPos(Boid * boid, float x, float y, float z)
 }
 
 void Boid_step(Boid * boid, Boid * boids, int numBoids,
-    PhysicsVector * obstacles, int numObstacles, float timestep)
+    PhysicsVector * obstacles, int numObstacles, float timestep,
+    char ignoreSight)
 {
     PhysicsVector * acceleration;
-    Boid_respondToFlock(boid, boids, numBoids, obstacles, numObstacles);
+    Boid_respondToFlock(boid, boids, numBoids, obstacles, numObstacles,
+        ignoreSight);
     Boid_updatePosition(boid, timestep);
 
     // Reset acceleration for next sum of forces
@@ -62,22 +65,34 @@ void Boid_step(Boid * boid, Boid * boids, int numBoids,
 }
 
 void Boid_respondToFlock(Boid * boid, Boid * boids, int numBoids,
-    PhysicsVector * obstacles, int numObstacles)
+    PhysicsVector * obstacles, int numObstacles, char ignoreSight)
 {
     Boid_calculateSeperation(boid, boids, numBoids, obstacles, numObstacles,
-        boid->seperationWeight);
-    Boid_calculateAlign(boid, boids, numBoids, boid->alignWeight);
-    Boid_calculateCohesion(boid, boids, numBoids, boid->cohesionWeight);
+        boid->seperationWeight, ignoreSight);
+    Boid_calculateAlign(boid, boids, numBoids, boid->alignWeight, ignoreSight);
+    Boid_calculateCohesion(boid, boids, numBoids, boid->cohesionWeight,
+        ignoreSight);
+}
+
+char Boid_inSight(Boid * boid, PhysicsVector * otherPos)
+{
+    PhysicsVector * curPos = &(boid->physicsObject.position);
+    float angle;
+
+    angle = PhysicsVector_angle(curPos, otherPos);
+    return angle > IN_SIGHT_MIN && angle < IN_SIGHT_MAX;
 }
 
 void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
-    PhysicsVector * obstacles, int numObstacles, float weight)
+    PhysicsVector * obstacles, int numObstacles, float weight, char ignoreSight)
 {
     int i;
     int count;
     float distance;
     float steeringMagnitude;
     float maxSpeed;
+    char inRange;
+    char inSight;
 
     Boid * curFlockBoid;
     PhysicsVector steerVector;
@@ -101,10 +116,14 @@ void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
     {
         curFlockBoid = boids + i;
         otherPos = &(curFlockBoid->physicsObject.position);
+
         distance = PhysicsVector_dist(curPos, otherPos);
+        inSight = Boid_inSight(boid, otherPos) || ignoreSight;
 
         // If the distance is larger than 0 but less than desired seperation
-        if((distance > 0) && (distance < DESIRED_SEPERATION))
+        inRange = (distance > 0) && (distance < DESIRED_SEPERATION);
+
+        if(inRange && inSight)
         {
             // Find way to pull current boid away
             PhysicsVector_sub(diffPtr, curPos, otherPos);
@@ -123,7 +142,10 @@ void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
         otherPos = (obstacles+i);
         distance = PhysicsVector_dist(curPos, otherPos);
 
-        if((distance > 0) && (distance < DESIRED_SEPERATION*10))
+        inRange = (distance > 0) && (distance < DESIRED_SEPERATION*10);
+        inSight = Boid_inSight(boid, otherPos);
+
+        if(inRange && inSight)
         {
             // Find way to pull current boid away
             PhysicsVector_sub(diffPtr, curPos, otherPos);
@@ -161,7 +183,8 @@ void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
     }
 }
 
-void Boid_calculateAlign(Boid * boid, Boid * boids, int numBoids, float weight)
+void Boid_calculateAlign(Boid * boid, Boid * boids, int numBoids, float weight,
+    char ignoreSight)
 {
     int i;
     int count;
@@ -173,6 +196,8 @@ void Boid_calculateAlign(Boid * boid, Boid * boids, int numBoids, float weight)
     PhysicsVector * curPosPtr;
     PhysicsVector * otherPosPtr;
     PhysicsVector * otherVelPtr;
+    char inRange;
+    char inSight;
 
     PhysicsVector * nearbySumVelocityPtr = &nearbySumVelocity;
     PhysicsVector * nearbyAvgVelocityPtr = &nearbyAvgVelocity;
@@ -195,7 +220,10 @@ void Boid_calculateAlign(Boid * boid, Boid * boids, int numBoids, float weight)
 
         otherVelPtr = &(curFlockBoidPtr->physicsObject.velocity);
 
-        if((distance > 0) && (distance < MAX_NEIGHBOR_DISTANCE))
+        inRange = (distance > 0) && (distance < MAX_NEIGHBOR_DISTANCE);
+        inSight = Boid_inSight(boid, otherPosPtr) || ignoreSight;
+
+        if(inRange && inSight)
         {
             PhysicsVector_add(nearbySumVelocityPtr, nearbySumVelocityPtr,
                 otherVelPtr);
@@ -223,13 +251,15 @@ void Boid_calculateAlign(Boid * boid, Boid * boids, int numBoids, float weight)
 }
 
 void Boid_calculateCohesion(Boid * boid, Boid * boids, int numBoids,
-    float weight)
+    float weight, char ignoreSight)
 {
     int i;
     float distance;
     Boid * curFlockBoid;
     PhysicsVector nearbySumPosition;
     PhysicsVector steerForce;
+    char inRange;
+    char inSight;
 
     PhysicsVector * nearbySumPositionPtr = &nearbySumPosition;
     PhysicsVector * steerForcePtr = &steerForce;
@@ -246,7 +276,10 @@ void Boid_calculateCohesion(Boid * boid, Boid * boids, int numBoids,
         otherPosPtr = &(curFlockBoid->physicsObject.position);
         distance = PhysicsVector_dist(curPosPtr, otherPosPtr);
 
-        if((distance > 0) && (distance < MAX_NEIGHBOR_DISTANCE))
+        inRange = (distance > 0) && (distance < MAX_NEIGHBOR_DISTANCE);
+        inSight = Boid_inSight(boid, otherPosPtr) || ignoreSight;
+
+        if(inRange && inSight)
         {
             PhysicsVector_add(nearbySumPositionPtr, nearbySumPositionPtr,
                 otherPosPtr);

@@ -27,4 +27,11 @@
 #define BOID_MIN_Z -310
 #define BOID_MAX_Z 310
 
+#define MATH_PI 3.1415926535897
+#define IN_SIGHT_MIN -1.96349540849
+#define IN_SIGHT_MAX 1.96349540849
+
+#define FALSE 0
+#define TRUE 1
+
 #endif

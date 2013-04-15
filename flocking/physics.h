@@ -228,4 +228,7 @@ void PhysicsObject_updateVelocity(PhysicsObject * physicsObject, float time);
 **/
 void PhysicsObject_updatePosition(PhysicsObject * physicsObject, float time);
 
+float PhysicsVector_dot(PhysicsVector * op1, PhysicsVector * op2);
+float PhysicsVector_angle(PhysicsVector * op1, PhysicsVector * op2);
+
 #endif

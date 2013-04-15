@@ -134,6 +134,28 @@ void PhysicsVector_limit(PhysicsVector * target, PhysicsVector * op,
     PhysicsVector_multScalar(target, target, limit);
 }
 
+float PhysicsVector_dot(PhysicsVector * op1, PhysicsVector * op2)
+{
+    float xComponent;
+    float yComponent;
+    float zComponent;
+
+    xComponent = op1->x * op1->x;
+    yComponent = op1->y * op1->y;
+    zComponent = op1->z * op1->z;
+
+    return xComponent + yComponent + zComponent;
+}
+
+float PhysicsVector_angle(PhysicsVector * op1, PhysicsVector * op2)
+{
+    float dot = PhysicsVector_dot(op1, op2);
+    float len1 = PhysicsVector_length(op1);
+    float len2 = PhysicsVector_length(op2);
+
+    return acos(dot / (len1 * len2));
+}
+
 void PhysicsObject_addForce(PhysicsObject * physicsObject,
     PhysicsVector * force)
 {
