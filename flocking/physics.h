@@ -228,7 +228,22 @@ void PhysicsObject_updateVelocity(PhysicsObject * physicsObject, float time);
 **/
 void PhysicsObject_updatePosition(PhysicsObject * physicsObject, float time);
 
+/**
+ * Name: PhysicsVector_dot
+ * Desc: Take the dot product of two vectors.
+ * Para: op1, The first vector to use in the dot product operation.
+ *       op2, The second vector to use in the dot product operation.
+ * Retr: The dot product between these two vectors.
+**/
 float PhysicsVector_dot(PhysicsVector * op1, PhysicsVector * op2);
+
+/**
+ * Name: PhysicsVector_angle
+ * Desc: Find the angle between these two vectors.
+ * Para: op1, The starting vector.
+ *       op2, The vector to find an angle to (from op1).
+ * Retr: The number of radians between op1 and op2.
+**/
 float PhysicsVector_angle(PhysicsVector * op1, PhysicsVector * op2);
 
 #endif
