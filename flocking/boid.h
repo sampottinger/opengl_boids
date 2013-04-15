@@ -43,8 +43,21 @@ typedef struct
 **/
 void Boid_init(Boid * boid, float x, float y, float z);
 
+/**
+ * Name: Boid_randomForce
+ * Desc: Apply a random direction force to the given boid.
+ * Para: boid, The Boid object to apply a random force to.
+**/
 void Boid_randomForce(Boid * boid);
 
+/**
+ * Name: Boid_setPos
+ * Desc: Set the current position of the given Boid object.
+ * Para: boid, The boid to set the position of.
+ *       x, The boid's new x position.
+ *       y, The boid's new y position.
+ *       z, The boid's new z position.
+**/
 void Boid_setPos(Boid * boid, float x, float y, float z);
 
 /**
@@ -71,6 +84,8 @@ void Boid_initFull(Boid * boid, float x, float y, float z, int minX, int minY,
  *       boids, The other Boids in the simulation.
  *       numBoids, The number of boids in boids.
  *       timestep, The time to apply the resulting force for.
+ *       ignoreSight, If TRUE the angle field of view for this boid will not be
+ *          checked in calculations.
 **/
 void Boid_step(Boid * boid, Boid * boids, int numBoids,
     PhysicsVector * obstacles, int numObstacles, float timestep,
@@ -82,6 +97,8 @@ void Boid_step(Boid * boid, Boid * boids, int numBoids,
  * Para: boid, The Boid to update
  *       boids, The other Boids in the simulation.
  *       numBoids, The number of boids in boids.
+ *       ignoreSight, If TRUE the angle field of view for this boid will not be
+ *          checked in calculations.
 **/
 void Boid_respondToFlock(Boid * boid, Boid * boids, int numBoids,
     PhysicsVector * obstacles, int numObstacles, char ignoreSight);
@@ -93,6 +110,8 @@ void Boid_respondToFlock(Boid * boid, Boid * boids, int numBoids,
  *       boids, The other Boids in the simulation.
  *       numBoids, The number of boids in boids.
  *       weight, The artifical weight to apply to the seperation force.
+ *       ignoreSight, If TRUE the angle field of view for this boid will not be
+ *          checked in calculations.
 **/
 void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
     PhysicsVector * obstacles, int numObstacles, float weight,
@@ -103,8 +122,10 @@ void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
  * Desc: Calculate forces on this Boid that force it to align with others close
  *       by.
  * Para: boid, The Boid to update.
- *       boids, The 
- *       weight, The artifical weight to apply to the seperation force.
+ *       boids, The boids to use in calculating an alignment force.
+ *       weight, The artificial weight to apply to the separation force.
+ *       ignoreSight, If TRUE the angle field of view for this boid will not be
+ *          checked in calculations.
 **/
 void Boid_calculateAlign(Boid * boid, Boid * boids, int numBoids, float weight,
     char ignoreSight);
@@ -117,6 +138,8 @@ void Boid_calculateAlign(Boid * boid, Boid * boids, int numBoids, float weight,
  *       boids, The other Boids in the simulation.
  *       numBoids, The number of boids in boids.
  *       weight, The artificial weight to apply to the cohesion force.
+ *       ignoreSight, If TRUE the angle field of view for this boid will not be
+ *          checked in calculations.
 **/
 void Boid_calculateCohesion(Boid * boid, Boid * boids, int numBoids,
     float weight, char ignoreSight);
@@ -192,6 +215,13 @@ void Boid_setVel(Boid * boid, float x, float y, float z);
 void Boid_setWeights(Boid * boid, float seperationWeight, float alignWeight,
     float cohesionWeight);
 
+/**
+ * Name: Boid_inSight
+ * Desc: Test to see if a boid can see a given object.
+ * Para: boid, The boid to test the sight of.
+ *       otherPos, The position to check if a Boid can see.
+ * Note: Only checks angle of sight, not distance.
+**/
 char Boid_inSight(Boid * boid, PhysicsVector * otherPos);
 
 #endif
