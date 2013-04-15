@@ -3,10 +3,10 @@ h2. OpenGL-based 3D Boids Birds Simulation
 written by A. Samuel Pottinger ("http://gleap.org":http://gleap.org)
 
 Started for Professor Schreuder's Computer Graphics Course
-CU Boulder, CSCI 5229
+CU Boulder, CSCI 5229.
 
 Continued for an Independent Study in complex adaptive systems
-under "Professor Ken Anderson":http://www.cs.colorado.edu/~kena/. CU Boulder, CSCI 4900
+under "Professor Ken Anderson":http://www.cs.colorado.edu/~kena/. CU Boulder, CSCI 4900.
 
 h2. License
 
