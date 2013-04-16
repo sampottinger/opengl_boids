@@ -95,6 +95,7 @@ void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
     char inSight;
 
     Boid * curFlockBoid;
+    PhysicsVector wallPos;
     PhysicsVector steerVector;
     PhysicsVector diff;
 
@@ -142,7 +143,7 @@ void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
         otherPos = (obstacles+i);
         distance = PhysicsVector_dist(curPos, otherPos);
 
-        inRange = (distance > 0) && (distance < DESIRED_SEPERATION*10);
+        inRange = (distance > 0) && (distance < DESIRED_SEPERATION_OBS);
         inSight = Boid_inSight(boid, otherPos);
 
         if(inRange && inSight)
@@ -157,6 +158,91 @@ void Boid_calculateSeperation(Boid * boid, Boid * boids, int numBoids,
             // Indicate that a boid was too close
             count += 2;
         }
+    }
+
+    // Look for walls which are too close
+    distance = abs(curPos->x - boid->minX);
+    if(distance > 0 && distance < DESIRED_SEPERATION_WALL)
+    {
+        wallPos.x = boid->minX;
+        wallPos.y = curPos->y;
+        wallPos.z = curPos->z;
+        otherPos = &wallPos;
+        PhysicsVector_sub(diffPtr, curPos, otherPos);
+        PhysicsVector_normalize(diffPtr, diffPtr);
+        PhysicsVector_divScalar(diffPtr, diffPtr, distance);
+        PhysicsVector_add(steerVectorPtr, steerVectorPtr, diffPtr);
+        count++;
+    }
+
+    distance = abs(curPos->x - boid->maxX);
+    if(distance > 0 && distance < DESIRED_SEPERATION_WALL)
+    {
+        wallPos.x = boid->maxX;
+        wallPos.y = curPos->y;
+        wallPos.z = curPos->z;
+        otherPos = &wallPos;
+        PhysicsVector_sub(diffPtr, curPos, otherPos);
+        PhysicsVector_normalize(diffPtr, diffPtr);
+        PhysicsVector_divScalar(diffPtr, diffPtr, distance);
+        PhysicsVector_add(steerVectorPtr, steerVectorPtr, diffPtr);
+        count++;
+    }
+
+    /*distance = abs(curPos->y - boid->minY);
+    if(distance > 0 && distance < DESIRED_SEPERATION_OBS)
+    {
+        wallPos.x = curPos->y;
+        wallPos.y = boid->minY;
+        wallPos.z = curPos->z;
+        otherPos = &wallPos;
+        PhysicsVector_sub(diffPtr, curPos, otherPos);
+        PhysicsVector_normalize(diffPtr, diffPtr);
+        PhysicsVector_divScalar(diffPtr, diffPtr, distance);
+        PhysicsVector_add(steerVectorPtr, steerVectorPtr, diffPtr);
+        count++;
+    }
+
+    distance = abs(curPos->y - boid->maxY);
+    if(distance > 0 && distance < DESIRED_SEPERATION_OBS)
+    {
+        wallPos.x = curPos->y;
+        wallPos.y = boid->maxY;
+        wallPos.z = curPos->z;
+        otherPos = &wallPos;
+        PhysicsVector_sub(diffPtr, curPos, otherPos);
+        PhysicsVector_normalize(diffPtr, diffPtr);
+        PhysicsVector_divScalar(diffPtr, diffPtr, distance);
+        PhysicsVector_add(steerVectorPtr, steerVectorPtr, diffPtr);
+        count++;
+    }*/
+
+    distance = abs(curPos->z - boid->minZ);
+    if(distance > 0 && distance < DESIRED_SEPERATION_WALL)
+    {
+        wallPos.x = curPos->y;
+        wallPos.y = curPos->z;
+        wallPos.z = boid->minZ;
+        otherPos = &wallPos;
+        PhysicsVector_sub(diffPtr, curPos, otherPos);
+        PhysicsVector_normalize(diffPtr, diffPtr);
+        PhysicsVector_divScalar(diffPtr, diffPtr, distance);
+        PhysicsVector_add(steerVectorPtr, steerVectorPtr, diffPtr);
+        count++;
+    }
+
+    distance = abs(curPos->z - boid->maxZ);
+    if(distance > 0 && distance < DESIRED_SEPERATION_WALL)
+    {
+        wallPos.x = curPos->y;
+        wallPos.y = curPos->z;
+        wallPos.z = boid->maxZ;
+        otherPos = &wallPos;
+        PhysicsVector_sub(diffPtr, curPos, otherPos);
+        PhysicsVector_normalize(diffPtr, diffPtr);
+        PhysicsVector_divScalar(diffPtr, diffPtr, distance);
+        PhysicsVector_add(steerVectorPtr, steerVectorPtr, diffPtr);
+        count++;
     }
 
     // Average the steering force so the boid doesn't over-compensate

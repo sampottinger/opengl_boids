@@ -8,6 +8,8 @@
 #ifndef FINAL_BOID_HEADER
 #define FINAL_BOID_HEADER
 
+#include <stdlib.h> 
+
 #include "constants.h"
 #include "physics.h"
 

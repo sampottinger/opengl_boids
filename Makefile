@@ -1,4 +1,4 @@
-birds: ./graphics/graphics.c balloon.o ground.o sky.o tree.o bird.o flock.o errcheck.o fatal.o loadtexbmp.o
+birds: ./graphics/graphics.c balloon.o ground.o sky.o tree.o bird.o flock.o errcheck.o fatal.o loadtexbmp.o ./graphics/constants.h
 	gcc -g -Wall ./graphics/graphics.c balloon.o flock.o bird.o ground.o sky.o tree.o objutil.o quadobj.o linalg.o boid.o physics.o errcheck.o fatal.o loadtexbmp.o -o birds  -framework GLUT -framework OpenGL
 
 flock.o: ./graphics/flock.c
